@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>368</y>
+      <w>136</w>
+      <h>256</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+-ID: int
+-name: String
+-location: int
+-money: int
+-credits: int
+-rank: int
+-currRole: Role
+-practiceChips: int
+--
++Player():
++Player(ID):
++Player(ID, name):
++takeTurn(): void
+#move(Space): boolean	
+#upgrade(int): boolean
+#act(): boolean
+#rehearse(): boolean
+#endTurn():
++getScore(): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>272</x>
+      <y>456</y>
+      <w>176</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>Board
+--
+-spaces: Space[ ]
+-players: Player[ ]
+-day: int
+-activePlayer: Player
+--
++setup(): void
++checkForDayEnd():boolean
++newDay(): void
+nextTurn(): Player
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>256</x>
+      <y>0</y>
+      <w>192</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>Space
+--
+#ID: int
+name: String
+#players: Set&lt;Player&gt;
+#adjacentSpaces: Space[ ]
+--
++Space(name):
++requestMove(player): boolean
++addPlayer(player): void
++removePlayer(player): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>648</x>
+      <y>160</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Banker
+--
+
+--
++chargeDollars(player, amount): boolean
++chargeCredits(player, amount): boolean
++giveDollars(player, amount): void
++giveCredits(player, amount): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>168</y>
+      <w>200</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>CastingOffice
+--
+-dollarPrice: int[ ]
+-creditPrice: int[ ]
+--
++CastingOffice():
++purchaseRank(player, rank): boolean
++getDollarPrice(rank): int
++getCreditPrice(rank): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>936</x>
+      <y>160</y>
+      <w>200</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Scene
+--
+-name: String
+-card: SceneCard
+-remainingShots: int
+-offCardRoles: Role[ ]
+--
++Scene():
++Scene(name):
++resetShots(): void
++close(): void
++requestRole(player, role): boolean
++requestRehearsal(player): boolean
++requestActAttempt(player): boolean
++assignDice(): void
++isSceneActive(): boolean
+#wrap(): void
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1168</x>
+      <y>400</y>
+      <w>144</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Deck
+--
+-cards: Stack&lt;SceneCard&gt;
+--
++Deck():
++shuffle(): void
++deal(): void
++placeCard(Scene): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1352</x>
+      <y>256</y>
+      <w>160</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>style=autoresize
+SceneCard
+--
+-ID: int
+-title: String
+-description: String
+-roles: list of Roles
+-budget: int
+-faceUp: boolean
+--
++SceneCard(*parameters?*):
++flip(): void
++hasPlayers(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>32</y>
+      <w>560</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;680.0;10.0;680.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1232</x>
+      <y>128</y>
+      <w>136</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Dice
+--
+-dice: LinkedList&lt;Integer&gt;
+--
++Dice():
++Dice(num):
++roll(num): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>472</y>
+      <w>296</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=2..8</panel_attributes>
+    <additional_attributes>10.0;10.0;350.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>352</x>
+      <y>136</y>
+      <w>56</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;50.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>136</y>
+      <w>32</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=12</panel_attributes>
+    <additional_attributes>10.0;400.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1128</x>
+      <y>184</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1128</x>
+      <y>280</y>
+      <w>240</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>368</y>
+      <w>280</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=2..4</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0;310.0;230.0;310.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1312</x>
+      <y>400</y>
+      <w>96</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..3</panel_attributes>
+    <additional_attributes>90.0;10.0;90.0;420.0;10.0;420.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>616</y>
+      <w>376</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>450.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1056</x>
+      <y>464</y>
+      <w>24</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1264</x>
+      <y>312</y>
+      <w>104</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=30..40
+m2=1</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>256</y>
+      <w>40</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=2..8
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>192</y>
+      <w>80</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>136</y>
+      <w>416</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..8</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;360.0;500.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1096</x>
+      <y>368</y>
+      <w>88</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=6
+</panel_attributes>
+    <additional_attributes>90.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>368</y>
+      <w>128</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..7
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;70.0;130.0;70.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>352</x>
+      <y>672</y>
+      <w>816</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=26..59
+m2=1
+</panel_attributes>
+    <additional_attributes>1000.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>536</x>
+      <y>272</y>
+      <w>200</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..8
+m2=1
+</panel_attributes>
+    <additional_attributes>230.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>272</y>
+      <w>72</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;400.0;60.0;400.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>368</y>
+      <w>584</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>700.0;10.0;700.0;380.0;10.0;380.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>856</x>
+      <y>208</y>
+      <w>368</w>
+      <h>448</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>430.0;540.0;430.0;500.0;60.0;500.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>528</y>
+      <w>296</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=2..8
+m2=1
+</panel_attributes>
+    <additional_attributes>350.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>344</x>
+      <y>304</y>
+      <w>608</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=10
+</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0;740.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>640</y>
+      <w>168</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Role
+--
+-name: String
+-description: String
+-ID: int
+-rank: int
+-occupant: Player
+-payout: int
+--
++Role():
++Role(ID):
++Role(ID, rank):
++requestRole(player): boolean
++increasePayout(amount): void
++removePlayer(): void
++payBonus(): int
++isRoleTaken(): boolean
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>536</x>
+      <y>832</y>
+      <w>240</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>ScoreManager
+--
+- players: list of players
+- playerScores: int[]
+--
++ getScores(): int[]
++ declareWinner(): *ends game*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>392</x>
+      <y>672</y>
+      <w>160</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0;180.0;250.0</additional_attributes>
+  </element>
+</diagram>
