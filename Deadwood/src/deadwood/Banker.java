@@ -11,4 +11,19 @@ package deadwood;
  */
 public class Banker {
     
+    public boolean chargeDollars(Player player, int amount) {
+        return false;
+    }
+    
+    public boolean chargeCredits(Player player, int amount) {
+        return false;
+    }
+    
+    public void giveDollars(Player player, int amount) {
+        
+    }
+    
+    public void giveCredits(Player, player, int amount) {
+        
+    }
 }
