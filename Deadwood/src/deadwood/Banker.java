@@ -23,7 +23,7 @@ public class Banker {
         
     }
     
-    public void giveCredits(Player, player, int amount) {
+    public void giveCredits(Player player, int amount) {
         
     }
 }
