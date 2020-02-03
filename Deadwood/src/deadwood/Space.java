@@ -9,6 +9,29 @@ package deadwood;
  *
  * @author tyler
  */
+
+import java.util.Set;
+
 public class Space {
+    protected int ID;
+    protected String name;
+    protected Set<Player> players;
+    protected Space[] adjacentSpaces;
     
+    public Space(String name) {
+        
+    }
+    
+    public boolean requestMove(Player player) {
+        
+        return false;
+    }
+    
+    public void addPlayer(Player player) {
+        
+    }
+    
+    public void removePlayer(Player player) {
+        
+    }
 }
