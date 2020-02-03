@@ -34,4 +34,28 @@ public class Space {
     public void removePlayer(Player player) {
         
     }
+    
+    public boolean containsPlayer(Player player) {
+        return false;
+    }
+    
+    public int getID() {
+        return 0;
+    }
+    
+    public String getName() {
+        return null;
+    }
+    
+    public Set<Player> getPlayerSet() {
+        return null;
+    }
+    
+    public Space[] getAdjacentSpaces() {
+        return null;
+    }
+    
+    public void setAdjacentSpaces(Space[] spaces) {
+        
+    }
 }
