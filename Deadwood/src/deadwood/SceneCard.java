@@ -11,5 +11,22 @@ package deadwood;
  */
 public class SceneCard {
     private int ID;
+    private String title;
+    private String description;
+    private LinkedList<Role> roles;
+    private int budget;
+    private boolean faceUp;
+    
+    public SceneCard(){
+        
+    }
+    
+    public void flip(){
+        
+    }
+    
+    public boolean hasPlayers(){
+        return false;
+    }
     
 }
