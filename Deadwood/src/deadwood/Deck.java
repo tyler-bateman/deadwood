@@ -7,8 +7,32 @@ package deadwood;
 
 /**
  *
- * @author tyler
+ * @author nada
  */
 public class Deck {
+    private Stack<SceneCard> cards;
     
+    public Deck(){
+        
+    }
+    
+    public void shuffle(){
+        
+    }
+    
+    public void deal(){
+        
+    }
+    
+    public void placeCard(Scene scene){
+        
+    }
+    
+    public Stack<SceneCard> getCards(){
+        return null;
+    }
+    
+    public void setCards(){
+        
+    }
 }
