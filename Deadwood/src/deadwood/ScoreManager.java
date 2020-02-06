@@ -17,6 +17,14 @@ public class ScoreManager {
         
     }
     
+    public LinkedList<Player> getPlayers(){
+        return null;
+    }
+    
+    public void setPlayers(){
+        
+    }
+               
     public int[] getPlayerScores(){
         return null;
     }
