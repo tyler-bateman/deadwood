@@ -7,8 +7,22 @@ package deadwood;
 
 /**
  *
- * @author tyler
+ * @author nada
  */
 public class ScoreManager {
+    private LinkedList<Player> players;
+    private int[] playerScores;
+    
+    public void declareWinner(){  //ends the game
+        
+    }
+    
+    public int[] getPlayerScores(){
+        return null;
+    }
+    
+    public void setPlayerScores(){
+        
+    }
     
 }
