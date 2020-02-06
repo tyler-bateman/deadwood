@@ -13,6 +13,7 @@ public class ScoreManager {
     private LinkedList<Player> players;
     private int[] playerScores;
     
+    
     public void declareWinner(){  //ends the game
         
     }
