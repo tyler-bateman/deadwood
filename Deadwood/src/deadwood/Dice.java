@@ -7,8 +7,29 @@ package deadwood;
 
 /**
  *
- * @author tyler
+ * @author nada
  */
 public class Dice {
+    private LinkedList<Integer> dice;
+    
+    public Dice(){
+        
+    }
+    
+    public dice(int num){
+        
+    }
+    
+    public void roll(int num){
+        
+    }
+    
+    public LinkedList<Integer> getDice(){
+        return null;
+    }
+    
+    public void setDice(){
+        
+    }
     
 }
