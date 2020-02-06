@@ -7,8 +7,9 @@ package deadwood;
 
 /**
  *
- * @author tyler
+ * @author nada
  */
 public class SceneCard {
+    private int ID;
     
 }
