@@ -29,4 +29,52 @@ public class SceneCard {
         return false;
     }
     
+    public int getID(){
+        return 0;
+    }
+    
+    public void setID(){
+        
+    }
+    
+    public String getTitle(){
+        return null;
+    }
+    
+    public void setTitle(){
+        
+    }
+    
+    public String getDescription(){
+        return null;
+    }
+    
+    public void setDescription(){
+        
+    }
+    
+    public LinkedList<Role> getRoles(){
+        return null;
+    }
+    
+    public void setRoles(){
+        
+    }
+    
+    public int getBudget(){
+        return 0;
+    }
+    
+    public void setBudget(){
+        
+    }
+    
+    public boolean getFaceUp(){
+        return false;
+    }
+    
+    public void setFaceUp(){
+        
+    }
+    
 }
