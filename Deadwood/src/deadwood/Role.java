@@ -47,7 +47,7 @@ public class Role {
     }
     
     public boolean isRoleTaken(){
-        
+        return false;
     }
     
     public String getName(){
