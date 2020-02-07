@@ -1,0 +1,7 @@
+For Friday:
+
+Tyler:
+Banker, Dice, SceneCard, Space, CastingOffice, Deck
+
+Nada: 
+XML stuff
