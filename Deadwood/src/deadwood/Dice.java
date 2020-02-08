@@ -17,7 +17,7 @@ public class Dice {
         
     }
     
-    public dice(int num){
+    public Dice(int num){
         
     }
     
