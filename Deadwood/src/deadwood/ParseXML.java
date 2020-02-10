@@ -1,6 +1,4 @@
-// Example Code for parsing XML file
-// Dr. Moushumi Sharmin
-// CSCI 345
+
 package deadwood;
     
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -161,7 +159,7 @@ public class ParseXML{
                 
                 System.out.println("\n");
                 
-            }//for book nodes
+            }//for set nodes
         
         }// method
     
