@@ -5,6 +5,7 @@
  */
 package deadwood;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -23,10 +24,29 @@ public class Dice {
         roll(num);
     }
     
+    
+    /*
+    * Populates dice with num random integers in descending order
+    */
     public void roll(int num){
-        
+       Random r = new Random();
+       for(int i = 0; i < num; i++) {
+           insertDie(r.nextInt(6) + 1);
+       }
     }
     
+    /*
+    * Inserts the int val into dice
+    * Invariant: dice is in descending order
+    */
+    private void insertDie(int val) {
+        int insertPosition = 0;
+        while(insertPosition < dice.size() || dice.get(insertPosition) > val){
+            insertPosition++;
+        }
+        dice.add(insertPosition, val);
+    }
+        
     public LinkedList<Integer> getDice(){
         return null;
     }
