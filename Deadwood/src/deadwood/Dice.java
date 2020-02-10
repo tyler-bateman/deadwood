@@ -14,11 +14,13 @@ public class Dice {
     private LinkedList<Integer> dice;
     
     public Dice(){
-        
+        dice = new LinkedList<Integer>();
+        roll(1);
     }
     
     public Dice(int num){
-        
+        dice = new LinkedList<Integer>();
+        roll(num);
     }
     
     public void roll(int num){
