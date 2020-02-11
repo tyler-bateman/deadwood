@@ -16,86 +16,106 @@ public class Role {
     private int rank;
     private Player occupant;
     private int payout;
-    
+
+
     public Role(){
-        
+        //TODO: Parse xml
     }
-    
-    public Role(int ID){
-        this.ID = ID;
-    }
-    
-    public Role(int ID, int rank){
-        this.ID = ID;
-        this.rank = rank;
-    }
-    
+
+    /**
+      * If the role is not taken and the player has the appropriate rank,
+      * the player occupies this role.
+      * @param player: the player requesting the role
+      * Precondition: The player is in the space that contains this role.
+      */
     public boolean requestRole(Player player){
-        return false;
+        if(!isRoleTaken() && player.getRank() >= rank) {
+          setOccupant(player);
+          return true;
+        } else {
+          return false;
+        }
     }
-    
+
+    /**
+      * Increases the payout for this role
+      */
     public void increasePayout(int amount){
-        
+        payout += amount;
     }
-    
+
+    /**
+      * Removes the player from this role
+      */
     public void removePlayer(){
-        
+        occupant = null;
+        payout = 0;
     }
-    
+
+    /**
+      * Pays the bonus for this role
+      */
     public int payBonus(){
-        return 0;
+        if(occupant != null) {
+          Banker.giveDollars(getPayout());
+          return getPayout();
+          setPayout(0);
+        } else {
+          setPayout(0);
+          return 0;
+        }
     }
-    
+
     public boolean isRoleTaken(){
         return false;
     }
-    
+
     public String getName(){
         return null;
     }
-    
-    public void setName(){
-        
+
+    private void setName(){
+
     }
-    
+
     public String getDescription(){
         return null;
     }
-    
+
     public void setDescription(){
-        
+
     }
-    
+
     public int getID(){
         return 0;
     }
-    
+
     public void setID(){
-        
+
     }
-    
+
     public int getRank(){
         return 0;
     }
-    
+
     public void setRank(){
-        
+
     }
-    
+
     public Player getOccupant(){
         return null;
     }
-    
-    public void setOccupant(){
-    
+
+    private void setOccupant(){
+
     }
-    
+
     public int getPayout(){
         return 0;
     }
-    
+
     public void setPayout(){
-        
+
     }
-    
+
 }
