@@ -11,28 +11,38 @@ import java.util.LinkedList;
  * @author nada
  */
 public class ScoreManager {
-    private LinkedList<Player> players;
-    private int[] playerScores;
+    private static int[] playerScores = new int[8];
     
     
-    public void declareWinner(){  //ends the game
-        
+    public static void declareWinner(){  //ends the game
+        calculateScores();
+        int maxScore = 0;
+        LinkedList<Integer> winningPlayerIDs = new LinkedList<Integer>();
+        for(int i = 0; i < playerScores.length; i++) {
+            if(playerScores[i] == maxScore) {
+                winningPlayerIDs.add(i);
+            } else if(playerScores[i] > maxScore) {
+                winningPlayerIDs = new LinkedList<Integer>();
+                winningPlayerIDs.add(i);
+            }
+        }
+        //TODO: Notify controller
     }
     
-    public LinkedList<Player> getPlayers(){
-        return null;
+    public static void calculateScores() {
+        for(Player p: Board.getPlayers()) {
+            calculateScore(p);
+        }
     }
     
-    public void setPlayers(){
-        
+    public static void calculateScore(Player p) {
+        playerScores[p.getID()] = p.getCredits() + p.getDollars() + p.getRank() * 5;
     }
+    
                
-    public int[] getPlayerScores(){
-        return null;
+    public static int[] getPlayerScores(){
+        return playerScores;
     }
     
-    public void setPlayerScores(){
-        
-    }
     
 }
