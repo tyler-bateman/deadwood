@@ -8,6 +8,7 @@ package deadwood;
 public class Board {
     private static Space[] spaces;
     private static Scene[] scenes;
+    private static int trailorsID;
     private static Player[] players;
     private static Player activePlayer;
 
@@ -15,8 +16,21 @@ public class Board {
       //TODO (XML)
     }
 
+    /**
+      * Resets the board for a new day:
+      *   Moves players back to the trailers
+      *   Deals new scene cards
+      */
     public static void newDay() {
-      //TODO
+      for(Scene s: getScenes()) {
+        s.close();
+      }
+      for(Player p: players) {
+        p.setLocation(trailorsID);
+        spaces[traidlorsID].addPlayer(p);
+      }
+      Deck.deal(getScenes());
+      
     }
 
     public static Player nextTurn() {

@@ -29,8 +29,8 @@ public class Deck {
         setCards(newCards);
     }
 
-    public static void deal(){
-        for(Scene s: Board.getScenes()) {
+    public static void deal(Scene[] scenes){
+        for(Scene s: scenes {
             placeCard(s);
         }
     }
