@@ -10,56 +10,61 @@ package deadwood;
  * @author tyler
  */
 public class Board {
-    private Space[] spaces;
-    private Player[] players;
-    private int day;
-    private Player activePlayer;
+    private static Space[] spaces;
+    private static Scene[] scenes;
+    private static Player[] players;
+    private static int day;
+    private static Player activePlayer;
     
-    public void setup() {
+    public static void setup() {
         
     }
     
-    public boolean checkForDayEnd() {
+    public static boolean checkForDayEnd() {
         return false;
     }
     
-    public void newDay() {
+    public static void newDay() {
         
     }
     
-    public Player nextTurn() {
+    public static Player nextTurn() {
         return null;
     }
     
-    public Space[] getSpaces() {
+    public static Space[] getSpaces() {
         return null;
     }
     
-    public void setSpaces(Space[] spaces) {
+    public static void setSpaces(Space[] spaces) {
         
     }
     
-    public Player[] getPlayers() {
+    public static Scene[] getScenes() {
         return null;
     }
     
-    public void setPlayers(Player[] players) {
+    public static Player[] getPlayers() {
+        return null;
+    }
+    
+    public static void setPlayers(Player[] players) {
         
     }
     
-    public int getDay() {
+    public static int getDay() {
         return 0;
     }
     
-    public void setDay() {
+    public static void setDay() {
         
     }
     
-    public Player getActivePlayer() {
+    public static Player getActivePlayer() {
         return null;
     }
     
-    public void setActivePlayer(Player player) {
+    public static void setActivePlayer(Player player) {
         
     }
 }

@@ -67,7 +67,7 @@ public class Scene {
         return null;
     }
     
-    public void setCard(){
+    public void setCard(SceneCard card){
         
     }
     
