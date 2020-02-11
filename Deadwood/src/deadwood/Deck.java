@@ -27,18 +27,20 @@ public class Deck {
     }
     
     public void deal(){
-        
+        for(Scene s: Board.getScenes()) {
+            placeCard(s);
+        }
     }
     
     public void placeCard(Scene scene){
-        
+        scene.setCard(cards.pop());
     }
     
     public Stack<SceneCard> getCards(){
-        return null;
+        return cards;
     }
     
-    public void setCards(Stack<SceneCard> newCards){
-        
+    private void setCards(Stack<SceneCard> newCards){
+        cards = newCards;
     }
 }
