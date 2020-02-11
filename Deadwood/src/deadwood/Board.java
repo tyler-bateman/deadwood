@@ -33,17 +33,6 @@ public class Board {
 
     }
 
-    /**
-      * Selects the next player to take their turn
-      *   updates activePlayer
-      *   returns that player
-      */
-
-    public static Player nextTurn() {
-      //TODO
-        return null;
-    }
-
     //Returns an array containing the Spaces
     public static Space[] getSpaces() {
         return spaces;
@@ -88,13 +77,4 @@ public class Board {
         this.players = players;
     }
 
-    //Returns the active player
-    public static Player getActivePlayer() {
-        return activePlayer;
-    }
-
-    //Setter for the activePlayer field
-    public static void setActivePlayer(Player player) {
-        activePlayer = player;
-    }
 }
