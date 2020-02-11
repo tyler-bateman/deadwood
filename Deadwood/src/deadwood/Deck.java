@@ -12,12 +12,15 @@ import java.util.Random;
  */
 public class Deck {
     private Stack<SceneCard> cards;
-    
-    public Deck(){
-        //TODO: Parse XML
+
+    public void initDeck() {
+      //TODO: Parse XML
+
+
+      shuffle()
     }
-    
-    public void shuffle(){
+
+    public static void shuffle(){
         Stack<SceneCard> newCards = new Stack<SceneCard>();
         Random r = new Random();
         while(!cards.isEmpty()) {
@@ -25,22 +28,22 @@ public class Deck {
         }
         setCards(newCards);
     }
-    
-    public void deal(){
+
+    public static void deal(){
         for(Scene s: Board.getScenes()) {
             placeCard(s);
         }
     }
-    
-    public void placeCard(Scene scene){
+
+    public static void placeCard(Scene scene){
         scene.setCard(cards.pop());
     }
-    
-    public Stack<SceneCard> getCards(){
+
+    public static Stack<SceneCard> getCards(){
         return cards;
     }
-    
-    private void setCards(Stack<SceneCard> newCards){
+
+    private static void setCards(Stack<SceneCard> newCards){
         cards = newCards;
     }
 }

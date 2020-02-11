@@ -32,6 +32,9 @@ public class DayManager{
       return day;
   }
 
+  /**
+    * Sets the day number
+    */
   private static void setDay(int day) {
       this.day = day;
   }
