@@ -1,8 +1,4 @@
-    /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package deadwood;
 
 /**
@@ -13,26 +9,14 @@ public class Board {
     private static Space[] spaces;
     private static Scene[] scenes;
     private static Player[] players;
-    private static int day;
     private static Player activePlayer;
 
     public static void setup() {
-
-    }
-
-
-    public static boolean isDayOver() {
-        int activeScenes = 0;
-        for(Scene scene: scenes) {
-          if(SceneCard != null) {
-            activeScenes++;
-          }
-        }
-        return activeScenes <= 1;
+      //TODO (XML)
     }
 
     public static void newDay() {
-
+      //TODO
     }
 
     public static Player nextTurn() {
@@ -56,14 +40,6 @@ public class Board {
     }
 
     public static void setPlayers(Player[] players) {
-
-    }
-
-    public static int getDay() {
-        return 0;
-    }
-
-    public static void setDay() {
 
     }
 
