@@ -16,7 +16,6 @@ public class Dice {
     
     public Dice(){
         dice = new LinkedList<Integer>();
-        roll(1);
     }
     
     public Dice(int num){
@@ -26,7 +25,7 @@ public class Dice {
     
     
     /*
-    * Populates dice with num random integers in descending order
+    * Populates dice with num random integers in descending order using insertion sort
     */
     public void roll(int num){
        Random r = new Random();
@@ -39,16 +38,20 @@ public class Dice {
     * Inserts the int val into dice
     * Invariant: dice is in descending order
     */
-    private void insertDie(int val) {
-        int insertPosition = 0;
-        while(insertPosition < dice.size() || dice.get(insertPosition) > val){
-            insertPosition++;
+    public void insertDie(int val) {
+        dice.addFirst(val);
+        for(int i = 0; i < dice.size() - 1; i++) {
+            if(val < dice.get(i + 1)) {
+                dice.set(i, dice.get(i + 1));
+                dice.set(i + 1, val);
+            } else {
+                break;
+            }
         }
-        dice.add(insertPosition, val);
     }
         
     public LinkedList<Integer> getDice(){
-        return null;
+        return dice;
     }
     
     public void setDice(){
