@@ -49,6 +49,14 @@ public class Dice {
             }
         }
     }
+    
+    public boolean hasNextDie() {
+        return !dice.isEmpty();
+    }
+    
+    public int nextDie() {
+        return dice.pop();
+    }
         
     public LinkedList<Integer> getDice(){
         return dice;
