@@ -18,6 +18,10 @@ public class Space {
     protected Set<Player> players;
     protected Space[] adjacentSpaces;
     
+    public Space(){
+    
+    }
+    
     public Space(String name) {
         
     }
