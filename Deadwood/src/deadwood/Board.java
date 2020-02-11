@@ -30,38 +30,71 @@ public class Board {
         spaces[traidlorsID].addPlayer(p);
       }
       Deck.deal(getScenes());
-      
+
     }
+
+    /**
+      * Selects the next player to take their turn
+      *   updates activePlayer
+      *   returns that player
+      */
 
     public static Player nextTurn() {
+      //TODO
         return null;
     }
 
+    //Returns an array containing the Spaces
     public static Space[] getSpaces() {
-        return null;
+        return spaces;
     }
 
-    public static void setSpaces(Space[] spaces) {
-
+    //Returns the space with the given id
+    public static Space getSpace(int id) {
+        return spaces[id];
     }
 
+    //Setter for the spaces field
+    private static void setSpaces(Space[] spaces) {
+        this.spaces = spaces;
+    }
+
+    //Returns an array containing the list of scenes
     public static Scene[] getScenes() {
-        return null;
+        return scenes;
     }
 
+    public static Scene getScene(int id) {
+        return scenes[id];
+    }
+
+    //Setter for the scenes field
+    private static void setScenes(Scene[] scenes) {
+        this.scenes = scenes;
+    }
+
+    //Returns an array containing the players on the board
     public static Player[] getPlayers() {
-        return null;
+        return players;
     }
 
+    //Returns the Player with the given id
+    public static Player getPlayer(int id) [
+        return players[id];
+    ]
+
+    //Setter for the players field
     public static void setPlayers(Player[] players) {
-
+        this.players = players;
     }
 
+    //Returns the active player
     public static Player getActivePlayer() {
-        return null;
+        return activePlayer;
     }
 
+    //Setter for the activePlayer field
     public static void setActivePlayer(Player player) {
-
+        activePlayer = player;
     }
 }
