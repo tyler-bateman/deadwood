@@ -20,10 +20,6 @@ public class Scene {
         //XML
     }
 
-    public Scene(String name){
-        this.name = name;
-    }
-
     public void resetShots(){
         remainingShots = totalShots;
     }
@@ -61,8 +57,11 @@ public class Scene {
         return false;
     }
 
+
     public boolean requestRehearsal(Player player){
-        return false;
+        if(this.hasRole(player.getRole())) {
+          player.setRehearsal(player.getRehearsalChips() + 1);
+        }
     }
 
     public boolean requestActAttempt(Player player){
@@ -74,7 +73,7 @@ public class Scene {
     }
 
     public boolean isSceneActive(){
-        return false;
+        return;
     }
 
     protected void wrap(){
