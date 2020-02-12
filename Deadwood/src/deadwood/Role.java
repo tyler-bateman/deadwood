@@ -57,9 +57,11 @@ public class Role {
       */
     public int payBonus(){
         if(occupant != null) {
-          Banker.giveDollars(getPayout());
-          return getPayout();
+          Banker.giveDollars(getOccupant(), getPayout());
+          int tmp = getPayout();
           setPayout(0);
+          return tmp;
+          
         } else {
           setPayout(0);
           return 0;
@@ -106,7 +108,7 @@ public class Role {
         return null;
     }
 
-    private void setOccupant(){
+    private void setOccupant(Player p){
 
     }
 
@@ -114,7 +116,7 @@ public class Role {
         return 0;
     }
 
-    public void setPayout(){
+    public void setPayout(int newPayout){
 
     }
 
