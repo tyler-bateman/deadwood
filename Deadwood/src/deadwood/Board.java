@@ -27,7 +27,7 @@ public class Board {
       }
       for(Player p: players) {
         p.setLocation(trailorsID);
-        spaces[traidlorsID].addPlayer(p);
+        spaces[trailorsID].addPlayer(p);
       }
       Deck.deal(getScenes());
 
@@ -44,8 +44,8 @@ public class Board {
     }
 
     //Setter for the spaces field
-    private static void setSpaces(Space[] spaces) {
-        this.spaces = spaces;
+    private static void setSpaces(Space[] s) {
+        spaces = s;
     }
 
     //Returns an array containing the list of scenes
@@ -58,8 +58,8 @@ public class Board {
     }
 
     //Setter for the scenes field
-    private static void setScenes(Scene[] scenes) {
-        this.scenes = scenes;
+    private static void setScenes(Scene[] s) {
+        scenes = s;
     }
 
     //Returns an array containing the players on the board
@@ -68,13 +68,13 @@ public class Board {
     }
 
     //Returns the Player with the given id
-    public static Player getPlayer(int id) [
-        return players[id];
-    ]
+    public static Player getPlayer(int id) {
+        return getPlayers()[id];
+    }
 
     //Setter for the players field
-    public static void setPlayers(Player[] players) {
-        this.players = players;
+    public static void setPlayers(Player[] ps) {
+        players = ps;
     }
 
 }
