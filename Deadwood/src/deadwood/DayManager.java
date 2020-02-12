@@ -10,18 +10,22 @@ public class DayManager{
   /**
     * Resets the board for the new day if there is only one active scene left.
     * Returns true if there is only one active scene left on the board
+    * @param scenes: the array of all scenes on the board
     */
-  public static boolean checkForDayEnd() {
+  public static boolean checkForDayEnd(Scene[] scenes) {
       int activeScenes = 0;
-      for(Scene scene: Board.getScenes()) {
-        if(SceneCard != null) {
+      for(Scene scene: scenes) {
+        if(scene.getCard() != null) {
           activeScenes++;
         }
       }
       if(activeScenes <= 1) {
         Board.newDay();
-        return true;
         setDay(getDay() + 1);
+        return true;
+        
+      } else {
+        return false;
       }
   }
 
@@ -35,7 +39,7 @@ public class DayManager{
   /**
     * Sets the day number
     */
-  private static void setDay(int day) {
-      this.day = day;
+  private static void setDay(int newDay) {
+      day = newDay;
   }
 }
