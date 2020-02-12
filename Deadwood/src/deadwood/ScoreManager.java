@@ -44,5 +44,12 @@ public class ScoreManager {
         return playerScores;
     }
     
+    public static int getScore(int ID) {
+        return playerScores[ID];
+    }
+    
+    public static int getScore(Player p) {
+        return playerScores[p.getID()];
+    }
     
 }

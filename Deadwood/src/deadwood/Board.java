@@ -76,5 +76,13 @@ public class Board {
     public static void setPlayers(Player[] ps) {
         players = ps;
     }
+    
+    public static int getTrailorsID() {
+        return trailorsID;
+    }
+    
+    private static void setTrailorsID(int newID) {
+        trailorsID = newID;
+    }
 
 }

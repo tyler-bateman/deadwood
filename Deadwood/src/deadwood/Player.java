@@ -13,70 +13,72 @@ public class Player {
     private int ID;
     private String name;
     private int location;
-    private int money;
+    private int dollars;
     private int credits;
     private int rank;
     private Role currRole;
-    private int practiceChips;
+    private int rehearsalChips;
     
-    public Player() {
+    
+    /*
+     * Constructor for a Player object
+     * @param ID: The player's ID
+     * @param name: the player's name
+    */
+    public Player(int ID, String name) {
+        this.ID = ID;
+        this.name = name;
+        location = Board.getTrailorsID();
+        dollars = 0;
+        credits = 0;
+        rank = 0;
+        currRole = null;
+        rehearsalChips= 0;
         
-    }
-    public Player(int ID) {
-        
-    }
-    public Player(int ID, String name){
-        
-    }
-    public void endTurn() {
-        
-    }
-    public boolean isActive() {
-        return false;
     }
     public int getScore() {
-        return 0;
+        return ScoreManager.getScore(ID);
     }
     public int getID() {
-        return 0;
+        return ID;
     }
     public String getName() {
-        return null;
+        return name;
     }
     public int getLocation() {
-        return 0;
+        return location;
     }
     public void setLocation(int newLocID) {
-        
+        location = newLocID;
     }
     public int getDollars() {
-        return 0;
+        return dollars;
     }
     public void setDollars(int amount) {
-        
+        dollars = amount;
     }
     public int getCredits() {
-        return 0;
+        return credits;
     }
     public void setCredits(int amount) {
-        
+        credits = amount;
     }
     public int getRank() {
-        return 0;
+        return rank;
     }
     public void setRank(int rank) {
-        
+        this.rank = rank;
     }
     public Role getRole() {
-        return null;
+        return currRole;
     }
     public void setRole(Role role) {
-        
+        currRole = role;
     }
     public int getRehearsalChips() {
-        return 0;
+        return rehearsalChips;
     }
     public void setRehearsal(int amount) {
-        
+        rehearsalChips = amount;
     }
 }
