@@ -10,7 +10,6 @@ public class Board {
     private static Scene[] scenes;
     private static int trailorsID;
     private static Player[] players;
-    private static Player activePlayer;
 
     public static void setup() {
       //TODO (XML)
@@ -76,11 +75,11 @@ public class Board {
     public static void setPlayers(Player[] ps) {
         players = ps;
     }
-    
+
     public static int getTrailorsID() {
         return trailorsID;
     }
-    
+
     private static void setTrailorsID(int newID) {
         trailorsID = newID;
     }

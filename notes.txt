@@ -5,3 +5,13 @@ Banker, Dice, SceneCard, Space, CastingOffice, Deck
 
 Nada: 
 XML stuff
+
+
+2/12:
+	List of classes that need XML for constructor:
+		Board*
+		Role*
+		Scene -- Not done yet
+		SceneCard *
+		Space
+		Casting Office (This one will be weird
