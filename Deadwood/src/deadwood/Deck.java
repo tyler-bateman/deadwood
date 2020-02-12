@@ -13,10 +13,8 @@ import java.util.Random;
 public class Deck {
     private static Stack<SceneCard> cards;
 
-    public void initDeck() {
-      //TODO: Parse XML
-
-
+    public void initDeck(Stack<SceneCard> cardStack) {
+      cards = cardStack;
       shuffle();
     }
 
