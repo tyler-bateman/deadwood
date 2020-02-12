@@ -69,55 +69,55 @@ public class Role {
     }
 
     public boolean isRoleTaken(){
-        return false;
+        return occupant != null;
     }
 
     public String getName(){
-        return null;
+        return name;
     }
 
-    private void setName(){
-
+    private void setName(String n){
+        name = n;
     }
 
     public String getDescription(){
-        return null;
+        return description;
     }
 
-    public void setDescription(){
-
+    private void setDescription(String d){
+        description = d;
     }
 
     public int getID(){
-        return 0;
+        return ID;
     }
 
-    public void setID(){
-
+    private void setID(int newID){
+        ID = newID;
     }
 
     public int getRank(){
-        return 0;
+        return rank;
     }
 
-    public void setRank(){
-
+    public void setRank(int r){
+        rank = r;
     }
 
     public Player getOccupant(){
-        return null;
+        return occupant;
     }
 
-    private void setOccupant(Player p){
-
+    public void setOccupant(Player p){
+        occupant = p;
     }
 
     public int getPayout(){
-        return 0;
+        return payout;
     }
 
-    public void setPayout(int newPayout){
-
+    private void setPayout(int newPayout){
+        payout = newPayout;
     }
 
 }
