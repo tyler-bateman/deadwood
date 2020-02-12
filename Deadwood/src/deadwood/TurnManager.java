@@ -20,12 +20,12 @@ public class TurnManager {
 
     /** Sets the play order and selects the first active player
       * @param players: the list of players
-      * @param playOrder: the desired play order
+      * @param newOrder: the desired play order
       */
-    public static void init(Player[] players, int[] playOrder) {
+    public static void init(Player[] players, int[] newOrder) {
       //if the provided playOrder is valid, use it. Otherwise, use the default play order
-      if(players.length == playOrder.length) {
-        this.playOrder = playOrder;
+      if(players.length == newOrder.length) {
+        playOrder = newOrder;
       } else {
         playOrder = new int[players.length];
         for(int i = 0; i < playOrder.length; i++) {
@@ -88,7 +88,7 @@ public class TurnManager {
       return currTurn;
     }
 
-    private static int setTurn(int turn) {
+    private static void setTurn(int turn) {
       currTurn = turn;
     }
 
