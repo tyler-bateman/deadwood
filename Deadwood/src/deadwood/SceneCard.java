@@ -19,63 +19,68 @@ public class SceneCard {
     private boolean faceUp;
     
     public SceneCard(){
-        
+        //TODO: XML
     }
     
     public void flip(){
-        
+        faceUp = true;
     }
     
     public boolean hasPlayers(){
+        for(Role r: roles) {
+            if(r.isRoleTaken()) {
+                return true;
+            }
+        }
         return false;
     }
     
     public int getID(){
-        return 0;
+        return ID;
     }
     
-    public void setID(){
-        
+    private void setID(int newID){
+        ID = newID;
     }
     
     public String getTitle(){
-        return null;
+        return title;
     }
     
-    public void setTitle(){
-        
+    private void setTitle(String t){
+        title = t;
     }
     
     public String getDescription(){
-        return null;
+        return description;
     }
     
-    public void setDescription(){
-        
+    private void setDescription(String d){
+        description = d;
     }
     
     public LinkedList<Role> getRoles(){
-        return null;
+        return roles;
     }
     
-    public void setRoles(){
-        
+    private void setRoles(LinkedList<Role> roleList){
+        roles = roleList;
     }
     
     public int getBudget(){
-        return 0;
+        return budget;
     }
     
-    public void setBudget(){
-        
+    public void setBudget(int b){
+        budget = b;
     }
     
     public boolean getFaceUp(){
-        return false;
+        return faceUp;
     }
     
-    public void setFaceUp(){
-        
+    public void setFaceUp(boolean b){
+        faceUp = b;
     }
     
 }
