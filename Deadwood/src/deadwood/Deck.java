@@ -11,13 +11,13 @@ import java.util.Random;
  * @author nada & tyler
  */
 public class Deck {
-    private Stack<SceneCard> cards;
+    private static Stack<SceneCard> cards;
 
     public void initDeck() {
       //TODO: Parse XML
 
 
-      shuffle()
+      shuffle();
     }
 
     public static void shuffle(){
@@ -30,7 +30,7 @@ public class Deck {
     }
 
     public static void deal(Scene[] scenes){
-        for(Scene s: scenes {
+        for(Scene s: scenes) {
             placeCard(s);
         }
     }
