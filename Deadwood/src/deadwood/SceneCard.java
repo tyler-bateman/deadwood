@@ -17,15 +17,15 @@ public class SceneCard {
     private LinkedList<Role> roles;
     private int budget;
     private boolean faceUp;
-    
+
     public SceneCard(){
         //TODO: XML
     }
-    
+
     public void flip(){
         faceUp = true;
     }
-    
+
     public boolean hasPlayers(){
         for(Role r: roles) {
             if(r.isRoleTaken()) {
@@ -34,53 +34,65 @@ public class SceneCard {
         }
         return false;
     }
-    
+
+    public boolean hasRole(Role role) {
+      for(Role r: roles) {
+        if(r == role) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     public int getID(){
         return ID;
     }
-    
+
     private void setID(int newID){
         ID = newID;
     }
-    
+
     public String getTitle(){
         return title;
     }
-    
+
     private void setTitle(String t){
         title = t;
     }
-    
+
     public String getDescription(){
         return description;
     }
-    
+
     private void setDescription(String d){
         description = d;
     }
-    
+
+    /**
+      * Returns a list of roles sorted by rank high to low
+      */
     public LinkedList<Role> getRoles(){
         return roles;
     }
-    
+
     private void setRoles(LinkedList<Role> roleList){
         roles = roleList;
     }
-    
+
     public int getBudget(){
         return budget;
     }
-    
+
     public void setBudget(int b){
         budget = b;
     }
-    
+
     public boolean getFaceUp(){
         return faceUp;
     }
-    
+
     public void setFaceUp(boolean b){
         faceUp = b;
     }
-    
+
 }

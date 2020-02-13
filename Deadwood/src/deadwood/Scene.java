@@ -7,8 +7,11 @@ package deadwood;
 
 /**
  *
- * @author nada
+ * @author nada, tyler
  */
+
+import java.util.List;
+
 public class Scene {
     private String name;
     private SceneCard card;
@@ -49,10 +52,8 @@ public class Scene {
             return true;
           }
         }
-        for(Roles: card.getRoles()) {
-          if(r == role) {
-            return true;
-          }
+        if(card.hasRole(role)) {
+          return true;
         }
         return false;
     }
@@ -64,52 +65,120 @@ public class Scene {
         }
     }
 
+    /**
+      * Requests and act attempt for the player.
+      * @return: true if the player was allowed to attempt to act
+      * @return: false if the player was not allowed an act attempt.
+      * Note: Returns true if the attempt went through regardless of whether the
+      *       acting was successful or not.
+      */
     public boolean requestActAttempt(Player player){
-        return false;
+        if(this.hasRole(player.getRole())) {
+          Dice d = new Dice(1);
+          int dieVal = d.nextDie();
+          if(dieVal + player.getRehearsalChips() >= budget) {
+              setRemainingShots(getRemainingShots() - 1);
+              if(card.hasRole(player.getRole())) {
+                Banker.giveCredits(player, 2);
+              } else {
+                Banker.giveCredits(player, 1);
+                Banker.giveDollars(player, 1);
+              }
+
+              if(getRemainingShots() == 0) {
+                wrap();
+              }
+          } else {
+              if(!card.hasRole(player.getRole())) {
+                Banker.giveDollars(player, 1);
+              }
+          }
+          return true;
+        } else {
+          return false;
+        }
     }
 
-    public void assignDice(){
 
+    private void wrap(){
+        if(card.hasPlayers()) {
+          Dice d = new Dice(getBudget());
+          int currRoleIndex = 0;
+          List<Role> roleList = getCard.getRoles();
+
+          //Assign payout values and pay bonuses for each on-card role
+          while(d.hasNextDie()) {
+            int dieVal = d.nextDie();
+            roleList[currRoleIndex].increasePayout(dieVal);
+            currRoleIndex++;
+            if(currRoleIndex >= roleList.length) {
+              currRoleIndex = 0;
+            }
+          }
+          for(Role r: roleList) {
+            if(r.getOccupant()!=null){
+              r.payBonus();
+              r.getPlayer().setRole(null);
+              r.removePlayer();
+            }
+          }
+
+          //Assigns payout values and pay bonuses for each off-card role
+          for(Role r: getOffCardRoles()) {
+            if(r.getOccupant() != null) {
+              r.increasePayout(2);
+              r.payBonus();
+              r.getPlayer().setRole(null);
+              r.removePlayer();
+            }
+
+          }
+
+        } else { //There are no players on the card
+          for(Role r: getOffCardRoles()) {
+            if(r.getOccupant() != null) {
+              r.getPlayer().setRole(null);
+              r.removePlayer();
+            }
+          }
+        }
     }
+
 
     public boolean isSceneActive(){
-        return;
-    }
-
-    protected void wrap(){
-
+        return getCard()!=null;
     }
 
     public String getName(){
-        return null;
+        return name;
     }
 
-    public void setName(){
-
+    private void setName(String name){
+        this.name = name;
     }
 
     public SceneCard getCard(){
-        return null;
+        return card;
     }
 
     public void setCard(SceneCard card){
-
+        this.card = card;
     }
 
     public int getRemainingShots(){
-        return 0;
+        return remainingShots;
     }
 
-    public void setRemainingShots(){
-
+    private void setRemainingShots(int shots){
+        remainingShots = shots;
     }
 
     public Role[] getOffCardRoles(){
-        return null;
+        return offCardRoles;
     }
 
-    public void setOffCardRoles(){
-
+    private void setOffCardRoles(Role[] roles){
+        offCardRoles = roles;
     }
 
 }
