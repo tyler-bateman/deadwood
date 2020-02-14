@@ -10,8 +10,8 @@ XML stuff
 2/12:
 	List of classes that need XML for constructor:
 		Board*
-		Role*
+		Role : Done
 		Scene -- Not done yet
-		SceneCard *
+		SceneCard : Done
 		Space
 		Casting Office (This one will be weird
