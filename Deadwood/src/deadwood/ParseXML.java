@@ -10,161 +10,172 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.io.File;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Stack;
 
 public class ParseXML{
 
-   
-        // building a document from the XML file
-        // returns a Document object after loading the book.xml file.
-        public Document getDocFromFile(String filename) throws ParserConfigurationException{
+    public Document getDocFromFile(String filename) throws ParserConfigurationException{
         {
                         
-           DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-           DocumentBuilder db = dbf.newDocumentBuilder();
-           Document doc = null;
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document doc = null;
            
-           try{
-               doc = db.parse(filename);
-           } catch (Exception ex){
-               System.out.println("XML parse failure");
-               ex.printStackTrace();
-           }
+        try{
+            doc = db.parse(filename);
+        }catch (Exception ex){
+            System.out.println("XML parse failure");
+            ex.printStackTrace();
+        }
            return doc;
-        } // exception handling
+        }
         
         }  
-        
-        // reads data from XML file and prints data
-        public void readBoardData(Document d){   
-            d.getDocumentElement().normalize();
-            Element root = d.getDocumentElement();
-            NodeList sets = root.getElementsByTagName("set");
+             
+    public Board buildBoard(Document d){   
             
-            for (int i=0; i<sets.getLength();i++){                
-                System.out.println("Printing information for set "+(i+1));
+        Board board = new Board();
+        Scene[] scenes = new Scene[10];
+        d.getDocumentElement().normalize();
+        Element root = d.getDocumentElement();
+        NodeList sets = root.getElementsByTagName("set");
+            
+        for (int i=0; i<sets.getLength();i++){  
+            Scene scene = new Scene();
+            LinkedList<Role> offCardRoles= new LinkedList<Role>();
                 
-                //reads data from the nodes
-                Node set = sets.item(i);
-                String setName = set.getAttributes().getNamedItem("name").getNodeValue();
-                System.out.println("Set name = "+setName);
-               
-                //reads data                
+            Node set = sets.item(i);
+            String setName = set.getAttributes().getNamedItem("name").getNodeValue();
+            scene.setName(setName);                          
                 
-                NodeList setChildren = set.getChildNodes();
+            NodeList setChildren = set.getChildNodes();
                 
-                for (int j=0; j< setChildren.getLength(); j++){                    
-                    Node setChildrenSub = setChildren.item(j);
-                
-                    if("neighbors".equals(setChildrenSub.getNodeName())){ 
-                        System.out.println("     Neighbors :");
-                        NodeList neighborsChildren = setChildrenSub.getChildNodes();
-                      
-                        for(int z=0; z< neighborsChildren.getLength(); z++ ){
-                            
-                            try{
-                            Node neighbor = neighborsChildren.item(z);
-                            String neighborName= neighbor.getAttributes().getNamedItem("name").getNodeValue();
-                            System.out.println("         Neighbor name = " + neighborName);
-                        }catch(Exception e){
-                            //e.printStackTrace();
-                        }         
-                        }
-                  }
+            for (int j=0; j< setChildren.getLength(); j++){                    
+                Node setChildrenSub = setChildren.item(j);                
                  
-                    else if("area".equals(setChildrenSub.getNodeName())){
-                        System.out.println("     Area :");
-                     String w = setChildrenSub.getAttributes().getNamedItem("w").getNodeValue();
-                     System.out.println("         w = "+w);
-                     String h = setChildrenSub.getAttributes().getNamedItem("h").getNodeValue();
-                     System.out.println("         h = "+h);
-                     String y = setChildrenSub.getAttributes().getNamedItem("y").getNodeValue();
-                     System.out.println("         y = "+y);
-                     String x = setChildrenSub.getAttributes().getNamedItem("x").getNodeValue();
-                     System.out.println("         x = "+x);                    
-                  }
-                  
-                  else if("takes".equals(setChildrenSub.getNodeName())){
-                      System.out.println("     Takes :");
-                       NodeList takesChildren = setChildrenSub.getChildNodes();
-                       
-                       for(int z=0; z< takesChildren.getLength(); z++ ){
-                           try{
-                            Node take = takesChildren.item(z);
-                            String takeNumber= take.getAttributes().getNamedItem("number").getNodeValue();
-                            System.out.println("         Take number = " + takeNumber);
-                            NodeList takeChildren = take.getChildNodes();
-                            
-                            for(int f =0; f< takeChildren.getLength(); f++){
-                                System.out.println("             Take area :");
-                                Node area = takeChildren.item(f);
-                                String w = area.getAttributes().getNamedItem("w").getNodeValue();
-                                System.out.println("                 w = "+w);
-                                String h = area.getAttributes().getNamedItem("h").getNodeValue();
-                                System.out.println("                 h = "+h);
-                                String y = area.getAttributes().getNamedItem("y").getNodeValue();
-                                System.out.println("                 y = "+y);
-                                String x = area.getAttributes().getNamedItem("x").getNodeValue();
-                                System.out.println("                 x = "+x);
+                if("takes".equals(setChildrenSub.getNodeName())){
+                    NodeList takesChildren = setChildrenSub.getChildNodes();
+                    int[] takes = {0,0,0,0,0,0,0,0,0,0};
+                    for(int k=0; k< takesChildren.getLength(); k++ ){                          
+                        try{
+
+                            Node take = takesChildren.item(k);
+
+                            if((take.getNodeName()).equals("take")){
+                                String takeNumber= take.getAttributes().getNamedItem("number").getNodeValue();
+                                takes[k] = Integer.parseInt(takeNumber);
                             }
-                           }catch(Exception e){
-                               
-                           }
-                        }                     
-                  }
-                  
-                  else if("parts".equals(setChildrenSub.getNodeName())){
-                      System.out.println("     Parts :");
-                     NodeList partsChildren = setChildrenSub.getChildNodes();
-                     
-                     for (int z=0; z< partsChildren.getLength(); z++){
-                         try{
-                         Node part = partsChildren.item(z);
-                         String partName = part.getAttributes().getNamedItem("name").getNodeValue();
-                         System.out.println("         Part name = "+ partName);
-                         String partLevel = part.getAttributes().getNamedItem("level").getNodeValue();
-                         System.out.println("         Part level = "+ partLevel);
-                         
-                         NodeList partChildren = part.getChildNodes();
-                         
-                         for(int f = 0; f<partChildren.getLength(); f++){
-                             Node child = partChildren.item(f);
-                             
-                             if("area".equals(child.getNodeName())){
-                                 System.out.println("             Part area :");
-                                String w = child.getAttributes().getNamedItem("w").getNodeValue();
-                                System.out.println("                 w = "+w);
-                                String h = child.getAttributes().getNamedItem("h").getNodeValue();
-                                System.out.println("                 h = "+h);
-                                String y = child.getAttributes().getNamedItem("y").getNodeValue();
-                                System.out.println("                 y = "+y);
-                                String x = child.getAttributes().getNamedItem("x").getNodeValue();
-                                System.out.println("                 x = "+x);
-                             }
-                             
-                             if("line".equals(child.getNodeName())){
-                                 String line = child.getTextContent();
-                                 System.out.println("             Line = "+line);
-                             }
-                         }
-                         
-                     }catch (Exception e){
-                  } 
-                          
-                     }
-                  }
-                                 
-                
-                } //for childnodes
-                
-                System.out.println("\n");
-                
-            }//for set nodes
-        
-        }// method
-    
-    
 
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                    Arrays.sort(takes);
+                    scene.setTotalShots(takes[9]);
+                }
+             
+                else if("parts".equals(setChildrenSub.getNodeName())){
 
+                    NodeList partsChildren = setChildrenSub.getChildNodes();
+                    for(int k=0; k< partsChildren.getLength();k++){
 
-}//class
+                        try{
+
+                            Node part = partsChildren.item(k);
+                                
+                            if("part".equals(part.getNodeName())){
+                                
+                                Role role = new Role();
+                                String partName = part.getAttributes().getNamedItem("name").getNodeValue();
+                                role.setName(partName);
+                                String partLevel = part.getAttributes().getNamedItem("level").getNodeValue();
+                                role.setRank(Integer.parseInt(partLevel));
+                                NodeList partChildren = part.getChildNodes();
+                                        
+                                for(int m = 0; m< partChildren.getLength(); m++){                 
+                                        
+                                    Node childLine = partChildren.item(m);   
+                                    if("line".equals(childLine.getNodeName())){
+                                        String line = childLine.getTextContent();
+                                        role.setLine(line);
+                                    }              
+                                }
+                                offCardRoles.add(role); 
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                scene.setOffCardRoles(offCardRoles); 
+            }
+            scenes[i] = scene;
+        }
+        board.setScenes(scenes);
+        return board;   
+    }    
+
+    public Stack<SceneCard> buildDeck(Document d){
+            
+        Stack<SceneCard> StackOfCards = new Stack<>();          
+        d.getDocumentElement().normalize();
+        Element root = d.getDocumentElement();
+        NodeList cards = root.getElementsByTagName("card");
+            
+        for (int i=0; i< cards.getLength(); i++){
+                
+            SceneCard Card = new SceneCard();
+            LinkedList<Role> listOfRoles= new LinkedList<Role>();
+            Node card = cards.item(i);
+                
+            String cardBudget = card.getAttributes().getNamedItem("budget").getNodeValue();
+            Card.setBudget(Integer.parseInt(cardBudget));            
+            String cardName = card.getAttributes().getNamedItem("name").getNodeValue();
+            Card.setName(cardName);
+                
+            NodeList cardChildren = card.getChildNodes();
+                
+            for(int j=0; j< cardChildren.getLength(); j++){
+                Node cardChild = cardChildren.item(j);
+                    
+                if("scene".equals(cardChild.getNodeName())){
+                    String sceneNumber = cardChild.getAttributes().getNamedItem("number").getNodeValue();
+                    Card.setNumber(Integer.parseInt(sceneNumber));
+                    String sceneDescription = cardChild.getTextContent();
+                    Card.setDescription(sceneDescription);
+                }
+
+                if("part".equals(cardChild.getNodeName())){
+                    Role cardRole = new Role();
+
+                    String partName = cardChild.getAttributes().getNamedItem("name").getNodeValue();
+                    cardRole.setName(partName);
+                    String partLevel = cardChild.getAttributes().getNamedItem("level").getNodeValue();
+                    cardRole.setRank(Integer.parseInt(partLevel));
+
+                    NodeList partChildren = cardChild.getChildNodes();
+                        
+                    for(int k=0; k< partChildren.getLength(); k++){
+                        try{
+                            
+                            Node partChild = partChildren.item(k);
+                            if("line".equals(partChild.getNodeName())){
+                                String Line = partChild.getTextContent();
+                                cardRole.setLine(Line);                                
+                            }                        
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }             
+                    }
+                    listOfRoles.add(cardRole);
+                }   
+            }
+            Card.setRoles(listOfRoles);
+            StackOfCards.push(Card);        
+        }
+        return StackOfCards;
+    }   
+}
