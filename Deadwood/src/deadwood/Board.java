@@ -7,12 +7,12 @@ package deadwood;
  */
 public class Board {
     private static Space[] spaces;
-    private static Scene[] scenes;
+    private  Scene[] scenes;
     private static int trailorsID;
     private static Player[] players;
 
     public static void setup() {
-      //TODO (XML)
+
     }
 
     /**
@@ -20,7 +20,7 @@ public class Board {
       *   Moves players back to the trailers
       *   Deals new scene cards
       */
-    public static void newDay() {
+    public void newDay() {
       for(Scene s: getScenes()) {
         s.close();
       }
@@ -48,16 +48,16 @@ public class Board {
     }
 
     //Returns an array containing the list of scenes
-    public static Scene[] getScenes() {
+    public  Scene[] getScenes() {
         return scenes;
     }
 
-    public static Scene getScene(int id) {
+    public  Scene getScene(int id) {
         return scenes[id];
     }
 
     //Setter for the scenes field
-    private static void setScenes(Scene[] s) {
+    public  void setScenes(Scene[] s) {
         scenes = s;
     }
 
