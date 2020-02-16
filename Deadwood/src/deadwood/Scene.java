@@ -19,15 +19,12 @@ public class Scene {
     private int remainingShots;
     private int totalShots;
     private LinkedList<Role> offCardRoles;
-
-    public Scene(){
-        //XML
-    }
-
+   
+    
     public void resetShots(){
         remainingShots = totalShots;
     }
-
+    
     public void close(){
         for(Role r: card.getRoles()) {
           r.removePlayer();
