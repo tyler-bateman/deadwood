@@ -11,7 +11,7 @@ package deadwood;
  */
 public class Role {
     private String name;
-    private String description;
+    private String line;
     private int ID;
     private int rank;
     private Player occupant;
@@ -19,7 +19,7 @@ public class Role {
 
 
     public Role(){
-        //TODO: Parse xml
+
     }
 
     /**
@@ -76,16 +76,16 @@ public class Role {
         return name;
     }
 
-    private void setName(String n){
+    public void setName(String n){
         name = n;
     }
 
-    public String getDescription(){
-        return description;
+    public String getLine(){
+        return line;
     }
 
-    private void setDescription(String d){
-        description = d;
+    public void setLine(String l){
+        line = l;
     }
 
     public int getID(){
