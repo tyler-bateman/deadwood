@@ -11,10 +11,6 @@ public class Board {
     private int trailorsID;
     private Player[] players;
 
-    public void setup() {
-
-    }
-
     /**
       * Resets the board for a new day:
       *   Moves players back to the trailers

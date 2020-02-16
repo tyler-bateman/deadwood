@@ -18,10 +18,6 @@ public class Role {
     private int payout;
 
 
-    public Role(){
-
-    }
-
     /**
       * If the role is not taken and the player has the appropriate rank,
       * the player occupies this role.

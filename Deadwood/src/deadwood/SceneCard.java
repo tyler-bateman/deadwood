@@ -18,9 +18,6 @@ public class SceneCard {
     private int budget;
     private boolean faceUp;
 
-    public SceneCard(){
-      
-    }
     
     public void flip(){
         faceUp = true;
