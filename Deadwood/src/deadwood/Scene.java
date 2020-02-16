@@ -13,7 +13,7 @@ package deadwood;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Scene {
+public class Scene extends Space {
     private String name;
     private SceneCard card;
     private int remainingShots;
@@ -142,6 +142,16 @@ public class Scene {
               r.removePlayer();
             }
           }
+        }
+    }
+    
+    @Override
+    public boolean requestMove(Player player, Space[] spaces) {
+        if(super.requestMove(player, spaces)) {
+            getCard().flip();
+            return true;
+        } else {
+            return false;
         }
     }
 
