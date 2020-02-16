@@ -48,7 +48,10 @@ public class Role {
       * Removes the player from this role
       */
     public void removePlayer(){
-        occupant = null;
+        if(occupant != null) {
+            occupant.setRole(null);
+            occupant = null;
+        }
         payout = 0;
     }
 
