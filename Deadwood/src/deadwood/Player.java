@@ -25,10 +25,10 @@ public class Player {
      * @param ID: The player's ID
      * @param name: the player's name
     */
-    public Player(int ID, String name) {
+    public Player(int ID, String name, int startingLocation) {
         this.ID = ID;
         this.name = name;
-        location = Board.getTrailorsID();
+        location = startingLocation;
         dollars = 0;
         credits = 0;
         rank = 0;

@@ -12,15 +12,15 @@ public class DayManager{
     * Returns true if there is only one active scene left on the board
     * @param scenes: the array of all scenes on the board
     */
-  public static boolean checkForDayEnd(Scene[] scenes) {
+  public static boolean checkForDayEnd(Board b) {
       int activeScenes = 0;
-      for(Scene scene: scenes) {
+      for(Scene scene: b.getScenes()) {
         if(scene.getCard() != null) {
           activeScenes++;
         }
       }
       if(activeScenes <= 1) {
-        Board.newDay();
+        b.newDay();
         setDay(getDay() + 1);
         return true;
         

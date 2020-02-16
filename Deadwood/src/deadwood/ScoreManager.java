@@ -14,8 +14,8 @@ public class ScoreManager {
     private static int[] playerScores = new int[8];
     
     
-    public static void declareWinner(){  //ends the game
-        calculateScores();
+    public static void declareWinner(Player[] playerList){  //ends the game
+        calculateScores(playerList);
         int maxScore = 0;
         LinkedList<Integer> winningPlayerIDs = new LinkedList<Integer>();
         for(int i = 0; i < playerScores.length; i++) {
@@ -29,8 +29,8 @@ public class ScoreManager {
         //TODO: Notify controller
     }
     
-    public static void calculateScores() {
-        for(Player p: Board.getPlayers()) {
+    public static void calculateScores(Player[] playerList) {
+        for(Player p: playerList) {
             calculateScore(p);
         }
     }
