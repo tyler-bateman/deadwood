@@ -11,17 +11,17 @@ import java.util.LinkedList;
  * @author nada
  */
 public class SceneCard {
-    private int ID;
-    private String title;
+    private int number;
+    private String name;
     private String description;
     private LinkedList<Role> roles;
     private int budget;
     private boolean faceUp;
 
     public SceneCard(){
-        //TODO: XML
+      
     }
-
+    
     public void flip(){
         faceUp = true;
     }
@@ -44,27 +44,27 @@ public class SceneCard {
       return false;
     }
 
-    public int getID(){
-        return ID;
+    public int getNumber(){
+        return number;
     }
 
-    private void setID(int newID){
-        ID = newID;
+    public void setNumber(int newNumber){
+        number = newNumber;
     }
 
-    public String getTitle(){
-        return title;
+    public String getName(){
+        return name;
     }
 
-    private void setTitle(String t){
-        title = t;
+    public void setName(String n){
+        name = n;
     }
 
     public String getDescription(){
         return description;
     }
 
-    private void setDescription(String d){
+    public void setDescription(String d){
         description = d;
     }
 
@@ -75,7 +75,7 @@ public class SceneCard {
         return roles;
     }
 
-    private void setRoles(LinkedList<Role> roleList){
+    public void setRoles(LinkedList<Role> roleList){
         roles = roleList;
     }
 
