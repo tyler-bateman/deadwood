@@ -10,6 +10,7 @@ package deadwood;
  * @author nada, tyler
  */
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Scene {
@@ -17,7 +18,7 @@ public class Scene {
     private SceneCard card;
     private int remainingShots;
     private int totalShots;
-    private Role[] offCardRoles;
+    private LinkedList<Role> offCardRoles;
 
     public Scene(){
         //XML
@@ -63,6 +64,7 @@ public class Scene {
         if(this.hasRole(player.getRole())) {
           player.setRehearsal(player.getRehearsalChips() + 1);
         }
+        return true;
     }
 
     /**
@@ -72,11 +74,13 @@ public class Scene {
       * Note: Returns true if the attempt went through regardless of whether the
       *       acting was successful or not.
       */
+    
+    
     public boolean requestActAttempt(Player player){
         if(this.hasRole(player.getRole())) {
           Dice d = new Dice(1);
           int dieVal = d.nextDie();
-          if(dieVal + player.getRehearsalChips() >= budget) {
+          if(dieVal + player.getRehearsalChips() >= card.getBudget()) {
               setRemainingShots(getRemainingShots() - 1);
               if(card.hasRole(player.getRole())) {
                 Banker.giveCredits(player, 2);
@@ -102,23 +106,23 @@ public class Scene {
 
     private void wrap(){
         if(card.hasPlayers()) {
-          Dice d = new Dice(getBudget());
+          Dice d = new Dice(card.getBudget());
           int currRoleIndex = 0;
-          List<Role> roleList = getCard.getRoles();
+          List<Role> roleList = card.getRoles();
 
           //Assign payout values and pay bonuses for each on-card role
           while(d.hasNextDie()) {
             int dieVal = d.nextDie();
-            roleList[currRoleIndex].increasePayout(dieVal);
+            roleList.get(currRoleIndex).increasePayout(dieVal);
             currRoleIndex++;
-            if(currRoleIndex >= roleList.length) {
+            if(currRoleIndex >= roleList.size()) {
               currRoleIndex = 0;
             }
           }
           for(Role r: roleList) {
             if(r.getOccupant()!=null){
               r.payBonus();
-              r.getPlayer().setRole(null);
+              r.getOccupant().setRole(null);
               r.removePlayer();
             }
           }
@@ -128,7 +132,7 @@ public class Scene {
             if(r.getOccupant() != null) {
               r.increasePayout(2);
               r.payBonus();
-              r.getPlayer().setRole(null);
+              r.getOccupant().setRole(null);
               r.removePlayer();
             }
 
@@ -137,7 +141,7 @@ public class Scene {
         } else { //There are no players on the card
           for(Role r: getOffCardRoles()) {
             if(r.getOccupant() != null) {
-              r.getPlayer().setRole(null);
+              r.getOccupant().setRole(null);
               r.removePlayer();
             }
           }
@@ -153,7 +157,7 @@ public class Scene {
         return name;
     }
 
-    private void setName(String name){
+    public void setName(String name){
         this.name = name;
     }
 
@@ -173,12 +177,20 @@ public class Scene {
         remainingShots = shots;
     }
 
-    public Role[] getOffCardRoles(){
+    public LinkedList<Role> getOffCardRoles(){
         return offCardRoles;
     }
 
-    private void setOffCardRoles(Role[] roles){
+    public void setOffCardRoles(LinkedList<Role> roles){
         offCardRoles = roles;
+    }
+    
+    public int getTotalShots(){
+        return totalShots;
+    }
+    
+    public void setTotalShots(int t){
+        totalShots = t;
     }
 
 }
