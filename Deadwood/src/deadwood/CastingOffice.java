@@ -1,10 +1,15 @@
 
 package deadwood;
-import java.lang.ArrayIndexOutOfBoundsException;
+
 /**
+ * Class: CastingOffice
+ * An extention of Space that manages the purchasing of ranks
  *
  * @author tyler
  */
+
+import java.lang.ArrayIndexOutOfBoundsException;
+
 public class CastingOffice extends Space{
     private int[] dollarPrices;
     private int[] creditPrices;
@@ -14,11 +19,36 @@ public class CastingOffice extends Space{
         creditPrices = new int[]{5, 10, 15, 20, 25};
     }
     
-    public boolean purchaseRank(Player player, int rank) {
-        //Todo
+    /**
+     * Allows the player to purchase a new rank 
+     * @param player: the player who is purchasing the new rank
+     * @param rank: the desired rank
+     * @param payment: the payment type for the purchase
+     */
+    public boolean purchaseRank(Player player, int rank, CurrencyType payment) {
+        if(rank <= player.getRank() || rank > 6) {
+            return false;
+        }
+           
+        if(this.containsPlayer(player)) {
+            int price = (payment == DOLLARS)? getDollarPrice(rank) : getCreditPrice(rank);
+            boolean successful = Banker.charge(player, price, payment);
+            if(successful) {
+                player.setRank(rank);
+                return true;
+            } else {
+                return false;
+            }
+            
+        }
+        
         return false;
     }
     
+    /**
+     * @return: the dollar price of a rank
+     * If the given price is out of range, returns max integer
+     */
     public int getDollarPrice(int rank) {
         
         try{
@@ -30,6 +60,10 @@ public class CastingOffice extends Space{
         
     }
     
+    /** 
+     * @return: the credit price of a rank
+     * If the given price is out of rank, returns max integer
+     */
     public int getCreditPrice(int rank) {
         try{
             return creditPrices[rank - 2];
@@ -39,5 +73,20 @@ public class CastingOffice extends Space{
         }
         
     }
+    
+    /**
+     * @return: the array of dollar prices
+     */
+    public int[] getDollarPrices() {
+        return dollarPrices;   
+    }
+    
+    /**
+     * @return: the array of credit prices
+     */
+    public int[] getCreditPrices() {
+        return creditPrices;
+    }
+        
 }
 
