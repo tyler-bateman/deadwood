@@ -1,16 +1,18 @@
 package deadwood;
 
 /**
-  * @author tyler
-  *
-  */
+ * Class: DayManager
+ * Keeps track of the day number and triggers events that relate to the end of a day
+ * @author tyler
+ *
+ */
 public class DayManager{
   private static int day;
 
   /**
     * Resets the board for the new day if there is only one active scene left.
     * Returns true if there is only one active scene left on the board
-    * @param scenes: the array of all scenes on the board
+    * @param b: the board
     */
   public static boolean checkForDayEnd(Board b) {
       int activeScenes = 0;
@@ -20,13 +22,24 @@ public class DayManager{
         }
       }
       if(activeScenes <= 1) {
-        b.newDay();
-        setDay(getDay() + 1);
+        dayEnd(b);
         return true;
         
       } else {
         return false;
       }
+  }
+  
+  /**
+   * Manages what happenes at the end of a day, including incrementing the day and checking for whether the game is over
+   */
+  private static void dayEnd(Board b) {
+    setDay(getDay() + 1);
+    if((b.getPlayers().length < 4 && getDay() >= 3) || getDay >= 4) {
+        ScoreManager.declareWinner();
+    else {
+        b.newDay();
+    }
   }
 
   /**
