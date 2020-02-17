@@ -42,6 +42,24 @@ public class Banker {
     }
     
     /**
+     * Charges the given player an amount of of currency specified by the CurrencyType
+     * @return: true if the charge was successful
+     *          false otherwise
+     * @param player: the player to be charged
+     * @param amount: the amount to be charged
+     * @param CurrencyType: the type of currency to be charged
+     */
+    public static boolean charge(Player player, int amount, CurrencyType type) {
+        if(type == DOLLARS) {
+            return chargeDollars(player, amount);   
+        } else if(type == CREDITS) {
+            return chargeCredits(player, amount);
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Gives the given player a number of dollars
      * @param player: the player to be given money
      * @param amount: the number of dollars to be given to the player
