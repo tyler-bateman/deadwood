@@ -2,7 +2,10 @@
 package deadwood;
 
 /**
- *
+ * Class: Board
+ * The purpose of the Board class is to manage the spaces and players, including reseting them to start a new day.
+ * 
+ * 
  * @author tyler
  */
 public class Board {
@@ -17,13 +20,16 @@ public class Board {
       *   Deals new scene cards
       */
     public void newDay() {
+      //Close all scenes
       for(Scene s: getScenes()) {
         s.close();
       }
+      //Move players to the trailors
       for(Player p: players) {
         p.setLocation(trailorsID);
         spaces[trailorsID].addPlayer(p);
       }
+      //Deal new cards
       Deck.deal(getScenes());
 
     }
@@ -47,7 +53,8 @@ public class Board {
     public Scene[] getScenes() {
         return scenes;
     }
-
+    
+    //Returns the scene with the given id
     public Scene getScene(int id) {
         return scenes[id];
     }
@@ -71,11 +78,13 @@ public class Board {
     public void setPlayers(Player[] ps) {
         players = ps;
     }
-
+    
+    //Gets the id of the trailors
     public int getTrailorsID() {
         return trailorsID;
     }
-
+    
+    //Sets the id of the trailors
     private void setTrailorsID(int newID) {
         trailorsID = newID;
     }
