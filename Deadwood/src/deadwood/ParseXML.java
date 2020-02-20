@@ -37,7 +37,7 @@ public class ParseXML{
              
     public Board buildBoard(Document d){   
             
-        Board board = new Board();
+        Board board = Board.getInstance();
         Scene[] scenes = new Scene[10];
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();

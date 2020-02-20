@@ -20,7 +20,7 @@ public class Deadwood {
     public static void main(String[] args) {
         
         Stack<SceneCard> deck = new Stack<SceneCard>();
-        Board board = new Board();
+        Board board;
         
         Document boardDoc = null;
         Document cardsDoc = null;

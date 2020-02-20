@@ -14,7 +14,8 @@ public class DayManager{
     * Returns true if there is only one active scene left on the board
     * @param b: the board
     */
-  public static boolean checkForDayEnd(Board b) {
+  public static boolean checkForDayEnd() {
+      Board b = Board.getInstance();
       int activeScenes = 0;
       for(Scene scene: b.getScenes()) {
         if(scene.getCard() != null) {
@@ -31,7 +32,8 @@ public class DayManager{
   }
   
   /**
-   * Manages what happenes at the end of a day, including incrementing the day and checking for whether the game is over
+   * Manages what happens at the end of a day, including incrementing the day and checking for whether the game is over
+   * @param b: the game board
    */
   private static void dayEnd(Board b) {
     setDay(getDay() + 1);

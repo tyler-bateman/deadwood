@@ -143,6 +143,8 @@ public class Scene extends Space {
             }
           }
         }
+        setCard(null);
+        DayManager.checkForDayEnd();
     }
     
     @Override
