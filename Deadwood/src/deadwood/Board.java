@@ -49,7 +49,7 @@ public class Board {
         spaces[trailorsID].addPlayer(p);
       }
       //Deal new cards
-      Deck.deal(getScenes());
+      Deck.getInstance().deal(getScenes());
 
     }
 
