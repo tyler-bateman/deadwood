@@ -3,16 +3,35 @@ package deadwood;
 
 /**
  * Class: Board
- * The purpose of the Board class is to manage the spaces and players, including reseting them to start a new day.
+ * The purpose of the Board class is to manage the spaces and players, 
+ * including reseting them to start a new day.
  * 
+ * Implements Singleton design pattern with eager initialization since every 
+ * game will have one and only one board that is created on startup
  * 
  * @author tyler
  */
 public class Board {
+    private static Board instance = new Board();
     private Space[] spaces;
     private Scene[] scenes;
     private int trailorsID;
     private Player[] players;
+    
+    /**
+     * Private constructor as required by Singleton design pattern.
+     * Does not set the state of the new board since this is done externally by ParseXML.java
+     */
+    private Board() {}
+    
+    /**
+     * getInstance() method as required by Singleton design pattern
+     * @return the singular instance of Board
+     */
+    public static Board getInstance() {
+        return instance;
+    }
+    
 
     /**
       * Resets the board for a new day:
