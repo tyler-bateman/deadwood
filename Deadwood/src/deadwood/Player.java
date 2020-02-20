@@ -25,7 +25,7 @@ public class Player {
      * @param ID: The player's ID
      * @param name: the player's name
     */
-    public Player(int ID, String name, int startingLocation) {
+    public Player(int ID, String nmame, int startingLocation) {
         this.ID = ID;
         this.name = name;
         location = startingLocation;
@@ -34,7 +34,7 @@ public class Player {
         rank = 0;
         currRole = null;
         rehearsalChips= 0;
-        
+        Board.getInstance().getSpaces()[location].addPlayer(this);
     }
     public int getScore() {
         return ScoreManager.getScore(ID);
