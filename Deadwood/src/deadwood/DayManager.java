@@ -11,7 +11,8 @@ public class DayManager{
 
   /**
     * Resets the board for the new day if there is only one active scene left.
-    * Returns true if there is only one active scene left on the board
+    * @return true if there is only one or less active scenes left on the board
+    *         otherwise false
     */
   public static boolean checkForDayEnd() {
       Board b = Board.getInstance();
@@ -44,7 +45,7 @@ public class DayManager{
   }
 
   /**
-    * Returns the current day
+    * @return the current day
     */
   public static int getDay() {
       return day;
@@ -52,6 +53,7 @@ public class DayManager{
 
   /**
     * Sets the day number
+    * @param newDay: the new day number
     */
   private static void setDay(int newDay) {
       day = newDay;
