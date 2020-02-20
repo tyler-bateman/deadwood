@@ -35,9 +35,9 @@ public class DayManager{
    */
   private static void dayEnd(Board b) {
     setDay(getDay() + 1);
-    if((b.getPlayers().length < 4 && getDay() >= 3) || getDay >= 4) {
-        ScoreManager.declareWinner();
-    else {
+    if((b.getPlayers().length < 4 && getDay() >= 3) || getDay() >= 4) {
+        ScoreManager.declareWinner(b.getPlayers());
+    } else {
         b.newDay();
     }
   }

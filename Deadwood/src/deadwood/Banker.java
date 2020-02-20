@@ -50,9 +50,9 @@ public class Banker {
      * @param CurrencyType: the type of currency to be charged
      */
     public static boolean charge(Player player, int amount, CurrencyType type) {
-        if(type == DOLLARS) {
+        if(type == CurrencyType.DOLLARS) {
             return chargeDollars(player, amount);   
-        } else if(type == CREDITS) {
+        } else if(type == CurrencyType.CREDITS) {
             return chargeCredits(player, amount);
         } else {
             return false;
