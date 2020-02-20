@@ -53,57 +53,85 @@ public class Board {
 
     }
 
-    //Returns an array containing the Spaces
+    /**
+     * Gets the array of spaces
+     * @return the array of spaces
+     */
     public Space[] getSpaces() {
         return spaces;
     }
 
-    //Returns the space with the given id
+    /**
+     * Gets a specific space
+     * @param id the id of the desired space
+     * @return the space with the given id
+     */
     public Space getSpace(int id) {
         return spaces[id];
     }
 
-    //Setter for the spaces field
+    /**
+     * Sets the array of spaces
+     * @param s the new array of spaces
+     */
     private void setSpaces(Space[] s) {
         spaces = s;
     }
 
-    //Returns an array containing the list of scenes
+    /**
+     * Gets the array of scenes
+     * @return the array of scenes
+     */
     public Scene[] getScenes() {
         return scenes;
     }
     
-    //Returns the scene with the given id
-    public Scene getScene(int id) {
-        return scenes[id];
-    }
 
-    //Setter for the scenes field
+    /**
+     * Sets the scene array
+     * @param s the new scene array
+     */
     public void setScenes(Scene[] s) {
         scenes = s;
     }
 
-    //Returns an array containing the players on the board
+    /**
+     * Gets the array of players
+     * @return the array of players
+     */
     public Player[] getPlayers() {
         return players;
     }
 
-    //Returns the Player with the given id
+    /**
+     * Gets a specific player
+     * @param id the id of the desired player
+     * @return the player with the given id
+     */
     public Player getPlayer(int id) {
         return getPlayers()[id];
     }
 
-    //Setter for the players field
+    /**
+     * Sets the player array
+     * @param ps the array of players
+     */
     public void setPlayers(Player[] ps) {
         players = ps;
     }
     
-    //Gets the id of the trailors
+    /**
+     * Gets the id of the trailers
+     * @return id of the trailors space
+     */
     public int getTrailorsID() {
         return trailorsID;
     }
     
-    //Sets the id of the trailors
+    /**
+     * Sets the id of the trailors space
+     * @param newID the new id for the trailors
+     */
     private void setTrailorsID(int newID) {
         trailorsID = newID;
     }
