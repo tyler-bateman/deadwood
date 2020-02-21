@@ -11,7 +11,6 @@ package deadwood;
  */
 public class Player {
     private int ID;
-    private String name;
     private int location;
     private int dollars;
     private int credits;
