@@ -26,18 +26,13 @@ public class Deadwood {
         int dieRoll = 0;
         Player players[];
         CastingOffice castingOffice = new CastingOffice();
-        Deck deck;
+        Deck deck = Deck.getInstance();
         Dice dice = new Dice();
         int cnt =1;
         Scene sceneMovedTo = new Scene();
-        Scanner sc1 = new Scanner(System.in);
-        Scanner sc2 = new Scanner(System.in);
-        Scanner sc3 = new Scanner(System.in);
-        Scanner sc4 = new Scanner(System.in);
-        Scanner sc5 = new Scanner(System.in);
-        Scanner sc6 = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         Stack<SceneCard> stackOfCards = new Stack<SceneCard>();
-        Board board;
+        Board board = Board.getInstance();
         
         Document boardDoc = null;
         Document cardsDoc = null;
@@ -57,16 +52,13 @@ public class Deadwood {
         }
         
         System.out.println("Welcome to Deadwood ! \n\t Please input the number of players: ");
-        numberOfPlayers = sc1.nextInt();
+        numberOfPlayers = sc.nextInt();
+        
+        
         players = new Player[numberOfPlayers];
         
         for(int i=0; i< numberOfPlayers; i++){
-            Player player = new Player(i,"trailer");
-            try{
-            board.getScene(10).addPlayer(player);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            Player player = new Player(i,0);
             players[i] = player;
             
         }
@@ -121,7 +113,7 @@ public class Deadwood {
                 System.out.println("3. Rehearse");
                 System.out.println("4. Upgrade");
                 System.out.println("5. End turn\n");
-                menuChoice = sc1.nextInt();
+                menuChoice = sc.nextInt();
                 
                 switch(menuChoice){
                     case 1:
@@ -135,7 +127,7 @@ public class Deadwood {
                                         cnt++;
                                     }
                                     cnt =1;
-                                    int moveChoice = sc2.nextInt();
+                                    int moveChoice = sc.nextInt();
                                     board.getPlayer(i).setLocation(board.getScene(j).getAdjacentSpaces().get(moveChoice-1).getName());
                                     board.getScene(j).removePlayer(board.getPlayer(i));
                                     sceneMovedTo = board.getScene(j).getAdjacentSpaces().get(moveChoice-1);
@@ -150,7 +142,7 @@ public class Deadwood {
                                     System.out.println("You can still take a role, or end your turn");
                                     System.out.println("1. Take a role");
                                     System.out.println("2. End Turn");
-                                    int afterMoveChoice = sc3.nextInt();
+                                    int afterMoveChoice = sc.nextInt();
                                     switch(afterMoveChoice){
                                         case 1:
                                             if(board.getScene(sceneMovedTo.ID).getRemainingShots() == 0){
@@ -173,7 +165,7 @@ public class Deadwood {
                                                 cnt++;
                                             }
                                             cnt=1;
-                                            int roleChoice = sc4.nextInt();
+                                            int roleChoice = sc.nextInt();
                                             
 
                                             
@@ -220,6 +212,7 @@ public class Deadwood {
                         break;
                     
                     case 2:
+                        
                       if(board.getPlayer(i).getRole()!=null){
                         dice.roll(1);
                         dieRoll = dice.getDice().getFirst() + board.getPlayer(i).getRehearsalChips();
@@ -289,11 +282,11 @@ public class Deadwood {
                                 System.out.println("3. To upgrade to Rank 4 you need "+castingOffice.getDollarPrice(4)+ " dollars or "+ castingOffice.getCreditPrice(4)+" credits");
                                 System.out.println("4. To upgrade to Rank 5 you need "+castingOffice.getDollarPrice(5)+ " dollars or "+ castingOffice.getCreditPrice(5)+" credits");
                                 System.out.println("5. To upgrade to Rank 6 you need "+castingOffice.getDollarPrice(6)+ " dollars or "+ castingOffice.getCreditPrice(6)+" credits");
-                                int rankChoice = sc5.nextInt();
+                                int rankChoice = sc.nextInt();
                                 System.out.println("Dollars or Credits ?");
                                 System.out.println("1. Dollars");
                                 System.out.println("2. Credits");
-                                int paymentChoice = sc6.nextInt();
+                                int paymentChoice = sc.nextInt();
                                 
                                 if(paymentChoice == 1){
                                     if(castingOffice.purchaseRank(board.getPlayer(i), (rankChoice+1), CurrencyType.DOLLARS)){

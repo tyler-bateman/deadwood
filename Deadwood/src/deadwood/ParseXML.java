@@ -38,7 +38,8 @@ public class ParseXML{
     public Board buildBoard(Document d){   
         
         Board board = Board.getInstance();
-        Scene[] scenes = new Scene[12];
+        Scene[] scenes = new Scene[10];
+        Space[] spaces = new Space[2];
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();
         NodeList sets = root.getElementsByTagName("set");
@@ -138,12 +139,12 @@ public class ParseXML{
 
         NodeList trailer = root.getElementsByTagName("trailer");
         for(int i =10; i<(trailer.getLength()+10);i++){
-            Scene scene = new Scene();
+            Space space = new Space();
             //LinkedList<String> Neighbors = new LinkedList<String>();
             
             Node trailerNode = trailer.item(0);          
-            scene.setName("trailer"); 
-            scene.ID = i;
+            space.setName("trailer"); 
+            space.ID = i-10;
             
            /* NodeList trailerChildren = trailerNode.getChildNodes();
             Node neighborNode = trailerChildren.item(1);
@@ -160,17 +161,17 @@ public class ParseXML{
                 } 
             }
             scene.setAdjacentSpaces(Neighbors);   */
-            scenes[i] = scene;
+            spaces[i-10] = space;
         }
         
         NodeList office = root.getElementsByTagName("office");
         for(int i =11; i<(office.getLength()+11);i++){
-            Scene scene = new Scene();
+            Space space = new Space();
             //LinkedList<String> Neighbors = new LinkedList<String>();   
             
             Node officeNode = office.item(0);          
-            scene.setName("office"); 
-            scene.ID = i;
+            space.setName("office"); 
+            space.ID = i-10;
             
             /*NodeList officeChildren = officeNode.getChildNodes();
 
@@ -188,10 +189,11 @@ public class ParseXML{
                 } 
             }
             scene.setAdjacentSpaces(Neighbors);*/
-            scenes[i] = scene;  
+            spaces[i-10] = space;  
         }
         
         board.setScenes(scenes);
+        board.setSpaces(spaces);
           
         }catch(Exception e){
             e.printStackTrace();
@@ -266,8 +268,7 @@ public class ParseXML{
         NodeList sets = root.getElementsByTagName("set");
         try{ 
         for (int i=0; i<sets.getLength();i++){  
-            Scene scene = board.getScene(i);
-            LinkedList<Scene> Neighbors = new LinkedList<Scene>();
+            LinkedList<Space> Neighbors = new LinkedList<>();
                 
             Node setNode = sets.item(i);
             
@@ -301,8 +302,7 @@ public class ParseXML{
         
         NodeList trailer = root.getElementsByTagName("trailer");
         for(int i =10; i<(trailer.getLength()+10);i++){
-            Scene scene = board.getScene(i);
-            LinkedList<Scene> Neighbors = new LinkedList<Scene>();
+            LinkedList<Space> Neighbors = new LinkedList<>();
             
             Node trailerNode = trailer.item(0);          
             
@@ -323,13 +323,12 @@ public class ParseXML{
                     }
                 } 
             }
-            board.getScene(i).setAdjacentSpaces(Neighbors);
+            board.getSpace(i-10).setAdjacentSpaces(Neighbors);
         }
         
         NodeList office = root.getElementsByTagName("office");
         for(int i =11; i<(trailer.getLength()+11);i++){
-            Scene scene = board.getScene(i);
-            LinkedList<Scene> Neighbors = new LinkedList<Scene>();
+            LinkedList<Space> Neighbors = new LinkedList<>();
             
             Node officeNode = office.item(0);          
             
@@ -350,7 +349,7 @@ public class ParseXML{
                     }
                 } 
             }
-            board.getScene(i).setAdjacentSpaces(Neighbors);
+            board.getSpace(i-10).setAdjacentSpaces(Neighbors);
         }
                 
         }catch(Exception e){

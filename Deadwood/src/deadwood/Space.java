@@ -18,7 +18,7 @@ public class Space {
     protected int ID;
     protected String name;
     protected Set<Player> players; //The set of players currently in this space
-    protected LinkedList<Scene> adjacentSpaces; //Array containing the IDs of all adjacent spaces
+    protected LinkedList<Space> adjacentSpaces; //Array containing the IDs of all adjacent spaces
     
     /**
      * 
@@ -102,7 +102,7 @@ public class Space {
      * 
      * @return an array containing the id's of the adjacent spaces
      */
-    public LinkedList<Scene> getAdjacentSpaces() {
+    public LinkedList<Space> getAdjacentSpaces() {
         return adjacentSpaces;
     }
     
@@ -110,7 +110,7 @@ public class Space {
      * 
      * @param spaces : the new array of adjacent spaces
      */
-    public void setAdjacentSpaces(LinkedList<Scene> spaces) {
+    public void setAdjacentSpaces(LinkedList<Space> spaces) {
         adjacentSpaces = spaces;
     }
 }
