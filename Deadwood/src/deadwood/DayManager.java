@@ -5,8 +5,24 @@ package deadwood;
   *
   */
 public class DayManager{
-  private static int currentDay =1;
+  private static int currentDay;
   private static int numberOfDays;
+  
+  /**
+   * Initializes the day manger at the beginning of the game
+   * @param numPlayers the number of players playing the game
+   */
+  public static void init(int numPlayers) {
+      if(numPlayers > 3) {
+          numberOfDays = 3;
+      } else {
+          numberOfDays = 4;
+      }
+      setCurrentDay(0);
+      dayEnd(Board.getInstance());
+      
+  }
+  
   /**
     * Resets the board for the new day if there is only one active scene left.
     * @return true if there is only one or less active scenes left on the board
@@ -21,7 +37,7 @@ public class DayManager{
         }
       }
       if(activeScenes <= 1) {
-          dayEnd(b);
+        dayEnd(b);
         return true;
         
       } else {
@@ -35,7 +51,7 @@ public class DayManager{
    */
   private static void dayEnd(Board b) {
     setCurrentDay(getCurrentDay() + 1);
-    if((b.getPlayers().length < 4 && getCurrentDay() >= 3) || getCurrentDay() >= 4) {
+    if(getCurrentDay() >= getNumberOfDays()) {
         ScoreManager.declareWinner(b.getPlayers());
     } else {
         b.newDay();
