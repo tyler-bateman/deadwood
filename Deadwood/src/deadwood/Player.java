@@ -26,7 +26,6 @@ public class Player {
     */
     public Player(int ID, int startingLocation) {
         this.ID = ID;
-        this.name = name;
         location = startingLocation;
         dollars = 0;
         credits = 0;
@@ -40,9 +39,6 @@ public class Player {
     }
     public int getID() {
         return ID;
-    }
-    public String getName() {
-        return name;
     }
     public int getLocation() {
         return location;
