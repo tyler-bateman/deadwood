@@ -304,39 +304,3 @@ public class Deadwood {
         System.exit(0);
     }
 }
-
-
-
-
-            /*for(int i = 0; i<board.getScenes().length; i++){
-                System.out.println(board.getScene(i).getName());
-                System.out.println(board.getScene(i).ID);
-                System.out.println(board.getScene(i).getTotalShots());
-                LinkedList<Role> roles = board.getScene(i).getOffCardRoles();
-                LinkedList<String> neighbors = board.getScene(i).getAdjacentSpaces();
-                for(int j=0; j<roles.size() ; j++){
-                    Role role = (Role) roles.get(j);
-                    System.out.println(role.getName());
-                    System.out.println(role.getRank());
-                    System.out.println(role.getLine());
-                }
-                for(int j=0; j<neighbors.size() ; j++){
-                    System.out.println(neighbors.get(j));
-                }                
-                System.out.println("\n\n");
-
-
-            for(int i=0; i<board.getScenes().length;i++){
-                System.out.println(board.getScene(i).ID);
-            }
-            }
-
-
-            for(int i=0; i<board.getScenes().length;i++){
-                System.out.println(board.getScene(i).getName()+"\n");
-                Iterator<Scene> iterator = board.getScene(i).getAdjacentSpaces().iterator();
-                while (iterator.hasNext()) {                                      
-                    System.out.println(iterator.next().getName()); 
-                } 
-                System.out.println("\n");
-            }*/
