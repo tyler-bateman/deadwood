@@ -39,7 +39,7 @@ public class ParseXML{
         
         Board board = Board.getInstance();
         Scene[] scenes = new Scene[10];
-        Space[] spaces = new Space[2];
+        Space[] spaces = new Space[12];
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();
         NodeList sets = root.getElementsByTagName("set");
@@ -47,7 +47,6 @@ public class ParseXML{
         for (int i=0; i<sets.getLength();i++){  
             Scene scene = new Scene();
             LinkedList<Role> offCardRoles = new LinkedList<Role>();
-            //LinkedList<String> Neighbors = new LinkedList<String>();
                 
             Node setNode = sets.item(i);
             
@@ -60,19 +59,7 @@ public class ParseXML{
                 NodeList setChildren = setNode.getChildNodes();
                 
                 for (int j=0; j< setChildren.getLength(); j++){                    
-                    Node setChildrenSub = setChildren.item(j);      
-                    
-                    /*if("neighbors".equals(setChildrenSub.getNodeName())){
-                        NodeList neighborsChildren = setChildrenSub.getChildNodes();
-                         
-                        for(int k=0; k <neighborsChildren.getLength(); k++){
-                            Node neighborChild = neighborsChildren.item(k);
-                            if("neighbor".equals(neighborChild.getNodeName())){
-                                String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                                Neighbors.add(neighborName);
-                            }
-                        }
-                    }*/
+                    Node setChildrenSub = setChildren.item(j);                         
                  
                     if("takes".equals(setChildrenSub.getNodeName())){
                         NodeList takesChildren = setChildrenSub.getChildNodes();
@@ -130,38 +117,21 @@ public class ParseXML{
                         }
                     }
                     scene.setOffCardRoles(offCardRoles); 
-                    //scene.setAdjacentSpaces(Neighbors);
                 }
-            }
-                       
+            }                    
             scenes[i] = scene;
+            spaces[i] = scene;
         }
 
         NodeList trailer = root.getElementsByTagName("trailer");
         for(int i =10; i<(trailer.getLength()+10);i++){
             Space space = new Space();
-            //LinkedList<String> Neighbors = new LinkedList<String>();
             
             Node trailerNode = trailer.item(0);          
             space.setName("trailer"); 
-            space.ID = i-10;
+            space.ID = i;
             
-           /* NodeList trailerChildren = trailerNode.getChildNodes();
-            Node neighborNode = trailerChildren.item(1);
-            if("neighbors".equals(neighborNode.getNodeName())){
-                
-                NodeList neighborsChildren = neighborNode.getChildNodes();
-          
-                for(int k=0; k <neighborsChildren.getLength(); k++){
-                    Node neighborChild = neighborsChildren.item(k);
-                    if("neighbor".equals(neighborChild.getNodeName())){
-                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                        Neighbors.add(neighborName);
-                    }
-                } 
-            }
-            scene.setAdjacentSpaces(Neighbors);   */
-            spaces[i-10] = space;
+            spaces[i] = space;
         }
         
         NodeList office = root.getElementsByTagName("office");
@@ -171,25 +141,9 @@ public class ParseXML{
             
             Node officeNode = office.item(0);          
             space.setName("office"); 
-            space.ID = i-10;
-            
-            /*NodeList officeChildren = officeNode.getChildNodes();
+            space.ID = i;
 
-            Node neighborNode = officeChildren.item(1);
-            if("neighbors".equals(neighborNode.getNodeName())){
-                
-                NodeList neighborsChildren = neighborNode.getChildNodes();
-          
-                for(int k=0; k <neighborsChildren.getLength(); k++){
-                    Node neighborChild = neighborsChildren.item(k);
-                    if("neighbor".equals(neighborChild.getNodeName())){
-                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                        Neighbors.add(neighborName);
-                    }
-                } 
-            }
-            scene.setAdjacentSpaces(Neighbors);*/
-            spaces[i-10] = space;  
+            spaces[i] = space;  
         }
         
         board.setScenes(scenes);
@@ -289,9 +243,7 @@ public class ParseXML{
                                     if(board.getScene(n).getName().equals(neighborName)){
                                         Neighbors.add(board.getScene(n));
                                     }
-                                }
-                                
-                                //Neighbors.add(neighborName);
+                                }                              
                             }
                         }
                     }
@@ -323,7 +275,7 @@ public class ParseXML{
                     }
                 } 
             }
-            board.getSpace(i-10).setAdjacentSpaces(Neighbors);
+            board.getSpace(i).setAdjacentSpaces(Neighbors);
         }
         
         NodeList office = root.getElementsByTagName("office");
@@ -349,12 +301,16 @@ public class ParseXML{
                     }
                 } 
             }
-            board.getSpace(i-10).setAdjacentSpaces(Neighbors);
+            board.getSpace(i).setAdjacentSpaces(Neighbors);
         }
                 
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+            for(int i=0; i<board.getSpaces().length;i++){
+                System.out.println(board.getSpace(i).ID + "  " + board.getSpace(i).getName());
+            }
     }
     
     
