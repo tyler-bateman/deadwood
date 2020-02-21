@@ -290,7 +290,19 @@ public class Deadwood {
               e.printStackTrace();
                  }
 
-    }   
+    }
+    
+    /**
+     * Declares one or more players the winner and terminates the program
+     * @param winners the list of winning players
+     */
+    public static void declareWinner(LinkedList<Integer> winners) {
+        System.out.println("The game is over! \nThe winners are:");
+        for(int p : winners) {
+            System.out.println("Player " + p);
+        }
+        System.exit(0);
+    }
 }
 
 
