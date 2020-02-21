@@ -30,7 +30,7 @@ public class ScoreManager {
                 winningPlayerIDs.add(i);
             }
         }
-        //TODO: Notify controller
+        Deadwood.declareWinner(winningPlayerIDs);
     }
     
     /**
