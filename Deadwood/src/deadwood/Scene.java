@@ -20,11 +20,16 @@ public class Scene extends Space {
     private int totalShots;
     private LinkedList<Role> offCardRoles;
    
-    
+    /**
+     * resets the shot counter
+     */
     public void resetShots(){
         remainingShots = totalShots;
     }
     
+    /**
+     * Removes all players from their roles in this scene and removes the card
+     */
     public void close(){
         for(Role r: card.getRoles()) {
           r.removePlayer();
@@ -34,15 +39,26 @@ public class Scene extends Space {
         }
         card = null;
     }
-
+    
+    /**
+     * Requests a role in this scene
+     * @param player the player requesting the role
+     * @param role the role that the player is requesting
+     * @return true if the player successfully claimed the role
+     */
     public boolean requestRole(Player player, Role role){
-        if(this.hasRole(role)) {
+        if(this.hasRole(role) && this.containsPlayer(player)) {
           return role.requestRole(player);
         } else {
           return false;
         }
     }
-
+    
+    /**
+     * 
+     * @param role the role to be checked
+     * @return true if this scene has the given role
+     */
     public boolean hasRole(Role role) {
         boolean result = false;
         for(Role r: offCardRoles) {
@@ -56,7 +72,12 @@ public class Scene extends Space {
         return false;
     }
 
-
+    
+    /**
+     * Increments the rehearsal chips for the given player
+     * @param player the player requesting rehearsal
+     * @return true if rehearsal was successful
+     */
     public boolean requestRehearsal(Player player){
         if(this.hasRole(player.getRole())) {
           player.setRehearsal(player.getRehearsalChips() + 1);
@@ -71,8 +92,6 @@ public class Scene extends Space {
       * Note: Returns true if the attempt went through regardless of whether the
       *       acting was successful or not.
       */
-    
-    
     public boolean requestActAttempt(Player player){
         if(this.hasRole(player.getRole())) {
           Dice d = new Dice(1);
@@ -100,7 +119,10 @@ public class Scene extends Space {
         }
     }
 
-
+    
+    /**
+     * Wraps the scene: assigns bonus amounts, pays bonus, 
+     */
     private void wrap(){
         if(card.hasPlayers()) {
           Dice d = new Dice(card.getBudget());
@@ -147,6 +169,13 @@ public class Scene extends Space {
         DayManager.checkForDayEnd();
     }
     
+    
+    /**
+     * Overrides requestMove from Space.java. Does the same thing only also flips the card
+     * @param player: the player requesting the move
+     * @param spaces: the array of spaces
+     * @return true if the move was successful
+     */
     @Override
     public boolean requestMove(Player player, Space[] spaces) {
         if(super.requestMove(player, spaces)) {
@@ -157,47 +186,90 @@ public class Scene extends Space {
         }
     }
 
-
+    /**
+     * 
+     * @return true if the scene is active, i.e it has a scene card
+     */
     public boolean isSceneActive(){
         return getCard()!=null;
     }
 
+    /**
+     * 
+     * @return the name of the scene
+     */
     public String getName(){
         return name;
     }
-
+    
+    /**
+     * Sets the scene name
+     * @param name the new name for the scene
+     */
     public void setName(String name){
         this.name = name;
     }
 
+    /**
+     * 
+     * @return the card for this scene
+     */
     public SceneCard getCard(){
         return card;
     }
 
+    /**
+     * Sets the card field
+     * @param card the new card for this scene
+     */
     public void setCard(SceneCard card){
         this.card = card;
     }
-
+    
+    /**
+     * 
+     * @return the number of remaining shots
+     */
     public int getRemainingShots(){
         return remainingShots;
     }
-
+    
+    /**
+     * Sets the number of remaining shots
+     * @param shots the new number of remaining shots
+     */
     private void setRemainingShots(int shots){
         remainingShots = shots;
     }
-
+    
+    /**
+     * Gets the list of off-card Roles
+     * @return the list of off-card Roles
+     */
     public LinkedList<Role> getOffCardRoles(){
         return offCardRoles;
     }
-
+    
+    /**
+     * Sets the list of off-card roles
+     * @param roles the new list of off-card roles
+     */
     public void setOffCardRoles(LinkedList<Role> roles){
         offCardRoles = roles;
     }
     
+    /**
+     * 
+     * @return the total number of shots needed for this scene
+     */
     public int getTotalShots(){
         return totalShots;
     }
     
+    /**
+     * Sets the number of shots needed for this scene
+     * @param t the new number of shots needed for this scene
+     */
     public void setTotalShots(int t){
         totalShots = t;
     }
