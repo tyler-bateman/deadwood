@@ -80,7 +80,7 @@ public class Scene extends Space {
      * @return true if rehearsal was successful
      */
     public boolean requestRehearsal(Player player){
-        if(this.hasRole(player.getRole())) {
+        if(this.hasRole(player.getRole()) && player.getRehearsalChips() < this.getCard().getBudget()) {
             player.setRehearsal(player.getRehearsalChips() + 1);
         }
         return true;
