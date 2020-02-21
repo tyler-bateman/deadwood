@@ -10,13 +10,15 @@ package deadwood;
  * @author tyler
  */
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class Space {
     protected int ID;
     protected String name;
     protected Set<Player> players; //The set of players currently in this space
-    protected int[] adjacentSpaces; //Array containing the IDs of all adjacent spaces
+    protected LinkedList<Scene> adjacentSpaces; //Array containing the IDs of all adjacent spaces
     
     /**
      * 
@@ -26,9 +28,9 @@ public class Space {
      *           False if move was invalid
      */
     public boolean requestMove(Player player, Space[] spaces) {
-        for(int i = 0; i < adjacentSpaces.length; i++) {
-            if(getAdjacentSpaces()[i] == player.getLocation()) {
-                spaces[player.getLocation()].removePlayer(player);
+        for(int i = 0; i < adjacentSpaces.size(); i++) {
+            if((adjacentSpaces.get(i)).equals(player.getLocation())) {
+                //spaces[player.getLocation()].removePlayer(player);
                 addPlayer(player);
                 return true;
             }
@@ -41,7 +43,11 @@ public class Space {
      * @param player : the player to be added to the player set
      */
     public void addPlayer(Player player) {
+        if(getPlayerSet()== null){
+            players = new HashSet<Player>();
+        }
         getPlayerSet().add(player);
+
     }
     
     /**
@@ -78,6 +84,14 @@ public class Space {
     
     /**
      * 
+     * @param Name the new name
+     */
+    public void setName(String Name){
+        name = Name;
+    }
+    
+    /**
+     * 
      * @return the set of players who are in this space
      */
     public Set<Player> getPlayerSet() {
@@ -88,7 +102,7 @@ public class Space {
      * 
      * @return an array containing the id's of the adjacent spaces
      */
-    public int[] getAdjacentSpaces() {
+    public LinkedList<Scene> getAdjacentSpaces() {
         return adjacentSpaces;
     }
     
@@ -96,7 +110,7 @@ public class Space {
      * 
      * @param spaces : the new array of adjacent spaces
      */
-    public void setAdjacentSpaces(int[] spaces) {
+    public void setAdjacentSpaces(LinkedList<Scene> spaces) {
         adjacentSpaces = spaces;
     }
 }

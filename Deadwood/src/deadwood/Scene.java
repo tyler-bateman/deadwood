@@ -38,8 +38,9 @@ public class Scene extends Space {
           r.removePlayer();
         }
         card = null;
+        resetShots();
     }
-    
+
     /**
      * Requests a role in this scene
      * @param player the player requesting the role
@@ -53,7 +54,7 @@ public class Scene extends Space {
           return false;
         }
     }
-    
+
     /**
      * 
      * @param role the role to be checked
@@ -72,7 +73,7 @@ public class Scene extends Space {
         return false;
     }
 
-    
+
     /**
      * Increments the rehearsal chips for the given player
      * @param player the player requesting rehearsal
@@ -80,7 +81,7 @@ public class Scene extends Space {
      */
     public boolean requestRehearsal(Player player){
         if(this.hasRole(player.getRole())) {
-          player.setRehearsal(player.getRehearsalChips() + 1);
+            player.setRehearsal(player.getRehearsalChips() + 1);
         }
         return true;
     }
@@ -119,12 +120,13 @@ public class Scene extends Space {
         }
     }
 
-    
+
     /**
      * Wraps the scene: assigns bonus amounts, pays bonus, 
      */
     private void wrap(){
         if(card.hasPlayers()) {
+          System.out.println("There are players on the card. Players will receive a bonus");
           Dice d = new Dice(card.getBudget());
           int currRoleIndex = 0;
           List<Role> roleList = card.getRoles();
@@ -157,7 +159,9 @@ public class Scene extends Space {
 
           }
 
-        } else { //There are no players on the card
+        } 
+        else { //There are no players on the card
+            System.out.println("There are no players on the card. There is no bonus");
           for(Role r: getOffCardRoles()) {
             if(r.getOccupant() != null) {
               r.getOccupant().setRole(null);
@@ -201,7 +205,7 @@ public class Scene extends Space {
     public String getName(){
         return name;
     }
-    
+
     /**
      * Sets the scene name
      * @param name the new name for the scene
@@ -225,7 +229,7 @@ public class Scene extends Space {
     public void setCard(SceneCard card){
         this.card = card;
     }
-    
+
     /**
      * 
      * @return the number of remaining shots
@@ -233,7 +237,7 @@ public class Scene extends Space {
     public int getRemainingShots(){
         return remainingShots;
     }
-    
+
     /**
      * Sets the number of remaining shots
      * @param shots the new number of remaining shots
@@ -241,7 +245,7 @@ public class Scene extends Space {
     private void setRemainingShots(int shots){
         remainingShots = shots;
     }
-    
+
     /**
      * Gets the list of off-card Roles
      * @return the list of off-card Roles
@@ -249,7 +253,7 @@ public class Scene extends Space {
     public LinkedList<Role> getOffCardRoles(){
         return offCardRoles;
     }
-    
+
     /**
      * Sets the list of off-card roles
      * @param roles the new list of off-card roles

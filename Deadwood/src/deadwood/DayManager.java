@@ -1,14 +1,12 @@
 package deadwood;
 
 /**
- * Class: DayManager
- * Keeps track of the day number and triggers events that relate to the end of a day
- * @author tyler
- *
- */
+  * @author tyler
+  *
+  */
 public class DayManager{
-  private static int day;
-
+  private static int currentDay =1;
+  private static int numberOfDays;
   /**
     * Resets the board for the new day if there is only one active scene left.
     * @return true if there is only one or less active scenes left on the board
@@ -23,7 +21,7 @@ public class DayManager{
         }
       }
       if(activeScenes <= 1) {
-        dayEnd(b);
+          dayEnd(b);
         return true;
         
       } else {
@@ -31,13 +29,13 @@ public class DayManager{
       }
   }
   
-  /**
+    /**
    * Manages what happens at the end of a day, including incrementing the day and checking for whether the game is over
    * @param b: the game board
    */
   private static void dayEnd(Board b) {
-    setDay(getDay() + 1);
-    if((b.getPlayers().length < 4 && getDay() >= 3) || getDay() >= 4) {
+    setCurrentDay(getCurrentDay() + 1);
+    if((b.getPlayers().length < 4 && getCurrentDay() >= 3) || getCurrentDay() >= 4) {
         ScoreManager.declareWinner(b.getPlayers());
     } else {
         b.newDay();
@@ -45,17 +43,24 @@ public class DayManager{
   }
 
   /**
-    * @return the current day
+    * Returns the current day
     */
-  public static int getDay() {
-      return day;
+  public static int getCurrentDay() {
+      return currentDay;
   }
 
   /**
     * Sets the day number
-    * @param newDay: the new day number
     */
-  public static void setDay(int newDay) {
-      day = newDay;
+  private static void setCurrentDay(int newDay) {
+      currentDay = newDay;
+  }
+  
+  public static int getNumberOfDays(){
+      return numberOfDays;
+  }
+  
+  public static void setNumberOfDays(int n){
+      numberOfDays = n;
   }
 }

@@ -36,86 +36,167 @@ public class ParseXML{
         }  
              
     public Board buildBoard(Document d){   
-            
+        
         Board board = Board.getInstance();
-        Scene[] scenes = new Scene[10];
+        Scene[] scenes = new Scene[12];
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();
         NodeList sets = root.getElementsByTagName("set");
-            
+        try{ 
         for (int i=0; i<sets.getLength();i++){  
             Scene scene = new Scene();
-            LinkedList<Role> offCardRoles= new LinkedList<Role>();
+            LinkedList<Role> offCardRoles = new LinkedList<Role>();
+            //LinkedList<String> Neighbors = new LinkedList<String>();
                 
-            Node set = sets.item(i);
-            String setName = set.getAttributes().getNamedItem("name").getNodeValue();
-            scene.setName(setName);                          
+            Node setNode = sets.item(i);
+            
+            if("set".equals(setNode.getNodeName())){
+           
+                String setName = setNode.getAttributes().getNamedItem("name").getNodeValue();
+                scene.setName(setName); 
+                scene.ID = i;
                 
-            NodeList setChildren = set.getChildNodes();
+                NodeList setChildren = setNode.getChildNodes();
                 
-            for (int j=0; j< setChildren.getLength(); j++){                    
-                Node setChildrenSub = setChildren.item(j);                
+                for (int j=0; j< setChildren.getLength(); j++){                    
+                    Node setChildrenSub = setChildren.item(j);      
+                    
+                    /*if("neighbors".equals(setChildrenSub.getNodeName())){
+                        NodeList neighborsChildren = setChildrenSub.getChildNodes();
+                         
+                        for(int k=0; k <neighborsChildren.getLength(); k++){
+                            Node neighborChild = neighborsChildren.item(k);
+                            if("neighbor".equals(neighborChild.getNodeName())){
+                                String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                                Neighbors.add(neighborName);
+                            }
+                        }
+                    }*/
                  
-                if("takes".equals(setChildrenSub.getNodeName())){
-                    NodeList takesChildren = setChildrenSub.getChildNodes();
-                    int[] takes = {0,0,0,0,0,0,0,0,0,0};
-                    for(int k=0; k< takesChildren.getLength(); k++ ){                          
-                        try{
+                    if("takes".equals(setChildrenSub.getNodeName())){
+                        NodeList takesChildren = setChildrenSub.getChildNodes();
+                        int[] takes = {0,0,0,0,0,0,0,0,0,0};
+                        for(int k=0; k< takesChildren.getLength(); k++ ){                          
+                            try{
 
-                            Node take = takesChildren.item(k);
+                                Node take = takesChildren.item(k);
 
-                            if((take.getNodeName()).equals("take")){
-                                String takeNumber= take.getAttributes().getNamedItem("number").getNodeValue();
-                                takes[k] = Integer.parseInt(takeNumber);
-                            }
-
-                        }catch(Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                    Arrays.sort(takes);
-                    scene.setTotalShots(takes[9]);
-                }
-             
-                else if("parts".equals(setChildrenSub.getNodeName())){
-
-                    NodeList partsChildren = setChildrenSub.getChildNodes();
-                    for(int k=0; k< partsChildren.getLength();k++){
-
-                        try{
-
-                            Node part = partsChildren.item(k);
-                                
-                            if("part".equals(part.getNodeName())){
-                                
-                                Role role = new Role();
-                                String partName = part.getAttributes().getNamedItem("name").getNodeValue();
-                                role.setName(partName);
-                                String partLevel = part.getAttributes().getNamedItem("level").getNodeValue();
-                                role.setRank(Integer.parseInt(partLevel));
-                                NodeList partChildren = part.getChildNodes();
-                                        
-                                for(int m = 0; m< partChildren.getLength(); m++){                 
-                                        
-                                    Node childLine = partChildren.item(m);   
-                                    if("line".equals(childLine.getNodeName())){
-                                        String line = childLine.getTextContent();
-                                        role.setLine(line);
-                                    }              
+                                if((take.getNodeName()).equals("take")){
+                                    String takeNumber= take.getAttributes().getNamedItem("number").getNodeValue();
+                                    takes[k] = Integer.parseInt(takeNumber);
                                 }
-                                offCardRoles.add(role); 
+
+                            }catch(Exception e){
+                                e.printStackTrace();
                             }
-                        }catch(Exception e){
-                            e.printStackTrace();
+                        }
+                        Arrays.sort(takes);
+                        scene.setTotalShots(takes[9]);
+                        scene.resetShots();
+                    }
+             
+                    else if("parts".equals(setChildrenSub.getNodeName())){
+
+                        NodeList partsChildren = setChildrenSub.getChildNodes();
+                        for(int k=0; k< partsChildren.getLength();k++){
+
+                            try{
+
+                                Node part = partsChildren.item(k);
+                                
+                                if("part".equals(part.getNodeName())){
+                                
+                                    Role role = new Role();
+                                    String partName = part.getAttributes().getNamedItem("name").getNodeValue();
+                                    role.setName(partName);
+                                    String partLevel = part.getAttributes().getNamedItem("level").getNodeValue();
+                                    role.setRank(Integer.parseInt(partLevel));
+                                    NodeList partChildren = part.getChildNodes();
+                                        
+                                    for(int m = 0; m< partChildren.getLength(); m++){                 
+                                        
+                                        Node childLine = partChildren.item(m);   
+                                        if("line".equals(childLine.getNodeName())){
+                                            String line = childLine.getTextContent();
+                                            role.setLine(line);
+                                        }              
+                                    }
+                                    offCardRoles.add(role); 
+                                }
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     }
+                    scene.setOffCardRoles(offCardRoles); 
+                    //scene.setAdjacentSpaces(Neighbors);
                 }
-                scene.setOffCardRoles(offCardRoles); 
             }
+                       
             scenes[i] = scene;
         }
+
+        NodeList trailer = root.getElementsByTagName("trailer");
+        for(int i =10; i<(trailer.getLength()+10);i++){
+            Scene scene = new Scene();
+            //LinkedList<String> Neighbors = new LinkedList<String>();
+            
+            Node trailerNode = trailer.item(0);          
+            scene.setName("trailer"); 
+            scene.ID = i;
+            
+           /* NodeList trailerChildren = trailerNode.getChildNodes();
+            Node neighborNode = trailerChildren.item(1);
+            if("neighbors".equals(neighborNode.getNodeName())){
+                
+                NodeList neighborsChildren = neighborNode.getChildNodes();
+          
+                for(int k=0; k <neighborsChildren.getLength(); k++){
+                    Node neighborChild = neighborsChildren.item(k);
+                    if("neighbor".equals(neighborChild.getNodeName())){
+                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                        Neighbors.add(neighborName);
+                    }
+                } 
+            }
+            scene.setAdjacentSpaces(Neighbors);   */
+            scenes[i] = scene;
+        }
+        
+        NodeList office = root.getElementsByTagName("office");
+        for(int i =11; i<(office.getLength()+11);i++){
+            Scene scene = new Scene();
+            //LinkedList<String> Neighbors = new LinkedList<String>();   
+            
+            Node officeNode = office.item(0);          
+            scene.setName("office"); 
+            scene.ID = i;
+            
+            /*NodeList officeChildren = officeNode.getChildNodes();
+
+            Node neighborNode = officeChildren.item(1);
+            if("neighbors".equals(neighborNode.getNodeName())){
+                
+                NodeList neighborsChildren = neighborNode.getChildNodes();
+          
+                for(int k=0; k <neighborsChildren.getLength(); k++){
+                    Node neighborChild = neighborsChildren.item(k);
+                    if("neighbor".equals(neighborChild.getNodeName())){
+                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                        Neighbors.add(neighborName);
+                    }
+                } 
+            }
+            scene.setAdjacentSpaces(Neighbors);*/
+            scenes[i] = scene;  
+        }
+        
         board.setScenes(scenes);
-        return board;   
+          
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return board; 
     }    
 
     public Stack<SceneCard> buildDeck(Document d){
@@ -177,5 +258,105 @@ public class ParseXML{
             StackOfCards.push(Card);        
         }
         return StackOfCards;
-    }   
+    }
+    
+    public void buildAdjacentSpaces(Document d, Board board){
+        d.getDocumentElement().normalize();
+        Element root = d.getDocumentElement();
+        NodeList sets = root.getElementsByTagName("set");
+        try{ 
+        for (int i=0; i<sets.getLength();i++){  
+            Scene scene = board.getScene(i);
+            LinkedList<Scene> Neighbors = new LinkedList<Scene>();
+                
+            Node setNode = sets.item(i);
+            
+            if("set".equals(setNode.getNodeName())){           
+                NodeList setChildren = setNode.getChildNodes();
+                
+                for (int j=0; j< setChildren.getLength(); j++){                    
+                    Node setChildrenSub = setChildren.item(j);      
+                    
+                    if("neighbors".equals(setChildrenSub.getNodeName())){
+                        NodeList neighborsChildren = setChildrenSub.getChildNodes();
+                         
+                        for(int k=0; k <neighborsChildren.getLength(); k++){
+                            Node neighborChild = neighborsChildren.item(k);
+                            if("neighbor".equals(neighborChild.getNodeName())){
+                                String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                                for(int n=0; n<board.getScenes().length;n++){
+                                    if(board.getScene(n).getName().equals(neighborName)){
+                                        Neighbors.add(board.getScene(n));
+                                    }
+                                }
+                                
+                                //Neighbors.add(neighborName);
+                            }
+                        }
+                    }
+                }
+            }
+            board.getScene(i).setAdjacentSpaces(Neighbors);
+        }
+        
+        NodeList trailer = root.getElementsByTagName("trailer");
+        for(int i =10; i<(trailer.getLength()+10);i++){
+            Scene scene = board.getScene(i);
+            LinkedList<Scene> Neighbors = new LinkedList<Scene>();
+            
+            Node trailerNode = trailer.item(0);          
+            
+            NodeList trailerChildren = trailerNode.getChildNodes();
+            Node neighborNode = trailerChildren.item(1);
+            if("neighbors".equals(neighborNode.getNodeName())){  
+                NodeList neighborsChildren = neighborNode.getChildNodes();
+                
+                for(int k=0; k <neighborsChildren.getLength(); k++){
+                    Node neighborChild = neighborsChildren.item(k);
+                    if("neighbor".equals(neighborChild.getNodeName())){
+                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                        for(int n=0; n<board.getScenes().length;n++){
+                            if(board.getScene(n).getName().equals(neighborName)){
+                                Neighbors.add(board.getScene(n));
+                            }
+                        }
+                    }
+                } 
+            }
+            board.getScene(i).setAdjacentSpaces(Neighbors);
+        }
+        
+        NodeList office = root.getElementsByTagName("office");
+        for(int i =11; i<(trailer.getLength()+11);i++){
+            Scene scene = board.getScene(i);
+            LinkedList<Scene> Neighbors = new LinkedList<Scene>();
+            
+            Node officeNode = office.item(0);          
+            
+            NodeList officeChildren = officeNode.getChildNodes();
+            Node neighborNode = officeChildren.item(1);
+            if("neighbors".equals(neighborNode.getNodeName())){  
+                NodeList neighborsChildren = neighborNode.getChildNodes();
+                
+                for(int k=0; k <neighborsChildren.getLength(); k++){
+                    Node neighborChild = neighborsChildren.item(k);
+                    if("neighbor".equals(neighborChild.getNodeName())){
+                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                        for(int n=0; n<board.getScenes().length;n++){
+                            if(board.getScene(n).getName().equals(neighborName)){
+                                Neighbors.add(board.getScene(n));
+                            }
+                        }
+                    }
+                } 
+            }
+            board.getScene(i).setAdjacentSpaces(Neighbors);
+        }
+                
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    
 }

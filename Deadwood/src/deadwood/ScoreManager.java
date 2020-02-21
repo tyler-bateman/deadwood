@@ -54,7 +54,7 @@ public class ScoreManager {
         return playerScores[p.getID()] = p.getCredits() + p.getDollars() + p.getRank() * 5;
     }
     
-    
+               
     /**
      * Gets the array containing the player scores
      * @return the array containing the scores

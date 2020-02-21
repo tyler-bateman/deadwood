@@ -17,7 +17,7 @@ public class Board {
     private Scene[] scenes;
     private int trailorsID;
     private Player[] players;
-    
+
     /**
      * Private constructor as required by Singleton design pattern.
      * Does not set the state of the new board since this is done externally by ParseXML.java
@@ -74,7 +74,7 @@ public class Board {
      * Sets the array of spaces
      * @param s the new array of spaces
      */
-    private void setSpaces(Space[] s) {
+    public void setSpaces(Space[] s) {
         spaces = s;
     }
 
@@ -86,6 +86,10 @@ public class Board {
         return scenes;
     }
     
+    //Returns the scene with the given id
+    public Scene getScene(int id) {
+        return scenes[id];
+    }
 
     /**
      * Sets the scene array

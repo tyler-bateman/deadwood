@@ -69,14 +69,14 @@ public class Role {
           return 0;
         }
     }
-    
+
     /**
      * @return true if the role is taken
      */
     public boolean isRoleTaken(){
         return occupant != null;
-    }
-    
+        }
+
     /**
      * 
      * @return the name of this role
@@ -84,7 +84,7 @@ public class Role {
     public String getName(){
         return name;
     }
-    
+
     /**
      * 
      * @param n the new name for this role 
@@ -92,7 +92,7 @@ public class Role {
     public void setName(String n){
         name = n;
     }
-    
+
     /**
      *
      * @return the line for this role
@@ -100,7 +100,7 @@ public class Role {
     public String getLine(){
         return line;
     }
-    
+
     /**
      * 
      * @param l the new line for this role
@@ -108,7 +108,7 @@ public class Role {
     public void setLine(String l){
         line = l;
     }
-    
+
     /**
      * 
      * @return the id of this role
@@ -116,7 +116,7 @@ public class Role {
     public int getID(){
         return ID;
     }
-    
+
     /**
      * 
      * @param newID the new ID for this role
@@ -132,7 +132,7 @@ public class Role {
     public int getRank(){
         return rank;
     }
-    
+
     /**
      * 
      * @param r the new rank required to take this role
@@ -140,7 +140,7 @@ public class Role {
     public void setRank(int r){
         rank = r;
     }
-    
+
     /**
      * 
      * @return the occupant of this role
@@ -148,7 +148,7 @@ public class Role {
     public Player getOccupant(){
         return occupant;
     }
-    
+
     /**
      * 
      * @param p the new occupant of this role
@@ -156,7 +156,7 @@ public class Role {
     public void setOccupant(Player p){
         occupant = p;
     }
-    
+
     /**
      * 
      * @return the amount that this role will pay as a bonus

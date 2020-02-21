@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Class: Deck
  * Manages the stack of cards that haven't been used yet. Deals these cards to the scenes
- * 
+ *
  * Implements Singleton design pattern with eager initialization
  * since there will always be one and only one deck that is initialized at startup
  * 
@@ -15,7 +15,7 @@ public class Deck {
     private static Deck instance = new Deck();
     
     private static Stack<SceneCard> cards;
-    
+
     /**
      * Private constructor as required by Singleton design pattern
      * Does not modify the state of the deck as this is done externally by ParseXML.java
@@ -38,7 +38,7 @@ public class Deck {
       cards = cardStack;
       shuffle();
     }
-    
+
     /**
      * Randomizes the order of the card stack
      */
@@ -50,7 +50,7 @@ public class Deck {
         }
         setCards(newCards);
     }
-    
+
     /**
      * Places a card on each of the scenes
      * @param scenes: the array of scenes on th board
@@ -60,7 +60,7 @@ public class Deck {
             placeCard(s);
         }
     }
-    
+
     /**
      * places a card on the given scene
      * @param scene: the scene for the card to be placed on
@@ -68,14 +68,14 @@ public class Deck {
     public void placeCard(Scene scene){
         scene.setCard(cards.pop());
     }
-    
+
     /** 
      * @return: the stack containing the remaining scene cards
      */
     public Stack<SceneCard> getCards(){
         return cards;
     }
-    
+
     /**
      * @param: the new stack of cards to replace the old stack
      */

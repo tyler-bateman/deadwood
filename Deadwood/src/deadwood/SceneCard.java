@@ -24,7 +24,7 @@ public class SceneCard {
     public void flip(){
         faceUp = true;
     }
-    
+
     /**
      * Determines whether the card has any players on it
      * @return true if this card has any players in it
@@ -37,7 +37,7 @@ public class SceneCard {
         }
         return false;
     }
-    
+
     /**
      * Checks whether the card has a given role
      * @param role the role to be searched for
@@ -51,7 +51,7 @@ public class SceneCard {
       }
       return false;
     }
-    
+
     /**
      * gets the number
      * @return the number
@@ -59,7 +59,7 @@ public class SceneCard {
     public int getNumber(){
         return number;
     }
-    
+
     /**
      * Sets the number
      * @param newNumber the new number
@@ -67,7 +67,7 @@ public class SceneCard {
     public void setNumber(int newNumber){
         number = newNumber;
     }
-    
+
     /**
      * Gets the name of this scene card
      * @return the name of this scene card
@@ -75,7 +75,7 @@ public class SceneCard {
     public String getName(){
         return name;
     }
-    
+
     /**
      * Sets the name of this scene card
      * @param n the new name
@@ -83,7 +83,7 @@ public class SceneCard {
     public void setName(String n){
         name = n;
     }
-    
+
     /**
      * Gets the description of this scene card
      * @return the description
@@ -91,7 +91,7 @@ public class SceneCard {
     public String getDescription(){
         return description;
     }
-    
+
     /**
      * Sets the description of this scene card
      * @param d the new description
@@ -106,7 +106,7 @@ public class SceneCard {
     public LinkedList<Role> getRoles(){
         return roles;
     }
-    
+
     /**
      * Sets the roleList
      * @param roleList the new roleList
@@ -115,7 +115,7 @@ public class SceneCard {
     public void setRoles(LinkedList<Role> roleList){
         roles = roleList;
     }
-    
+
     /**
      * Gets the budget of the scene card
      * @return the budget
@@ -123,7 +123,7 @@ public class SceneCard {
     public int getBudget(){
         return budget;
     }
-    
+
     /**
      * Sets the budget of the scene card
      * @param b the new budget
@@ -131,7 +131,7 @@ public class SceneCard {
     public void setBudget(int b){
         budget = b;
     }
-    
+
     /**
      * Returns whether this card is face-up
      * @return whether his card is face-up
@@ -139,7 +139,7 @@ public class SceneCard {
     public boolean getFaceUp(){
         return faceUp;
     }
-    
+
     /**
      * SEts whether this card is face-up
      * @param b the new boolean indicating whether the card is face-up
