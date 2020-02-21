@@ -39,7 +39,7 @@ public class ParseXML{
         
         Board board = Board.getInstance();
         Scene[] scenes = new Scene[10];
-        Space[] spaces = new Space[2];
+        Space[] spaces = new Space[12];
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();
         NodeList sets = root.getElementsByTagName("set");
@@ -135,6 +135,7 @@ public class ParseXML{
             }
                        
             scenes[i] = scene;
+            spaces[i] = scene;
         }
 
         NodeList trailer = root.getElementsByTagName("trailer");
@@ -144,7 +145,7 @@ public class ParseXML{
             
             Node trailerNode = trailer.item(0);          
             space.setName("trailer"); 
-            space.ID = i-10;
+            space.ID = i;
             
            /* NodeList trailerChildren = trailerNode.getChildNodes();
             Node neighborNode = trailerChildren.item(1);
@@ -161,7 +162,7 @@ public class ParseXML{
                 } 
             }
             scene.setAdjacentSpaces(Neighbors);   */
-            spaces[i-10] = space;
+            spaces[i] = space;
         }
         
         NodeList office = root.getElementsByTagName("office");
@@ -171,7 +172,7 @@ public class ParseXML{
             
             Node officeNode = office.item(0);          
             space.setName("office"); 
-            space.ID = i-10;
+            space.ID = i;
             
             /*NodeList officeChildren = officeNode.getChildNodes();
 
@@ -189,7 +190,7 @@ public class ParseXML{
                 } 
             }
             scene.setAdjacentSpaces(Neighbors);*/
-            spaces[i-10] = space;  
+            spaces[i] = space;  
         }
         
         board.setScenes(scenes);
@@ -323,7 +324,7 @@ public class ParseXML{
                     }
                 } 
             }
-            board.getSpace(i-10).setAdjacentSpaces(Neighbors);
+            board.getSpace(i).setAdjacentSpaces(Neighbors);
         }
         
         NodeList office = root.getElementsByTagName("office");
@@ -349,12 +350,16 @@ public class ParseXML{
                     }
                 } 
             }
-            board.getSpace(i-10).setAdjacentSpaces(Neighbors);
+            board.getSpace(i).setAdjacentSpaces(Neighbors);
         }
                 
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+            for(int i=0; i<board.getSpaces().length;i++){
+                System.out.println(board.getSpace(i).ID + "  " + board.getSpace(i).getName());
+            }
     }
     
     
