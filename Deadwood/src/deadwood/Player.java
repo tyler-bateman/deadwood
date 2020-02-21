@@ -25,7 +25,7 @@ public class Player {
      * @param ID: The player's ID
      * @param name: the player's name
     */
-    public Player(int ID, String name, int startingLocation) {
+    public Player(int ID, int startingLocation) {
         this.ID = ID;
         this.name = name;
         location = startingLocation;

@@ -15,7 +15,7 @@ public class Board {
     private static Board instance = new Board();
     private Space[] spaces;
     private Scene[] scenes;
-    private int trailorsID;
+    private int trailorsID =0;
     private Player[] players;
 
     /**
