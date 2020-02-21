@@ -47,7 +47,6 @@ public class ParseXML{
         for (int i=0; i<sets.getLength();i++){  
             Scene scene = new Scene();
             LinkedList<Role> offCardRoles = new LinkedList<Role>();
-            //LinkedList<String> Neighbors = new LinkedList<String>();
                 
             Node setNode = sets.item(i);
             
@@ -60,19 +59,7 @@ public class ParseXML{
                 NodeList setChildren = setNode.getChildNodes();
                 
                 for (int j=0; j< setChildren.getLength(); j++){                    
-                    Node setChildrenSub = setChildren.item(j);      
-                    
-                    /*if("neighbors".equals(setChildrenSub.getNodeName())){
-                        NodeList neighborsChildren = setChildrenSub.getChildNodes();
-                         
-                        for(int k=0; k <neighborsChildren.getLength(); k++){
-                            Node neighborChild = neighborsChildren.item(k);
-                            if("neighbor".equals(neighborChild.getNodeName())){
-                                String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                                Neighbors.add(neighborName);
-                            }
-                        }
-                    }*/
+                    Node setChildrenSub = setChildren.item(j);                         
                  
                     if("takes".equals(setChildrenSub.getNodeName())){
                         NodeList takesChildren = setChildrenSub.getChildNodes();
@@ -130,10 +117,8 @@ public class ParseXML{
                         }
                     }
                     scene.setOffCardRoles(offCardRoles); 
-                    //scene.setAdjacentSpaces(Neighbors);
                 }
-            }
-                       
+            }                    
             scenes[i] = scene;
             spaces[i] = scene;
         }
@@ -141,27 +126,11 @@ public class ParseXML{
         NodeList trailer = root.getElementsByTagName("trailer");
         for(int i =10; i<(trailer.getLength()+10);i++){
             Space space = new Space();
-            //LinkedList<String> Neighbors = new LinkedList<String>();
             
             Node trailerNode = trailer.item(0);          
             space.setName("trailer"); 
             space.ID = i;
             
-           /* NodeList trailerChildren = trailerNode.getChildNodes();
-            Node neighborNode = trailerChildren.item(1);
-            if("neighbors".equals(neighborNode.getNodeName())){
-                
-                NodeList neighborsChildren = neighborNode.getChildNodes();
-          
-                for(int k=0; k <neighborsChildren.getLength(); k++){
-                    Node neighborChild = neighborsChildren.item(k);
-                    if("neighbor".equals(neighborChild.getNodeName())){
-                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                        Neighbors.add(neighborName);
-                    }
-                } 
-            }
-            scene.setAdjacentSpaces(Neighbors);   */
             spaces[i] = space;
         }
         
@@ -173,23 +142,7 @@ public class ParseXML{
             Node officeNode = office.item(0);          
             space.setName("office"); 
             space.ID = i;
-            
-            /*NodeList officeChildren = officeNode.getChildNodes();
 
-            Node neighborNode = officeChildren.item(1);
-            if("neighbors".equals(neighborNode.getNodeName())){
-                
-                NodeList neighborsChildren = neighborNode.getChildNodes();
-          
-                for(int k=0; k <neighborsChildren.getLength(); k++){
-                    Node neighborChild = neighborsChildren.item(k);
-                    if("neighbor".equals(neighborChild.getNodeName())){
-                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                        Neighbors.add(neighborName);
-                    }
-                } 
-            }
-            scene.setAdjacentSpaces(Neighbors);*/
             spaces[i] = space;  
         }
         
@@ -290,9 +243,7 @@ public class ParseXML{
                                     if(board.getScene(n).getName().equals(neighborName)){
                                         Neighbors.add(board.getScene(n));
                                     }
-                                }
-                                
-                                //Neighbors.add(neighborName);
+                                }                              
                             }
                         }
                     }
