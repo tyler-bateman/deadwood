@@ -43,23 +43,26 @@ public class TurnManager {
       *   returns that player
       *
       * @param players: the list of players
+      * @return the new active player
       */
     public static Player nextTurn(Player[] players) {
-      //TODO
-      return null;
+      currTurn++;
+      setActivePlayer(playOrder[currTurn]);
+      return getActivePlayer(Board.getInstance().getPlayers());
     }
 
     /**
       * Returns the active player
       *
       * @param players: the list of players
+      * @return the active player
       */
     public static Player getActivePlayer(Player[] players) {
       return players[activePlayerID];
     }
 
     /**
-      * Returns the active player's id
+      * @return the active player's id
       */
     public static int getActivePlayer() {
       return activePlayerID;
@@ -82,7 +85,7 @@ public class TurnManager {
     }
 
     /**
-      * Gets the current turn number
+      * @return the current turn number
       */
     public static int getTurn() {
       return currTurn;

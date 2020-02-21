@@ -55,7 +55,7 @@ public class DayManager{
     * Sets the day number
     * @param newDay: the new day number
     */
-  private static void setDay(int newDay) {
+  public static void setDay(int newDay) {
       day = newDay;
   }
 }
