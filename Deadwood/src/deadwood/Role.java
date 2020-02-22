@@ -28,6 +28,7 @@ public class Role {
     public boolean requestRole(Player player){
         if(!isRoleTaken() && player.getRank() >= rank) {
           setOccupant(player);
+          player.setRole(this);
           return true;
         } else {
           return false;

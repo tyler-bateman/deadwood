@@ -29,7 +29,7 @@ public class Player {
         location = startingLocation;
         dollars = 0;
         credits = 0;
-        rank = 0;
+        rank = 1;
         currRole = null;
         rehearsalChips= 0;
         Board.getInstance().getSpaces()[location].addPlayer(this);
