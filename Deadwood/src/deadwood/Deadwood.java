@@ -103,8 +103,8 @@ public class Deadwood {
 
                                 Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice - 1);
                                 System.out.println("Player " + (currPlayer.getID()+1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
-                                
-                                if(newSpace.getClass().toString().equals("Scene")){
+                                if(newSpace.getClass().equals((new Scene()).getClass())){
+                                    
                                     Scene currScene = board.getScene(newSpace.ID);
                                     do {
                                         afterMoveMenu();
@@ -352,8 +352,8 @@ public class Deadwood {
     }
 
     public static boolean isMenuChoiceValid(int choice) {
-        if (choice < 1 || choice > 5) {
-            System.out.println("Invalid input. Please enter a number between 1 and 5");
+        if (choice < 1 || choice > 6) {
+            System.out.println("Invalid input. Please enter a number between 1 and 6");
             return false;
         } else {
             return true;
