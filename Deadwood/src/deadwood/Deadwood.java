@@ -48,8 +48,15 @@ public class Deadwood {
         System.out.println("Error = "+e);   
         }
         
-        System.out.println("Welcome to Deadwood ! \n\t Please input the number of players: ");
-        numberOfPlayers = sc.nextInt();
+        System.out.println("Welcome to Deadwood ! \n");
+        
+        if(args.length != 0) {
+            numberOfPlayers = Integer.parseInt(args[0]);
+        } else {
+            System.out.println("Please input the number of players: ");
+            numberOfPlayers = sc.nextInt();
+        }
+        
         
         
         players = new Player[numberOfPlayers];
@@ -351,4 +358,6 @@ public class Deadwood {
             return true;
         }
     }
+    
+    
 }
