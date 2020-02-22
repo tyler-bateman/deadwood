@@ -26,7 +26,6 @@ public class Deadwood {
         Player players[];
         CastingOffice castingOffice = new CastingOffice();
         Deck deck = Deck.getInstance();
-        Scene sceneMovedTo = new Scene();
         Scanner sc = new Scanner(System.in);
         Stack<SceneCard> stackOfCards = new Stack<SceneCard>();
         Board board = Board.getInstance();
@@ -53,8 +52,10 @@ public class Deadwood {
         if (args.length != 0) {
             numberOfPlayers = Integer.parseInt(args[0]);
         } else {
-            System.out.println("Please input the number of players: ");
-            numberOfPlayers = sc.nextInt();
+            do {
+                System.out.println("Please input the number of players: ");
+                numberOfPlayers = sc.nextInt();
+            } while (!isPlayerNumberValid(numberOfPlayers));
         }
 
         players = new Player[numberOfPlayers];
@@ -68,9 +69,9 @@ public class Deadwood {
         board.setPlayers(players);
 
         DayManager.init(numberOfPlayers);
-        
+
         setStartUpParameters(numberOfPlayers);
-        
+
         try {
             for (int i = 0; i < numberOfPlayers; i++) { //Player turn order loop
                 Player currPlayer = board.getPlayer(i);
@@ -159,11 +160,11 @@ public class Deadwood {
                             break;
 
                         case 3: //Rehearse
-                            Space currSpace = board.getSpace(currPlayer.getLocation());
+                            Scene currScene = board.getScene(currPlayer.getLocation());
 
                             if (currPlayer.getRole() != null) {
 
-                                if (board.getScene(currPlayer.getLocation()).requestRehearsal(currPlayer)) {
+                                if (currScene.requestRehearsal(currPlayer)) {
                                     System.out.println("You have successfully rehearsed ! You now have +" + currPlayer.getRehearsalChips() + " to your die rolls.");
                                     invalidChoice = false;
                                 } else {
@@ -323,6 +324,15 @@ public class Deadwood {
         System.out.println("2. Credits");
     }
 
+    public static boolean isPlayerNumberValid(int num) {
+        if (num < 2 || num > 8) {
+            System.out.println("Invalid input. The game can only support between 2 and 8 players");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static boolean isMenuChoiceValid(int choice) {
         if (choice < 1 || choice > 5) {
             System.out.println("Invalid input. Please enter a number between 1 and 5");
@@ -333,7 +343,7 @@ public class Deadwood {
     }
 
     public static void setStartUpParameters(int num) {
-        
+
         Board board = Board.getInstance();
         switch (num) {
             case 2:
