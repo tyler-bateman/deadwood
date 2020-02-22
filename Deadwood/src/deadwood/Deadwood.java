@@ -169,10 +169,10 @@ public class Deadwood {
                             break;
 
                         case 3: //Rehearse
-                            Scene currScene = board.getScene(currPlayer.getLocation());
+                            
 
                             if (currPlayer.getRole() != null) {
-
+                                Scene currScene = board.getScene(currPlayer.getLocation());
                                 if (currScene.requestRehearsal(currPlayer)) {
                                     System.out.println("You have successfully rehearsed ! You now have +" + currPlayer.getRehearsalChips() + " to your die rolls.");
                                     invalidChoice = false;
