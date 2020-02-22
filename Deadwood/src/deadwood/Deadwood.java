@@ -167,7 +167,7 @@ public class Deadwood {
                                 if (board.getScene(currPlayer.getLocation()).requestActAttempt(currPlayer)) {
                                     System.out.println("You have successfully acted! You now have " + currPlayer.getDollars() + " dollars and " + currPlayer.getCredits() + " credits");
                                 } else {
-                                    System.out.println("You have failed to act, you worthless little worm. Out of my sight. Here's a dollar, you now have " + currPlayer.getDollars() + " dollars and " + currPlayer.getCredits() + " credits");
+                                    System.out.println("You have failed to act, you worthless little worm. Out of my sight.mm");
                                 }
                             }
                             break;
