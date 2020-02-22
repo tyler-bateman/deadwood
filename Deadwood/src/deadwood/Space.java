@@ -30,7 +30,8 @@ public class Space {
     public boolean requestMove(Player player, Space[] spaces) {
         for(int i = 0; i < adjacentSpaces.size(); i++) {
             if((adjacentSpaces.get(i)).equals(player.getLocation())) {
-                //spaces[player.getLocation()].removePlayer(player);
+                spaces[player.getLocation()].removePlayer(player);
+                player.setLocation(adjacentSpaces.get(i).ID);
                 addPlayer(player);
                 return true;
             }

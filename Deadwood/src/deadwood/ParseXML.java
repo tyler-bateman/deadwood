@@ -308,9 +308,6 @@ public class ParseXML{
             e.printStackTrace();
         }
         
-            for(int i=0; i<board.getSpaces().length;i++){
-                System.out.println(board.getSpace(i).ID + "  " + board.getSpace(i).getName());
-            }
     }
     
     

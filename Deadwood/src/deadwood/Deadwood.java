@@ -26,8 +26,6 @@ public class Deadwood {
         Player players[];
         CastingOffice castingOffice = new CastingOffice();
         Deck deck = Deck.getInstance();
-        Dice dice = new Dice();
-        int cnt =1;
         Scene sceneMovedTo = new Scene();
         Scanner sc = new Scanner(System.in);
         Stack<SceneCard> stackOfCards = new Stack<SceneCard>();
@@ -57,7 +55,7 @@ public class Deadwood {
         players = new Player[numberOfPlayers];
         
         for(int i=0; i< numberOfPlayers; i++){
-            Player player = new Player(i,0);
+            Player player = new Player(i,board.getTrailorsID());
             players[i] = player;
             
         }
@@ -101,38 +99,28 @@ public class Deadwood {
         
         try{
             for(int i=0;i<numberOfPlayers; i++){ //Player turn order loop
-                
                 Player currPlayer = board.getPlayer(i);
                 System.out.println("\nPlayer " + currPlayer.getID()+" please input a number from the menu\n");
-                System.out.println("1. Move");
-                System.out.println("2. Act");
-                System.out.println("3. Rehearse");
-                System.out.println("4. Upgrade");
-                System.out.println("5. End turn\n");
-                menuChoice = sc.nextInt();
+                do{               
+                    mainMenu();
+                    menuChoice = sc.nextInt();
+                }while(! isMenuChoiceValid(menuChoice)); 
                 
                 switch(menuChoice){
                     case 1:
                         if(currPlayer.getRole() == null){
                             System.out.println("Where to ?\n");
                             Space currSpace = board.getSpace(currPlayer.getLocation());
-                            Iterator<Space> iterator = currSpace.getAdjacentSpaces().iterator();
-                            while (iterator.hasNext()) {                                      
-                                System.out.println(cnt +". " +iterator.next().getName()); 
-                                cnt++;
-                            }
-                            cnt =1;
+                            displayAdjacentSpaces(currSpace);
                             int moveChoice = sc.nextInt();
                             board.getSpace(moveChoice - 1).requestMove(currPlayer, board.getSpaces());
 
                             Space newSpace = board.getSpace(currPlayer.getLocation());
-                            System.out.println("Player "+currPlayer.getID()+"has moved from "+currSpace.getName()+" to " +currSpace.getName()+"\n");  
+                            System.out.println("Player "+currPlayer.getID()+"has moved from "+currSpace.getName()+" to " +newSpace.getName()+"\n");  
 
                             if(newSpace.getClass().toString().equals("Scene")) {
                                 Scene currScene = board.getScene(sceneMovedTo.ID);
-                                System.out.println("You can still take a role, or end your turn");
-                                System.out.println("1. Take a role");
-                                System.out.println("2. End Turn");
+                                afterMoveMenu();
                                 int afterMoveChoice = sc.nextInt();
                                 switch(afterMoveChoice){
                                     case 1:
@@ -141,32 +129,15 @@ public class Deadwood {
                                         }
                                         else{
                                             if(currPlayer.getRole() == null ){
-                                                System.out.println("\nWhat role ?");
-                                                Iterator<Role> it1 = currScene.getOffCardRoles().iterator();              
-                                                Iterator<Role> it2= currScene.getCard().getRoles().iterator();
-
-                                                System.out.println("Extra roles: ");
-                                                while (it1.hasNext()){
-                                                    System.out.println(cnt +". " +it1.next().getName());
-                                                    cnt++;
-                                                }
-                                                System.out.println("\nStarring roles: ");                                    
-                                                while (it2.hasNext()){
-                                                    System.out.println(cnt +". " +it2.next().getName());
-                                                    cnt++;
-                                                }
-                                                cnt=1;
+                                                displaySceneRoles(currScene);
                                                 int roleChoice = sc.nextInt();
-
-
-
 
                                                 if(roleChoice >= currScene.getCard().getRoles().size()){
                                                     roleChoice = roleChoice % currScene.getCard().getRoles().size();
                                                     if(currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
                                                         System.out.println("You have successfully claimed the role " + currPlayer.getRole().getName());
                                                     } else {
-                                                        System.out.println("You cannot take that role");
+                                                        System.out.println("You cannot take that role ! Choose another role");
                                                     }
                                                 }
                                                 else{                                               
@@ -188,12 +159,13 @@ public class Deadwood {
                                         }
 
                                         break;
+                                        
                                     case 2: 
                                         System.out.println("Your turn has ended\n");
                                         break;
                                 }           
                             } else if(newSpace.getName().equals("office")){
-                                //TODO give option to upgrade
+                                // TODO GIVE UPGRADE OPTION
                             } else {
                                 System.out.println("Your turn has ended\n");
                                 break;
@@ -234,16 +206,9 @@ public class Deadwood {
                     
                     case 4:
                         if(board.getSpace(currPlayer.getLocation()).equals("office")){
-                                System.out.println("Please select which rank you wish to upgrade to: \n");
-                                System.out.println("1. To upgrade to Rank 2 you need "+castingOffice.getDollarPrice(2)+ " dollars or "+ castingOffice.getCreditPrice(2)+" credits");
-                                System.out.println("2. To upgrade to Rank 3 you need "+castingOffice.getDollarPrice(3)+ " dollars or "+ castingOffice.getCreditPrice(3)+" credits");
-                                System.out.println("3. To upgrade to Rank 4 you need "+castingOffice.getDollarPrice(4)+ " dollars or "+ castingOffice.getCreditPrice(4)+" credits");
-                                System.out.println("4. To upgrade to Rank 5 you need "+castingOffice.getDollarPrice(5)+ " dollars or "+ castingOffice.getCreditPrice(5)+" credits");
-                                System.out.println("5. To upgrade to Rank 6 you need "+castingOffice.getDollarPrice(6)+ " dollars or "+ castingOffice.getCreditPrice(6)+" credits");
+                                upgradeMenu(castingOffice);
                                 int rankChoice = sc.nextInt();
-                                System.out.println("Dollars or Credits ?");
-                                System.out.println("1. Dollars");
-                                System.out.println("2. Credits");
+                                paymentChoiceMenu();                   
                                 int paymentChoice = sc.nextInt();
                                 
                                 if(paymentChoice == 1){
@@ -254,7 +219,7 @@ public class Deadwood {
                                         System.out.println("You cannot upgrade to that rank ");
                                     }
                                 }
-                                else if(paymentChoice ==2){
+                                else if(paymentChoice == 2){
                                     if(castingOffice.purchaseRank(currPlayer, (rankChoice+1), CurrencyType.CREDITS)){
                                         System.out.println("Player "+currPlayer.getID()+ " has upgraded rank to "+currPlayer.getRank());
                                     }
@@ -273,9 +238,6 @@ public class Deadwood {
                     default:
                         System.exit(0);
                 }
-                /*if(DayManager.checkForDayEnd(board)){
-                    System.out.println("day "+(DayManager.getCurrentDay()-1)+ " is over. Starting day "+ DayManager.getCurrentDay());
-                }*/
                 if(DayManager.checkForDayEnd()){
                     System.out.println("\n\n There is only 1 scene left. The day has ended.\n Starting day "+ DayManager.getCurrentDay());
                 }
@@ -302,5 +264,91 @@ public class Deadwood {
             System.out.println("Player " + p);
         }
         System.exit(0);
+    }
+    /**
+     * Displays the main playing menu
+     */
+    public static void mainMenu(){
+        System.out.println("1. Move");
+        System.out.println("2. Act");
+        System.out.println("3. Rehearse");
+        System.out.println("4. Upgrade");
+        System.out.println("5. End turn\n");
+    }
+    
+    /**
+     * Displays the menu of adjacent spaces
+     * @param space the space that has the adjacent spaces
+     */
+    public static void displayAdjacentSpaces(Space space){
+        int cnt =1;
+        Iterator<Space> iterator = space.getAdjacentSpaces().iterator();
+         while (iterator.hasNext()) {                                      
+            System.out.println(cnt +". " +iterator.next().getName()); 
+            cnt++;
+        }
+    }
+    
+    /**
+     * Displays the menu of scene roles
+     * @param scene the scene that has the on-card and off-card roles
+     */
+    public static void displaySceneRoles(Scene scene){
+        int cnt =1;
+        System.out.println("\nWhat role ?");
+        Iterator<Role> it1 = scene.getOffCardRoles().iterator();              
+        Iterator<Role> it2= scene.getCard().getRoles().iterator();
+
+        System.out.println("Extra roles: ");
+        while (it1.hasNext()){
+            System.out.println(cnt +". " +it1.next().getName());
+            cnt++;
+        }
+        System.out.println("\nStarring roles: ");                                    
+        while (it2.hasNext()){
+            System.out.println(cnt +". " +it2.next().getName());
+            cnt++;
+        }
+    }
+    /**
+     * Displays the player's choices after moving
+     */
+    public static void afterMoveMenu(){
+        
+        System.out.println("You can still take a role, or end your turn");
+        System.out.println("1. Take a role");
+        System.out.println("2. End Turn");
+    }
+    
+    /**
+     * Displays the upgrades menu
+     * @param castingOffice 
+     */
+    public static void upgradeMenu(CastingOffice castingOffice){
+        System.out.println("Please select which rank you wish to upgrade to: \n");
+        System.out.println("1. To upgrade to Rank 2 you need "+castingOffice.getDollarPrice(2)+ " dollars or "+ castingOffice.getCreditPrice(2)+" credits");
+        System.out.println("2. To upgrade to Rank 3 you need "+castingOffice.getDollarPrice(3)+ " dollars or "+ castingOffice.getCreditPrice(3)+" credits");
+        System.out.println("3. To upgrade to Rank 4 you need "+castingOffice.getDollarPrice(4)+ " dollars or "+ castingOffice.getCreditPrice(4)+" credits");
+        System.out.println("4. To upgrade to Rank 5 you need "+castingOffice.getDollarPrice(5)+ " dollars or "+ castingOffice.getCreditPrice(5)+" credits");
+        System.out.println("5. To upgrade to Rank 6 you need "+castingOffice.getDollarPrice(6)+ " dollars or "+ castingOffice.getCreditPrice(6)+" credits");
+    }
+    
+    /**
+     * Displays the currency choices for payment
+     */
+    public static void paymentChoiceMenu(){
+        System.out.println("Dollars or Credits ?");
+        System.out.println("1. Dollars");
+        System.out.println("2. Credits");
+    }
+    
+    public static boolean isMenuChoiceValid(int choice){
+        if(choice< 1 || choice> 5){
+            System.out.println("Invalid input. Please enter a number between 1 and 5");
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }

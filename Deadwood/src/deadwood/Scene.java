@@ -31,6 +31,9 @@ public class Scene extends Space {
      * Removes all players from their roles in this scene and removes the card
      */
     public void close(){
+        if(this.isSceneActive()){
+            
+        
         for(Role r: card.getRoles()) {
           r.removePlayer();
         }
@@ -39,6 +42,7 @@ public class Scene extends Space {
         }
         card = null;
         resetShots();
+        }
     }
 
     /**

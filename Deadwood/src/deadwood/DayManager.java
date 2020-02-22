@@ -9,7 +9,7 @@ public class DayManager{
   private static int numberOfDays;
   
   /**
-   * Initializes the day manger at the beginning of the game
+   * Initialises the day manger at the beginning of the game
    * @param numPlayers the number of players playing the game
    */
   public static void init(int numPlayers) {
