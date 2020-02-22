@@ -107,145 +107,161 @@ public class Deadwood {
         try{
             for(int i=0;i<numberOfPlayers; i++){ //Player turn order loop
                 Player currPlayer = board.getPlayer(i);
-                System.out.println("\nPlayer " + currPlayer.getID()+" please input a number from the menu\n");
-                do{               
-                    mainMenu();
-                    menuChoice = sc.nextInt();
-                }while(! isMenuChoiceValid(menuChoice)); 
-                
-                switch(menuChoice){
-                    case 1:
-                        if(currPlayer.getRole() == null){
-                            System.out.println("Where to ?\n");
-                            Space currSpace = board.getSpace(currPlayer.getLocation());
-                            displayAdjacentSpaces(currSpace);
-                            int moveChoice = sc.nextInt();
-                            
-                            currSpace.moveTo(currPlayer, (moveChoice -1 ));
+                boolean invalidChoice = false;
+                do {
+                    System.out.println("\nPlayer " + currPlayer.getID()+" please input a number from the menu\n");
+                    do{               
+                        mainMenu();
+                        menuChoice = sc.nextInt();
+                    }while(! isMenuChoiceValid(menuChoice)); 
 
-                            Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice -1 );
-                            System.out.println("Player "+currPlayer.getID()+" has moved from "+currSpace.getName()+" to " +newSpace.getName()+"\n");  
+                    switch(menuChoice){
+                        case 1:
+                            if(currPlayer.getRole() == null){
+                                invalidChoice = false;
+                                System.out.println("Where to ?\n");
+                                Space currSpace = board.getSpace(currPlayer.getLocation());
+                                displayAdjacentSpaces(currSpace);
+                                int moveChoice = sc.nextInt();
 
-                            if(newSpace.getClass().toString().equals("Scene")) {
-                                Scene currScene = board.getScene(sceneMovedTo.ID);
-                                afterMoveMenu();
-                                int afterMoveChoice = sc.nextInt();
-                                switch(afterMoveChoice){
-                                    case 1:
-                                        if(currScene.getRemainingShots() == 0){
-                                            System.out.println("You cannot choose that role, its scene has already wrapped !");
-                                        }
-                                        else{
-                                            if(currPlayer.getRole() == null ){
-                                                displaySceneRoles(currScene);
-                                                int roleChoice = sc.nextInt();
+                                currSpace.moveTo(currPlayer, (moveChoice -1 ));
 
-                                                if(roleChoice >= currScene.getCard().getRoles().size()){
-                                                    roleChoice = roleChoice % currScene.getCard().getRoles().size();
-                                                    if(currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
-                                                        System.out.println("You have successfully claimed the role " + currPlayer.getRole().getName());
-                                                    } else {
-                                                        System.out.println("You cannot take that role ! Choose another role");
-                                                    }
-                                                }
-                                                else{                                               
+                                Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice -1 );
+                                System.out.println("Player "+currPlayer.getID()+" has moved from "+currSpace.getName()+" to " +newSpace.getName()+"\n");  
 
-                                                    if(currPlayer.getRole()== null){
-                                                        if((currScene.getOffCardRoles().get(roleChoice-1).requestRole(currPlayer))){
-                                                            System.out.println("Player " +currPlayer.getID()+ "has taken the role "+currPlayer.getRole().getName()); 
-                                                        }
-                                                        else{
-                                                            System.out.println("You cannot take that extra role, please choose another role");     
-                                                        }
-                                                    }
-                                                }
+                                if(newSpace.getClass().toString().equals("Scene")) {
+                                    Scene currScene = board.getScene(sceneMovedTo.ID);
+                                    afterMoveMenu();
+                                    int afterMoveChoice = sc.nextInt();
+                                    switch(afterMoveChoice){
+                                        case 1:
+                                            if(currScene.getRemainingShots() == 0){
+                                                System.out.println("You cannot choose that role, its scene has already wrapped !");
                                             }
-
                                             else{
-                                              System.out.println("You cannot move while working on a role");
+                                                if(currPlayer.getRole() == null ){
+                                                    displaySceneRoles(currScene);
+                                                    int roleChoice = sc.nextInt();
+
+                                                    if(roleChoice >= currScene.getCard().getRoles().size()){
+                                                        roleChoice = roleChoice % currScene.getCard().getRoles().size();
+                                                        if(currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
+                                                            System.out.println("You have successfully claimed the role " + currPlayer.getRole().getName());
+                                                        } else {
+                                                            System.out.println("You cannot take that role ! Choose another role");
+                                                        }
+                                                    }
+                                                    else{                                               
+
+                                                        if(currPlayer.getRole()== null){
+                                                            if((currScene.getOffCardRoles().get(roleChoice-1).requestRole(currPlayer))){
+                                                                System.out.println("Player " +currPlayer.getID()+ "has taken the role "+currPlayer.getRole().getName()); 
+                                                            }
+                                                            else{
+                                                                System.out.println("You cannot take that extra role, please choose another role");     
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                else{
+                                                  System.out.println("You cannot move while working on a role");
+                                                }
                                             }
-                                        }
 
-                                        break;
-                                        
-                                    case 2: 
-                                        System.out.println("Your turn has ended\n");
-                                        break;
-                                }           
-                            } else if(newSpace.getName().equals("office")){
-                                // TODO GIVE UPGRADE OPTION
-                            } else {
-                                System.out.println("Your turn has ended\n");
-                                break;
-                            }
-                        }      
+                                            break;
 
-                        else{
-                            System.out.println("You cannot move while working on a role");
-                        }
-                        break;
-                    
-                    case 2: //Act
-                        
-                        if(currPlayer.getRole() == null) {
-                            System.out.println("You cannot act unless you are working on a role.");
-                        } else {
-                            if(board.getScene(currPlayer.getLocation()).requestActAttempt(currPlayer)) {
-                                System.out.println("You have successfully acted!");
-                            } else {
-                                System.out.println("You have failed to act, you worthless little worm. I hope you die.");
-                            }
-                        }
-                    
-                    case 3: //Rehearse
-                        Space currSpace = board.getSpace(currPlayer.getLocation());
-                        if(currPlayer.getRole()!= null) {
-                            
-                            if(board.getScene(currPlayer.getLocation()).requestRehearsal(currPlayer) ){ 
-                                System.out.println("You have successfully rehearsed");
-                            }
+                                        case 2: 
+                                            System.out.println("Your turn has ended\n");
+                                            break;
+                                    }           
+                                } else if(newSpace.getName().equals("office")){
+                                    // TODO GIVE UPGRADE OPTION
+                                } else {
+                                    System.out.println("Your turn has ended\n");
+                                    break;
+                                }
+                            }      
+
                             else{
-                                System.out.println("You already have enough rehearsals to guarantee success!");
+                                System.out.println("You cannot move while working on a role");
+                                invalidChoice = true;
                             }
-                        } else {
-                            System.out.println("You can only rehearse if you're on a role");
-                        }
-                        break;
-                    
-                    case 4:
-                        if(board.getSpace(currPlayer.getLocation()).equals("office")){
+                            break;
+
+                        case 2: //Act
+
+                            if(currPlayer.getRole() == null) {
+                                System.out.println("You cannot act unless you are working on a role.");
+                                invalidChoice = true;
+                            } else {
+                                invalidChoice = false;
+                                if(board.getScene(currPlayer.getLocation()).requestActAttempt(currPlayer)) {
+                                    System.out.println("You have successfully acted!");
+                                } else {
+                                    System.out.println("You have failed to act, you worthless little worm. I hope you die.");
+                                }
+                            }
+
+                        case 3: //Rehearse
+                            Space currSpace = board.getSpace(currPlayer.getLocation());
+                            if(currPlayer.getRole()!= null) {
+                                
+                                if(board.getScene(currPlayer.getLocation()).requestRehearsal(currPlayer) ){ 
+                                    System.out.println("You have successfully rehearsed");
+                                    invalidChoice = false;
+                                }
+                                else{
+                                    System.out.println("You already have enough rehearsals to guarantee success!");
+                                    invalidChoice = true;
+                                }
+                            } else {
+                                System.out.println("You can only rehearse if you're on a role");
+                                invalidChoice = true;
+                            }
+                            break;
+
+                        case 4:
+                            if(board.getSpace(currPlayer.getLocation()).equals("office")){
                                 upgradeMenu(castingOffice);
                                 int rankChoice = sc.nextInt();
                                 paymentChoiceMenu();                   
                                 int paymentChoice = sc.nextInt();
-                                
+
                                 if(paymentChoice == 1){
                                     if(castingOffice.purchaseRank(currPlayer, (rankChoice+1), CurrencyType.DOLLARS)){
                                         System.out.println("Player "+currPlayer.getID()+ " has upgraded rank to "+currPlayer.getRank());
+                                        invalidChoice = false;
                                     }
                                     else{
                                         System.out.println("You cannot upgrade to that rank ");
+                                        invalidChoice = true;
                                     }
                                 }
                                 else if(paymentChoice == 2){
                                     if(castingOffice.purchaseRank(currPlayer, (rankChoice+1), CurrencyType.CREDITS)){
                                         System.out.println("Player "+currPlayer.getID()+ " has upgraded rank to "+currPlayer.getRank());
+                                        invalidChoice = false;
                                     }
                                     else{
+                                        invalidChoice = true;
                                         System.out.println("You cannot upgrade to that rank ");
                                     }
                                 }
-                        }
-                        else{
-                            System.out.println("You can only upgrade at the Casting Office");
-                        }
-                        break;
-                        
-                    case 5:
-                        System.out.println("Your turn has ended");
-                    default:
-                        System.exit(0);
-                }
+                            }
+                            else{
+                                System.out.println("You can only upgrade at the Casting Office");
+                                invalidChoice = true;
+                            }
+                            break;
+
+                        case 5:
+                            System.out.println("Your turn has ended");
+                            invalidChoice = false;
+                        default:
+                            System.exit(0);
+                    }
+                } while (invalidChoice);
                 if(DayManager.checkForDayEnd()){
                     System.out.println("\n\n There is only 1 scene left. The day has ended.\n Starting day "+ DayManager.getCurrentDay());
                 }
