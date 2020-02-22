@@ -102,7 +102,6 @@ public class Deadwood {
                 System.out.println("Please enter a number between 2 and 8");
         }
         
-
         
         try{
             for(int i=0;i<numberOfPlayers; i++){ //Player turn order loop
@@ -129,8 +128,8 @@ public class Deadwood {
                                 Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice -1 );
                                 System.out.println("Player "+currPlayer.getID()+" has moved from "+currSpace.getName()+" to " +newSpace.getName()+"\n");  
 
-                                if(newSpace.getClass().toString().equals("Scene")) {
-                                    Scene currScene = board.getScene(sceneMovedTo.ID);
+                                    Scene currScene = board.getScene(newSpace.ID);
+                                    
                                     afterMoveMenu();
                                     int afterMoveChoice = sc.nextInt();
                                     switch(afterMoveChoice){
@@ -148,7 +147,7 @@ public class Deadwood {
                                                         if(currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
                                                             System.out.println("You have successfully claimed the role " + currPlayer.getRole().getName());
                                                         } else {
-                                                            System.out.println("You cannot take that role ! Choose another role");
+                                                            System.out.println("You cannot take that starring role ! Choose another role");
                                                         }
                                                     }
                                                     else{                                               
@@ -158,7 +157,7 @@ public class Deadwood {
                                                                 System.out.println("Player " +currPlayer.getID()+ "has taken the role "+currPlayer.getRole().getName()); 
                                                             }
                                                             else{
-                                                                System.out.println("You cannot take that extra role, please choose another role");     
+                                                                System.out.println("You cannot take that extra role ! Choose another role");     
                                                             }
                                                         }
                                                     }
@@ -175,12 +174,6 @@ public class Deadwood {
                                             System.out.println("Your turn has ended\n");
                                             break;
                                     }           
-                                } else if(newSpace.getName().equals("office")){
-                                    // TODO GIVE UPGRADE OPTION
-                                } else {
-                                    System.out.println("Your turn has ended\n");
-                                    break;
-                                }
                             }      
 
                             else{
@@ -197,22 +190,24 @@ public class Deadwood {
                             } else {
                                 invalidChoice = false;
                                 if(board.getScene(currPlayer.getLocation()).requestActAttempt(currPlayer)) {
-                                    System.out.println("You have successfully acted!");
+                                    System.out.println("You have successfully acted! You now have "+currPlayer.getDollars()+" dollars and "+currPlayer.getCredits()+" credits");
                                 } else {
-                                    System.out.println("You have failed to act, you worthless little worm. I hope you die.");
+                                    System.out.println("You have failed to act, you worthless little worm. Out of my sight. Here's a dollar, you now have "+currPlayer.getDollars()+" dollars and "+currPlayer.getCredits()+" credits");
                                 }
                             }
+                            break;
 
                         case 3: //Rehearse
                             Space currSpace = board.getSpace(currPlayer.getLocation());
+                            
                             if(currPlayer.getRole()!= null) {
                                 
                                 if(board.getScene(currPlayer.getLocation()).requestRehearsal(currPlayer) ){ 
-                                    System.out.println("You have successfully rehearsed");
+                                    System.out.println("You have successfully rehearsed ! You now have +" +currPlayer.getRehearsalChips()+" to your die rolls.");
                                     invalidChoice = false;
                                 }
                                 else{
-                                    System.out.println("You already have enough rehearsals to guarantee success!");
+                                    System.out.println("You already have enough rehearsals to guarantee success! Act !");
                                     invalidChoice = true;
                                 }
                             } else {
@@ -222,7 +217,7 @@ public class Deadwood {
                             break;
 
                         case 4:
-                            if(board.getSpace(currPlayer.getLocation()).equals("office")){
+                            if(board.getSpace(currPlayer.getLocation()).getName().equals("office")){
                                 upgradeMenu(castingOffice);
                                 int rankChoice = sc.nextInt();
                                 paymentChoiceMenu();                   
@@ -319,7 +314,7 @@ public class Deadwood {
      */
     public static void displaySceneRoles(Scene scene){
         int cnt =1;
-        System.out.println("\nWhat role ?");
+        System.out.println("\nWhat role ?\n");
         Iterator<Role> it1 = scene.getOffCardRoles().iterator();              
         Iterator<Role> it2= scene.getCard().getRoles().iterator();
 

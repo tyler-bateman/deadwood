@@ -116,6 +116,7 @@ public class Scene extends Space {
           } else {
               if(!card.hasRole(player.getRole())) {
                 Banker.giveDollars(player, 1);
+                return false;
               }
           }
           return true;
