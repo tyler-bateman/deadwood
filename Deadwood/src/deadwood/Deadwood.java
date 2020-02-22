@@ -5,6 +5,7 @@
  */
 package deadwood;
 
+import java.util.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -24,6 +25,7 @@ public class Deadwood {
         int numberOfPlayers;
         int menuChoice;
         int moveChoice;
+        int afterMoveChoice;
         Player players[];
         CastingOffice castingOffice = new CastingOffice();
         Deck deck = Deck.getInstance();
@@ -47,33 +49,32 @@ public class Deadwood {
         } catch (Exception e) {
             System.out.println("Error = " + e);
         }
-
-        System.out.println("Welcome to Deadwood ! \n");
-
-        if (args.length != 0) {
-            numberOfPlayers = Integer.parseInt(args[0]);
-        } else {
-            do {
-                System.out.println("Please input the number of players: ");
-                numberOfPlayers = sc.nextInt();
-            } while (!isPlayerNumberValid(numberOfPlayers));
-        }
-
-        players = new Player[numberOfPlayers];
-
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Player player = new Player(i, board.getTrailorsID());
-            players[i] = player;
-
-        }
-
-        board.setPlayers(players);
-
-        DayManager.init(numberOfPlayers);
-
-        setStartUpParameters(numberOfPlayers);
-
         try {
+            System.out.println("Welcome to Deadwood ! \n");
+            if (args.length != 0) {
+                numberOfPlayers = Integer.parseInt(args[0]);
+            } else {
+                do {
+                    System.out.println("Please input the number of players: ");
+                    numberOfPlayers = sc.nextInt();
+
+                } while (!isPlayerNumberValid(numberOfPlayers));
+            }
+
+            players = new Player[numberOfPlayers];
+
+            for (int i = 0; i < numberOfPlayers; i++) {
+                Player player = new Player(i, board.getTrailorsID());
+                players[i] = player;
+
+            }
+
+            board.setPlayers(players);
+
+            DayManager.init(numberOfPlayers);
+
+            setStartUpParameters(numberOfPlayers);
+
             for (int i = 0; i < numberOfPlayers; i++) { //Player turn order loop
                 Player currPlayer = board.getPlayer(i);
                 boolean invalidChoice = false;
@@ -103,9 +104,11 @@ public class Deadwood {
                                 System.out.println("Player " + currPlayer.getID() + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
 
                                 Scene currScene = board.getScene(newSpace.ID);
+                                do {
+                                    afterMoveMenu();
+                                    afterMoveChoice = sc.nextInt();
+                                } while (! isAfterMoveChoiceValid(afterMoveChoice));
 
-                                afterMoveMenu();
-                                int afterMoveChoice = sc.nextInt();
                                 switch (afterMoveChoice) {
                                     case 1:
                                         if (currScene.getRemainingShots() == 0) {
@@ -229,6 +232,8 @@ public class Deadwood {
                 System.out.println("\n");
 
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Congratulations, you crashed the game ! Integers only please !");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -350,6 +355,15 @@ public class Deadwood {
     public static boolean isMoveChoiceValid(int choice, int size) {
         if (choice < 1 || choice > size) {
             System.out.println("Invalid input. Please enter a number between 1 and " + size);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean isAfterMoveChoiceValid(int choice) {
+        if (choice < 1 || choice > 2) {
+            System.out.println("Invalid input. Please enter a number between 1 and 2");
             return false;
         } else {
             return true;
