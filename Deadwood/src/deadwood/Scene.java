@@ -133,16 +133,16 @@ public class Scene extends Space {
         if(card.hasPlayers()) {
           System.out.println("There are players on the card. Players will receive a bonus");
           Dice d = new Dice(card.getBudget());
-          int currRoleIndex = 0;
           List<Role> roleList = card.getRoles();
+          int currRoleIndex = roleList.size() - 1;
 
           //Assign payout values and pay bonuses for each on-card role
           while(d.hasNextDie()) {
             int dieVal = d.nextDie();
             roleList.get(currRoleIndex).increasePayout(dieVal);
-            currRoleIndex++;
-            if(currRoleIndex >= roleList.size()) {
-              currRoleIndex = 0;
+            currRoleIndex--;
+            if(currRoleIndex == -1) {
+              currRoleIndex = roleList.size() - 1;
             }
           }
           for(Role r: roleList) {
