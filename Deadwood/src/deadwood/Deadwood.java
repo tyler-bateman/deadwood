@@ -294,7 +294,7 @@ public class Deadwood {
         }
         System.out.println("Starring roles: ");
         for(int j=0; j<scene.getCard().getRoles().size(); j++){
-            System.out.println(cnt + ". " + scene.getCard().getRoles().get(j).getName() +" | Rank: " + scene.getCard().getRoles().get(j).getRank()+ (scene.getOffCardRoles().get(j).isRoleTaken()? " *Taken*":""));
+            System.out.println(cnt + ". " + scene.getCard().getRoles().get(j).getName() +" | Rank: " + scene.getCard().getRoles().get(j).getRank()+ (scene.getCard().getRoles().get(j).isRoleTaken()? " *Taken*":""));
             cnt++;
         }
     }
