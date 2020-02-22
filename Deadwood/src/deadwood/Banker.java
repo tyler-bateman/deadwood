@@ -70,8 +70,9 @@ public class Banker {
      * @param amount: the number of dollars to be given to the player
      */
     public static void giveDollars(Player player, int amount) {
-        Deadwood.sendMessage(player + " has been given $" + amount + " and now has $" + player.getDollars());
+        
         player.setDollars(player.getDollars() + amount);
+        Deadwood.sendMessage(player + " has been given $" + amount + " and now has $" + player.getDollars());
     }
     
     /**
@@ -80,8 +81,9 @@ public class Banker {
      * @param amount: the number of credits to be given to the player
      */
     public static void giveCredits(Player player, int amount) {
-        Deadwood.sendMessage(player + " has been given " + amount + " credits and now has " + player.getCredits() + " credits.");
+        
         player.setCredits(player.getCredits() + amount);
+        Deadwood.sendMessage(player + " has been given " + amount + " credits and now has " + player.getCredits() + " credits.");
     }
 }
 
