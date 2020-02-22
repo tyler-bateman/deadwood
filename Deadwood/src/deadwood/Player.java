@@ -76,4 +76,9 @@ public class Player {
     public void setRehearsal(int amount) {
         rehearsalChips = amount;
     }
+    
+    @Override
+    public String toString() {
+        return "Player " + (getID() + 1);
+    }
 }
