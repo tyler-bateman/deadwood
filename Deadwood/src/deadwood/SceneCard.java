@@ -110,7 +110,7 @@ public class SceneCard {
     /**
      * Sets the roleList
      * @param roleList the new roleList
-     * precondition: roleList is sorted by rank from high to low
+     * precondition: roleList is sorted by rank from low to high
      */
     public void setRoles(LinkedList<Role> roleList){
         roles = roleList;
