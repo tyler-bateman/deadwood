@@ -23,6 +23,7 @@ public class Deadwood {
     public static void main(String[] args) {
         int numberOfPlayers;
         int menuChoice;
+        int moveChoice;
         Player players[];
         CastingOffice castingOffice = new CastingOffice();
         Deck deck = Deck.getInstance();
@@ -89,8 +90,12 @@ public class Deadwood {
                                 invalidChoice = false;
                                 System.out.println("Where to ?\n");
                                 Space currSpace = board.getSpace(currPlayer.getLocation());
-                                displayAdjacentSpaces(currSpace);
-                                int moveChoice = sc.nextInt();
+                                int AdjacentSpacesSize = currSpace.getAdjacentSpaces().size();
+                                do {
+                                    displayAdjacentSpaces(currSpace);
+                                    moveChoice = sc.nextInt();
+
+                                } while (!isMoveChoiceValid(moveChoice, AdjacentSpacesSize));
 
                                 currSpace.moveTo(currPlayer, (moveChoice - 1));
 
@@ -336,6 +341,15 @@ public class Deadwood {
     public static boolean isMenuChoiceValid(int choice) {
         if (choice < 1 || choice > 5) {
             System.out.println("Invalid input. Please enter a number between 1 and 5");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean isMoveChoiceValid(int choice, int size) {
+        if (choice < 1 || choice > size) {
+            System.out.println("Invalid input. Please enter a number between 1 and " + size);
             return false;
         } else {
             return true;
