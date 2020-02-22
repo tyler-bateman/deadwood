@@ -176,23 +176,7 @@ public class Scene extends Space {
         setCard(null);
         DayManager.checkForDayEnd();
     }
-    
-    
-    /**
-     * Overrides requestMove from Space.java. Does the same thing only also flips the card
-     * @param player: the player requesting the move
-     * @param spaces: the array of spaces
-     * @return true if the move was successful
-     */
-    @Override
-    public boolean requestMove(Player player, Space[] spaces) {
-        if(super.requestMove(player, spaces)) {
-            getCard().flip();
-            return true;
-        } else {
-            return false;
-        }
-    }
+   
 
     /**
      * 
