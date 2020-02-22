@@ -239,9 +239,9 @@ public class ParseXML{
                             Node neighborChild = neighborsChildren.item(k);
                             if("neighbor".equals(neighborChild.getNodeName())){
                                 String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                                for(int n=0; n<board.getScenes().length;n++){
-                                    if(board.getScene(n).getName().equals(neighborName)){
-                                        Neighbors.add(board.getScene(n));
+                                for(int n=0; n<board.getSpaces().length;n++){
+                                    if(board.getSpace(n).getName().equals(neighborName)){
+                                        Neighbors.add(board.getSpace(n));
                                     }
                                 }                              
                             }
@@ -267,9 +267,10 @@ public class ParseXML{
                     Node neighborChild = neighborsChildren.item(k);
                     if("neighbor".equals(neighborChild.getNodeName())){
                         String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                        for(int n=0; n<board.getScenes().length;n++){
-                            if(board.getScene(n).getName().equals(neighborName)){
-                                Neighbors.add(board.getScene(n));
+                        for(int n=0; n<board.getSpaces().length;n++){
+                            if(board.getSpace(n).getName().equals(neighborName)){
+                                Neighbors.add(board.getSpace(n));
+                                board.getSpace(n).getAdjacentSpaces().add(board.getSpace(board.getTrailorsID()));
                             }
                         }
                     }
@@ -293,9 +294,10 @@ public class ParseXML{
                     Node neighborChild = neighborsChildren.item(k);
                     if("neighbor".equals(neighborChild.getNodeName())){
                         String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                        for(int n=0; n<board.getScenes().length;n++){
-                            if(board.getScene(n).getName().equals(neighborName)){
-                                Neighbors.add(board.getScene(n));
+                        for(int n=0; n<board.getSpaces().length;n++){
+                            if(board.getSpace(n).getName().equals(neighborName)){
+                                Neighbors.add(board.getSpace(n));
+                                board.getSpace(n).getAdjacentSpaces().add(board.getSpace(11));
                             }
                         }
                     }
