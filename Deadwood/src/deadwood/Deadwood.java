@@ -80,7 +80,7 @@ public class Deadwood {
                 Player currPlayer = board.getPlayer(i);
                 boolean invalidChoice = false;
                 do {
-                    System.out.println("\nPlayer " + currPlayer.getID() + " please input a number from the menu\n");
+                    System.out.println("\nPlayer " + (currPlayer.getID()+1) + " please input a number from the menu\n");
                     do {
                         mainMenu();
                         menuChoice = sc.nextInt();
@@ -102,14 +102,14 @@ public class Deadwood {
                                 currSpace.moveTo(currPlayer, (moveChoice - 1));
 
                                 Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice - 1);
-                                System.out.println("Player " + currPlayer.getID() + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
+                                System.out.println("Player " + (currPlayer.getID()+1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
 
                                 Scene currScene = board.getScene(newSpace.ID);
                                 do {
                                     afterMoveMenu();
                                     afterMoveChoice = sc.nextInt();
-                                } while (! isAfterMoveChoiceValid(afterMoveChoice));
-                                
+                                } while (!isAfterMoveChoiceValid(afterMoveChoice));
+
                                 switch (afterMoveChoice) {
                                     case 1:
                                         if (currScene.getRemainingShots() == 0) {
@@ -118,11 +118,11 @@ public class Deadwood {
                                             if (currPlayer.getRole() == null) {
                                                 int extraRolesListSize = currScene.getOffCardRoles().size();
                                                 int starringRolesListSize = currScene.getCard().getRoles().size();
-                                                do{
+                                                do {
                                                     displaySceneRoles(currScene);
                                                     roleChoice = sc.nextInt();
-                                                }while(! isRoleChoiceValid(roleChoice,extraRolesListSize,starringRolesListSize));
-                                                
+                                                } while (!isRoleChoiceValid(roleChoice, extraRolesListSize, starringRolesListSize));
+
                                                 if (roleChoice >= currScene.getCard().getRoles().size()) {
                                                     roleChoice = roleChoice % currScene.getCard().getRoles().size();
                                                     if (currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
@@ -134,7 +134,7 @@ public class Deadwood {
 
                                                     if (currPlayer.getRole() == null) {
                                                         if ((currScene.getOffCardRoles().get(roleChoice - 1).requestRole(currPlayer))) {
-                                                            System.out.println("Player " + currPlayer.getID() + "has taken the role " + currPlayer.getRole().getName());
+                                                            System.out.println("Player " + (currPlayer.getID()+1) + " has taken the role " + currPlayer.getRole().getName());
                                                         } else {
                                                             System.out.println("You cannot take that extra role ! Choose another role");
                                                         }
@@ -199,7 +199,7 @@ public class Deadwood {
 
                                 if (paymentChoice == 1) {
                                     if (castingOffice.purchaseRank(currPlayer, (rankChoice + 1), CurrencyType.DOLLARS)) {
-                                        System.out.println("Player " + currPlayer.getID() + " has upgraded rank to " + currPlayer.getRank());
+                                        System.out.println("Player " + (currPlayer.getID()+1) + " has upgraded rank to " + currPlayer.getRank());
                                         invalidChoice = false;
                                     } else {
                                         System.out.println("You cannot upgrade to that rank ");
@@ -207,7 +207,7 @@ public class Deadwood {
                                     }
                                 } else if (paymentChoice == 2) {
                                     if (castingOffice.purchaseRank(currPlayer, (rankChoice + 1), CurrencyType.CREDITS)) {
-                                        System.out.println("Player " + currPlayer.getID() + " has upgraded rank to " + currPlayer.getRank());
+                                        System.out.println("Player " + (currPlayer.getID()+1) + " has upgraded rank to " + currPlayer.getRank());
                                         invalidChoice = false;
                                     } else {
                                         invalidChoice = true;
@@ -237,7 +237,7 @@ public class Deadwood {
                 System.out.println("\n");
 
             }
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException e) { 
             System.out.println("Congratulations, you crashed the game ! Integers only please !");
         } catch (Exception e) {
             e.printStackTrace();
@@ -374,12 +374,12 @@ public class Deadwood {
             return true;
         }
     }
-    
-    public static boolean isRoleChoiceValid(int choice, int size1, int size2){
-        if(choice <1 || choice > (size1+size2)){
-            System.out.println("Stop making me handle your errors :( please input a number between 1 and " +(size1+size2));
+
+    public static boolean isRoleChoiceValid(int choice, int size1, int size2) {
+        if (choice < 1 || choice > (size1 + size2)) {
+            System.out.println("Stop making me handle your errors :( please input a number between 1 and " + (size1 + size2));
             return false;
-        } else{
+        } else {
             return true;
         }
     }
