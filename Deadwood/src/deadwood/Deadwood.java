@@ -26,6 +26,7 @@ public class Deadwood {
         int menuChoice;
         int moveChoice;
         int afterMoveChoice;
+        int roleChoice;
         Player players[];
         CastingOffice castingOffice = new CastingOffice();
         Deck deck = Deck.getInstance();
@@ -108,16 +109,20 @@ public class Deadwood {
                                     afterMoveMenu();
                                     afterMoveChoice = sc.nextInt();
                                 } while (! isAfterMoveChoiceValid(afterMoveChoice));
-
+                                
                                 switch (afterMoveChoice) {
                                     case 1:
                                         if (currScene.getRemainingShots() == 0) {
                                             System.out.println("You cannot choose that role, its scene has already wrapped !");
                                         } else {
                                             if (currPlayer.getRole() == null) {
-                                                displaySceneRoles(currScene);
-                                                int roleChoice = sc.nextInt();
-
+                                                int extraRolesListSize = currScene.getOffCardRoles().size();
+                                                int starringRolesListSize = currScene.getCard().getRoles().size();
+                                                do{
+                                                    displaySceneRoles(currScene);
+                                                    roleChoice = sc.nextInt();
+                                                }while(! isRoleChoiceValid(roleChoice,extraRolesListSize,starringRolesListSize));
+                                                
                                                 if (roleChoice >= currScene.getCard().getRoles().size()) {
                                                     roleChoice = roleChoice % currScene.getCard().getRoles().size();
                                                     if (currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
@@ -366,6 +371,15 @@ public class Deadwood {
             System.out.println("Invalid input. Please enter a number between 1 and 2");
             return false;
         } else {
+            return true;
+        }
+    }
+    
+    public static boolean isRoleChoiceValid(int choice, int size1, int size2){
+        if(choice <1 || choice > (size1+size2)){
+            System.out.println("Stop making me handle your errors :( please input a number between 1 and " +(size1+size2));
+            return false;
+        } else{
             return true;
         }
     }
