@@ -120,10 +120,10 @@ public class Deadwood {
                             Space currSpace = board.getSpace(currPlayer.getLocation());
                             displayAdjacentSpaces(currSpace);
                             int moveChoice = sc.nextInt();
-                            board.getSpace(moveChoice - 1).requestMove(currPlayer, board.getSpaces());
+                            currSpace.getAdjacentSpaces().get(moveChoice - 1).requestMove(currPlayer, board.getSpaces());
 
                             Space newSpace = board.getSpace(currPlayer.getLocation());
-                            System.out.println("Player "+currPlayer.getID()+"has moved from "+currSpace.getName()+" to " +newSpace.getName()+"\n");  
+                            System.out.println("Player "+currPlayer.getID()+" has moved from "+currSpace.getName()+" to " +newSpace.getName()+"\n");  
 
                             if(newSpace.getClass().toString().equals("Scene")) {
                                 Scene currScene = board.getScene(sceneMovedTo.ID);
