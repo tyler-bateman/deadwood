@@ -418,5 +418,13 @@ public class Deadwood {
                 System.out.println("Please enter a number between 2 and 8");
         }
     }
+    
+    /**
+     * Prints a message to the console
+     * @param msg the message to be printed
+     */
+    public static void sendMessage(String msg) {
+        System.out.println(msg);
+    }
 
 }
