@@ -27,16 +27,11 @@ public class Space {
      * @return : True if move was successful 
      *           False if move was invalid
      */
-    public boolean requestMove(Player player, Space[] spaces) {
-        for(int i = 0; i < adjacentSpaces.size(); i++) {
-            if((adjacentSpaces.get(i)).equals(player.getLocation())) {
-                spaces[player.getLocation()].removePlayer(player);
-                player.setLocation(adjacentSpaces.get(i).ID);
-                addPlayer(player);
-                return true;
-            }
-        }
-        return false;
+    public void moveTo(Player player, int index) {
+                
+                player.setLocation(this.getAdjacentSpaces().get(index).ID);          
+                this.removePlayer(player);
+                this.getAdjacentSpaces().get(index).addPlayer(player);
     }
     
     /**
