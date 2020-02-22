@@ -80,14 +80,14 @@ public class Deadwood {
                 Player currPlayer = board.getPlayer(i);
                 boolean invalidChoice = false;
                 do {
-                    System.out.println("\nPlayer " + (currPlayer.getID()+1) + " please input a number from the menu\n");
+                    System.out.println("\nPlayer " + (currPlayer.getID() + 1) + " please input a number from the menu\n");
                     do {
                         mainMenu();
                         menuChoice = sc.nextInt();
                     } while (!isMenuChoiceValid(menuChoice));
 
                     switch (menuChoice) {
-                        case 1:
+                        case 1: //Move
                             if (currPlayer.getRole() == null) {
                                 invalidChoice = false;
                                 System.out.println("Where to ?\n");
@@ -102,7 +102,7 @@ public class Deadwood {
                                 currSpace.moveTo(currPlayer, (moveChoice - 1));
 
                                 Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice - 1);
-                                System.out.println("Player " + (currPlayer.getID()+1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
+                                System.out.println("Player " + (currPlayer.getID() + 1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
 
                                 Scene currScene = board.getScene(newSpace.ID);
                                 do {
@@ -115,29 +115,16 @@ public class Deadwood {
                                         if (currScene == null || currScene.getRemainingShots() == 0) {
                                             System.out.println("There are no roles to take, your turn has ended.");
                                         } else {
-                                            int extraRolesListSize = currScene.getOffCardRoles().size();
-                                            int starringRolesListSize = currScene.getCard().getRoles().size();
-                                            do {
-                                                displaySceneRoles(currScene);
-                                                roleChoice = sc.nextInt();
-                                            } while (!isRoleChoiceValid(roleChoice, extraRolesListSize, starringRolesListSize));
-
-                                            if (roleChoice >= currScene.getCard().getRoles().size()) {
-                                                roleChoice = roleChoice % currScene.getCard().getRoles().size();
-                                                if (currScene.getCard().getRoles().get(roleChoice).requestRole(currPlayer)) {
-                                                    System.out.println("You have successfully claimed the role " + currPlayer.getRole().getName());
-                                                } else {
-                                                    System.out.println("You cannot take that starring role ! Choose another role");
-                                                }
+                                            if (currPlayer.getRole() != null) {
+                                                System.out.println("You already have a role. You cannot take another one !");
+                                                do {
+                                                    mainMenu();
+                                                    menuChoice = sc.nextInt();
+                                                } while (!isMenuChoiceValid(menuChoice));
                                             } else {
-
-                                                if (currPlayer.getRole() == null) {
-                                                    if ((currScene.getOffCardRoles().get(roleChoice - 1).requestRole(currPlayer))) {
-                                                        System.out.println("Player " + (currPlayer.getID()+1) + " has taken the role " + currPlayer.getRole().getName());
-                                                    } else {
-                                                        System.out.println("You cannot take that extra role ! Choose another role");
-                                                    }
-                                                }
+                                                int extraRolesListSize = currScene.getOffCardRoles().size();
+                                                int starringRolesListSize = currScene.getCard().getRoles().size();
+                                                takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc);
                                             }
                                         }
 
@@ -152,8 +139,27 @@ public class Deadwood {
                                 invalidChoice = true;
                             }
                             break;
+                        case 2: // Take a role
 
-                        case 2: //Act
+                            Scene currScene = board.getScene(currPlayer.getLocation());
+                            if (currScene == null || currScene.getRemainingShots() == 0) {
+                                System.out.println("There are no roles to take, your turn has ended");
+                            } else {
+                                if (currPlayer.getRole() != null) {
+                                    System.out.println("You already have a role. You cannot take another one !");
+                                    do {
+                                        mainMenu();
+                                        menuChoice = sc.nextInt();
+                                    } while (!isMenuChoiceValid(menuChoice));
+                                } else {
+                                    int extraRolesListSize = currScene.getOffCardRoles().size();
+                                    int starringRolesListSize = currScene.getCard().getRoles().size();
+                                    takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc);
+                                }
+                            }
+                            break;
+
+                        case 3: //Act
 
                             if (currPlayer.getRole() == null) {
                                 System.out.println("You cannot act unless you are working on a role.");
@@ -168,12 +174,10 @@ public class Deadwood {
                             }
                             break;
 
-                        case 3: //Rehearse
-                            
+                        case 4: //Rehearse
 
                             if (currPlayer.getRole() != null) {
-                                Scene currScene = board.getScene(currPlayer.getLocation());
-                                if (currScene.requestRehearsal(currPlayer)) {
+                                if (board.getScene(currPlayer.getLocation()).requestRehearsal(currPlayer)) {
                                     System.out.println("You have successfully rehearsed ! You now have +" + currPlayer.getRehearsalChips() + " to your die rolls.");
                                     invalidChoice = false;
                                 } else {
@@ -186,7 +190,7 @@ public class Deadwood {
                             }
                             break;
 
-                        case 4:
+                        case 5:
                             if (board.getSpace(currPlayer.getLocation()).getName().equals("office")) {
                                 upgradeMenu(castingOffice);
                                 int rankChoice = sc.nextInt();
@@ -195,7 +199,7 @@ public class Deadwood {
 
                                 if (paymentChoice == 1) {
                                     if (castingOffice.purchaseRank(currPlayer, (rankChoice + 1), CurrencyType.DOLLARS)) {
-                                        System.out.println("Player " + (currPlayer.getID()+1) + " has upgraded rank to " + currPlayer.getRank());
+                                        System.out.println("Player " + (currPlayer.getID() + 1) + " has upgraded rank to " + currPlayer.getRank());
                                         invalidChoice = false;
                                     } else {
                                         System.out.println("You cannot upgrade to that rank ");
@@ -203,7 +207,7 @@ public class Deadwood {
                                     }
                                 } else if (paymentChoice == 2) {
                                     if (castingOffice.purchaseRank(currPlayer, (rankChoice + 1), CurrencyType.CREDITS)) {
-                                        System.out.println("Player " + (currPlayer.getID()+1) + " has upgraded rank to " + currPlayer.getRank());
+                                        System.out.println("Player " + (currPlayer.getID() + 1) + " has upgraded rank to " + currPlayer.getRank());
                                         invalidChoice = false;
                                     } else {
                                         invalidChoice = true;
@@ -216,9 +220,12 @@ public class Deadwood {
                             }
                             break;
 
-                        case 5:
+                        case 6:
+
                             System.out.println("Your turn has ended");
                             invalidChoice = false;
+                            break;
+
                         default:
                             System.exit(0);
                     }
@@ -233,7 +240,8 @@ public class Deadwood {
                 System.out.println("\n");
 
             }
-        } catch (InputMismatchException e) { 
+
+        } catch (InputMismatchException e) {
             System.out.println("Congratulations, you crashed the game ! Integers only please !");
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,10 +267,11 @@ public class Deadwood {
      */
     public static void mainMenu() {
         System.out.println("1. Move");
-        System.out.println("2. Act");
-        System.out.println("3. Rehearse");
-        System.out.println("4. Upgrade");
-        System.out.println("5. End turn\n");
+        System.out.println("2. Take a role");
+        System.out.println("3. Act");
+        System.out.println("4. Rehearse");
+        System.out.println("5. Upgrade");
+        System.out.println("6. End turn\n");
     }
 
     /**
@@ -288,13 +297,13 @@ public class Deadwood {
         int cnt = 1;
         System.out.println("\nWhat role ?\n");
         System.out.println("Extra roles: ");
-        for(int i=0; i<scene.getOffCardRoles().size();i++){
-            System.out.println((i+1) + ". " + scene.getOffCardRoles().get(i).getName() +" | Rank: " + scene.getOffCardRoles().get(i).getRank() + (scene.getOffCardRoles().get(i).isRoleTaken()? " *Taken*":""));
+        for (int i = 0; i < scene.getOffCardRoles().size(); i++) {
+            System.out.println((i + 1) + ". " + scene.getOffCardRoles().get(i).getName() + " | Rank: " + scene.getOffCardRoles().get(i).getRank() + (scene.getOffCardRoles().get(i).isRoleTaken() ? " *Taken*" : ""));
             cnt++;
         }
         System.out.println("Starring roles: ");
-        for(int j=0; j<scene.getCard().getRoles().size(); j++){
-            System.out.println(cnt + ". " + scene.getCard().getRoles().get(j).getName() +" | Rank: " + scene.getCard().getRoles().get(j).getRank()+ (scene.getOffCardRoles().get(j).isRoleTaken()? " *Taken*":""));
+        for (int j = 0; j < scene.getCard().getRoles().size(); j++) {
+            System.out.println(cnt + ". " + scene.getCard().getRoles().get(j).getName() + " | Rank: " + scene.getCard().getRoles().get(j).getRank() + (scene.getCard().getRoles().get(j).isRoleTaken() ? " *Taken*" : ""));
             cnt++;
         }
     }
@@ -411,13 +420,43 @@ public class Deadwood {
                 System.out.println("Please enter a number between 2 and 8");
         }
     }
-    
+
     /**
      * Prints a message to the console
+     *
      * @param msg the message to be printed
      */
     public static void sendMessage(String msg) {
         System.out.println(msg);
+    }
+
+    public static void takeARole(Scene scene, Player player, int size1, int size2, Scanner sc) {
+
+        int roleChoice;
+        System.out.println("You are currently in the scene " + scene.getName());
+
+        do {
+            displaySceneRoles(scene);
+            roleChoice = sc.nextInt();
+        } while (!isRoleChoiceValid(roleChoice, size1, size2));
+        if (roleChoice >= scene.getCard().getRoles().size()) {
+            roleChoice = roleChoice % scene.getCard().getRoles().size();
+            if (scene.getCard().getRoles().get(roleChoice).requestRole(player)) {
+                System.out.println("You have successfully claimed the role " + player.getRole().getName());
+            } else {
+                System.out.println("You cannot take that starring role ! Choose another role");
+            }
+        } else {
+
+            if (player.getRole() == null) {
+                if ((scene.getOffCardRoles().get(roleChoice - 1).requestRole(player))) {
+                    System.out.println("Player " + (player.getID() + 1) + " has taken the role " + player.getRole().getName());
+                } else {
+                    System.out.println("You cannot take that extra role ! Choose another role");
+                }
+            }
+        }
+
     }
 
 }
