@@ -134,22 +134,25 @@ public class Deadwood {
                             }
                             break;
                         case 2: // Take a role
-
-                            Scene currScene = board.getScene(currPlayer.getLocation());
-                            if (currScene == null || currScene.getRemainingShots() == 0) {
-                                System.out.println("There are no roles to take, your turn has ended");
-                            } else {
-                                if (currPlayer.getRole() != null) {
-                                    System.out.println("You already have a role. You cannot take another one !");
-                                    do {
-                                        mainMenu();
-                                        menuChoice = sc.nextInt();
-                                    } while (!isMenuChoiceValid(menuChoice));
+                            if(board.getSpace(currPlayer.getLocation()).getClass().equals((new Scene()).getClass())) {
+                                Scene currScene = board.getScene(currPlayer.getLocation());
+                                if (currScene.getRemainingShots() == 0) {
+                                    invalidChoice = true;
+                                    System.out.println("This scene has wrapped, choose something else.");
                                 } else {
-                                    int extraRolesListSize = currScene.getOffCardRoles().size();
-                                    int starringRolesListSize = currScene.getCard().getRoles().size();
-                                    takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc);
+                                    if (currPlayer.getRole() != null) {
+                                        System.out.println("You already have a role. You cannot take another one !");
+                                        invalidChoice = true;
+                                    } else {
+                                        int extraRolesListSize = currScene.getOffCardRoles().size();
+                                        int starringRolesListSize = currScene.getCard().getRoles().size();
+                                        takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc);
+                                        invalidChoice = false;
+                                    }
                                 }
+                            } else {
+                                System.out.println("You can only take a role if you're on a scene");
+                                invalidChoice = true;
                             }
                             break;
 
