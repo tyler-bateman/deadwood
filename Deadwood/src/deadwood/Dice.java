@@ -28,10 +28,12 @@ public class Dice {
     * Populates dice with num random integers in descending order using insertion sort
     */
     public void roll(int num){
+      
        Random r = new Random();
        for(int i = 0; i < num; i++) {
            insertDie(r.nextInt(6) + 1);
        }
+       Deadwood.sendMessage("You rolled the following dice: " + dice.toString());
     }
     
     /*
