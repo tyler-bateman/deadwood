@@ -28,11 +28,12 @@ public class Deadwood {
         int afterMoveChoice;
         int roleChoice;
         Player players[];
-        CastingOffice castingOffice = new CastingOffice();
+        
         Deck deck = Deck.getInstance();
         Scanner sc = new Scanner(System.in);
         Stack<SceneCard> stackOfCards = new Stack<SceneCard>();
         Board board = Board.getInstance();
+        CastingOffice castingOffice = CastingOffice.getInstance();
 
         Document boardDoc = null;
         Document cardsDoc = null;
@@ -49,7 +50,7 @@ public class Deadwood {
 
         } catch (Exception e) {
             System.out.println("Error = " + e);
-        }
+        }        
         try {
             System.out.println("Welcome to Deadwood ! \n");
             if (args.length != 0) {
@@ -189,7 +190,7 @@ public class Deadwood {
                             }
                             break;
 
-                        case 5:
+                        case 5: //Upgrade
                             if (board.getSpace(currPlayer.getLocation()).getName().equals("office")) {
                                 upgradeMenu(castingOffice);
                                 int rankChoice = sc.nextInt();

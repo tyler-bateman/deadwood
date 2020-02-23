@@ -136,7 +136,7 @@ public class ParseXML{
         
         NodeList office = root.getElementsByTagName("office");
         for(int i =11; i<(office.getLength()+11);i++){
-            Space space = new Space();
+            CastingOffice space = CastingOffice.getInstance();
             //LinkedList<String> Neighbors = new LinkedList<String>();   
             
             Node officeNode = office.item(0);          

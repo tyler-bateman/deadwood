@@ -4,6 +4,8 @@ package deadwood;
 /**
  * Class: CastingOffice
  * An extention of Space that manages the purchasing of ranks
+ * 
+ * Implements Singleton design pattern
  *
  * @author tyler
  */
@@ -13,10 +15,15 @@ import java.lang.ArrayIndexOutOfBoundsException;
 public class CastingOffice extends Space{
     private int[] dollarPrices;
     private int[] creditPrices;
+    private static CastingOffice instance = new CastingOffice();
     
-    public CastingOffice(){
+    private CastingOffice(){
         dollarPrices = new int[]{4, 10, 18, 28, 40};
         creditPrices = new int[]{5, 10, 15, 20, 25};
+    }
+    
+    public static CastingOffice getInstance() {
+        return instance;
     }
     
     /**
