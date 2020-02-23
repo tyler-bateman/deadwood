@@ -451,7 +451,7 @@ public class Deadwood {
             roleChoice = sc.nextInt();
         } while (!isRoleChoiceValid(roleChoice, size1, size2));
         if (roleChoice >= scene.getOffCardRoles().size()) {
-            roleChoice = roleChoice - scene.getOffCardRoles().size();
+            roleChoice = roleChoice - scene.getOffCardRoles().size() - 1;
             if (scene.getCard().getRoles().get(roleChoice).requestRole(player)) {
                 System.out.println("You have successfully claimed the role " + player.getRole().getName());
                 return true;
