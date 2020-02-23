@@ -33,7 +33,6 @@ public class CastingOffice extends Space{
      * @param payment: the payment type for the purchase
      */
     public boolean purchaseRank(Player player, int rank, CurrencyType payment) {
-        System.out.println("Purchasing rank...");
         if(rank <= player.getRank() || rank > 6) {
             Deadwood.sendMessage("The selected rank is out of range");
             return false;
