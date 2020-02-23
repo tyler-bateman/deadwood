@@ -28,7 +28,7 @@ public class Deadwood {
         int afterMoveChoice;
         int roleChoice;
         Player players[];
-        
+
         Deck deck = Deck.getInstance();
         Scanner sc = new Scanner(System.in);
         Stack<SceneCard> stackOfCards = new Stack<SceneCard>();
@@ -50,7 +50,7 @@ public class Deadwood {
 
         } catch (Exception e) {
             System.out.println("Error = " + e);
-        }        
+        }
         try {
             System.out.println("Welcome to Deadwood ! \n");
             if (args.length != 0) {
@@ -117,15 +117,15 @@ public class Deadwood {
                                             if (currScene == null || currScene.getRemainingShots() == 0) {
                                                 System.out.println("There are no roles to take, your turn has ended.");
                                             } else {
-                                               
+
                                                 int extraRolesListSize = currScene.getOffCardRoles().size();
                                                 int starringRolesListSize = currScene.getCard().getRoles().size();
-                                                do{
-                                                    if(takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc)){
+                                                do {
+                                                    if (takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc)) {
                                                         break;
                                                     }
-                                                }while(true);
-                                                
+                                                } while (true);
+
                                             }
 
                                             break;
@@ -230,6 +230,11 @@ public class Deadwood {
                             System.out.println("Your turn has ended");
                             invalidChoice = false;
                             break;
+                        case 7:
+
+                            System.out.println("This is player " + (currPlayer.getID() + 1) + " You have " + currPlayer.getDollars() + " dollars and " + currPlayer.getCredits() + " credits. You are currently in " + board.getSpace(currPlayer.getLocation()).getName());
+                            invalidChoice = true;
+                            break;
 
                         default:
                             System.exit(0);
@@ -271,12 +276,15 @@ public class Deadwood {
      * Displays the main playing menu
      */
     public static void mainMenu() {
+
         System.out.println("1. Move");
         System.out.println("2. Take a role");
         System.out.println("3. Act");
         System.out.println("4. Rehearse");
         System.out.println("5. Upgrade");
-        System.out.println("6. End turn\n");
+        System.out.println("6. End turn");
+        System.out.println("7. Display player information");
+        //System.out.println("8. Display all players' locations");
     }
 
     /**
@@ -317,7 +325,7 @@ public class Deadwood {
             System.out.println(cnt + ". " + scene.getCard().getRoles().get(j).getName() + " | Rank: " + scene.getCard().getRoles().get(j).getRank() + (scene.getCard().getRoles().get(j).isRoleTaken() ? " *Taken*" : ""));
             cnt++;
         }
-        
+
     }
 
     /**
@@ -363,8 +371,8 @@ public class Deadwood {
     }
 
     public static boolean isMenuChoiceValid(int choice) {
-        if (choice < 1 || choice > 6) {
-            System.out.println("Invalid input. Please enter a number between 1 and 6");
+        if (choice < 1 || choice > 8) {
+            System.out.println("Invalid input. Please enter a number between 1 and 8");
             return false;
         } else {
             return true;
@@ -446,12 +454,12 @@ public class Deadwood {
 
         int roleChoice;
         System.out.println("You are currently in the scene " + scene.getName());
-        
+
         do {
             displaySceneRoles(scene);
-            System.out.println("\n"+(size1+size2 +1)+". End turn");
+            System.out.println("\n" + (size1 + size2 + 1) + ". End turn");
             roleChoice = sc.nextInt();
-            if(roleChoice == (size1+size2+1)){
+            if (roleChoice == (size1 + size2 + 1)) {
                 return true;
             }
         } while (!isRoleChoiceValid(roleChoice, size1, size2));
