@@ -170,7 +170,7 @@ public class Deadwood {
                                 invalidChoice = true;
                             } else {
                                 invalidChoice = false;
-                                if (! board.getScene(currPlayer.getLocation()).requestActAttempt(currPlayer)) {
+                                if ( board.getScene(currPlayer.getLocation()).requestActAttempt(currPlayer)) {
                                     System.out.println("You have successfully acted! You now have " + currPlayer.getDollars() + " dollars and " + currPlayer.getCredits() + " credits");
                                     System.out.println("This scene has " + board.getScene(currPlayer.getLocation()).getRemainingShots() + " shots remaining.");
                                 } else {
