@@ -317,6 +317,7 @@ public class Deadwood {
             System.out.println(cnt + ". " + scene.getCard().getRoles().get(j).getName() + " | Rank: " + scene.getCard().getRoles().get(j).getRank() + (scene.getCard().getRoles().get(j).isRoleTaken() ? " *Taken*" : ""));
             cnt++;
         }
+        
     }
 
     /**
@@ -448,7 +449,11 @@ public class Deadwood {
         
         do {
             displaySceneRoles(scene);
+            System.out.println("\n"+(size1+size2 +1)+". If you cannot take a role,choose my number to exit");
             roleChoice = sc.nextInt();
+            if(roleChoice == (size1+size2+1)){
+                return true;
+            }
         } while (!isRoleChoiceValid(roleChoice, size1, size2));
         if (roleChoice > scene.getOffCardRoles().size()) {
             roleChoice = roleChoice - scene.getOffCardRoles().size() - 1;
