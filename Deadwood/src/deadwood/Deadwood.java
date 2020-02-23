@@ -235,6 +235,14 @@ public class Deadwood {
                             System.out.println("This is player " + (currPlayer.getID() + 1) + " You have " + currPlayer.getDollars() + " dollars and " + currPlayer.getCredits() + " credits. You are currently in " + board.getSpace(currPlayer.getLocation()).getName());
                             invalidChoice = true;
                             break;
+                        case 8:
+
+                            for (int n = 0; n < numberOfPlayers; n++) {
+                                System.out.println("Player " + (board.getPlayer(n).getID() + 1) + " is in " + board.getSpace(board.getPlayer(n).getLocation()).getName());
+                            }
+                            System.out.println("The active player is player " + (currPlayer.getID() + 1));
+                            invalidChoice = true;
+                            break;
 
                         default:
                             System.exit(0);
@@ -284,7 +292,7 @@ public class Deadwood {
         System.out.println("5. Upgrade");
         System.out.println("6. End turn");
         System.out.println("7. Display player information");
-        //System.out.println("8. Display all players' locations");
+        System.out.println("8. Display all players' locations");
     }
 
     /**
