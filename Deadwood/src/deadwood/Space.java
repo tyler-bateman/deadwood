@@ -39,8 +39,9 @@ public class Space {
      * @param player : the player to be added to the player set
      */
     public void addPlayer(Player player) {
-
+        System.out.println(player + " has been added to " + name);
         getPlayerSet().add(player);
+        System.out.println(players);
 
     }
     
@@ -57,7 +58,10 @@ public class Space {
      * @return : true if the player set contains player, false otherwise
      */
     public boolean containsPlayer(Player player) {
-        return getPlayerSet().contains(player);
+        System.out.println(player);
+        System.out.println(players);
+        System.out.println(getPlayerSet().contains(player));
+        return players.contains(player);
     }
     
     /**
