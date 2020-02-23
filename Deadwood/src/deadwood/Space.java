@@ -17,7 +17,7 @@ import java.util.Set;
 public class Space {
     protected int ID;
     protected String name;
-    protected Set<Player> players; //The set of players currently in this space
+    protected Set<Player> players = new HashSet<Player>(); //The set of players currently in this space
     protected LinkedList<Space> adjacentSpaces; //Array containing the IDs of all adjacent spaces
     
     /**
@@ -39,9 +39,7 @@ public class Space {
      * @param player : the player to be added to the player set
      */
     public void addPlayer(Player player) {
-        if(getPlayerSet()== null){
-            players = new HashSet<Player>();
-        }
+
         getPlayerSet().add(player);
 
     }
