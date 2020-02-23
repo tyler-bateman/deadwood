@@ -438,28 +438,34 @@ public class Deadwood {
 
         int roleChoice;
         System.out.println("You are currently in the scene " + scene.getName());
-        
+        boolean invalidChoice = false;
         do {
-            displaySceneRoles(scene);
-            roleChoice = sc.nextInt();
-        } while (!isRoleChoiceValid(roleChoice, size1, size2));
-        if (roleChoice >= scene.getOffCardRoles().size()) {
-            roleChoice = roleChoice - scene.getOffCardRoles().size();
-            if (scene.getCard().getRoles().get(roleChoice).requestRole(player)) {
-                System.out.println("You have successfully claimed the role " + player.getRole().getName());
-            } else {
-                System.out.println("You cannot take that starring role ! Choose another role");
-            }
-        } else {
-
-            if (player.getRole() == null) {
-                if ((scene.getOffCardRoles().get(roleChoice - 1).requestRole(player))) {
-                    System.out.println("Player " + (player.getID() + 1) + " has taken the role " + player.getRole().getName());
+            do {
+                displaySceneRoles(scene);
+                roleChoice = sc.nextInt();
+            } while (!isRoleChoiceValid(roleChoice, size1, size2));
+            if (roleChoice >= scene.getOffCardRoles().size()) {
+                roleChoice = roleChoice - scene.getOffCardRoles().size();
+                if (scene.getCard().getRoles().get(roleChoice).requestRole(player)) {
+                    System.out.println("You have successfully claimed the role " + player.getRole().getName());
+                    invalidChoice = false;
                 } else {
-                    System.out.println("You cannot take that extra role ! Choose another role");
+                    System.out.println("You cannot take that starring role ! Choose another role");
+                    invalidChoice = true;
+                }
+            } else {
+
+                if (player.getRole() == null) {
+                    if ((scene.getOffCardRoles().get(roleChoice - 1).requestRole(player))) {
+                        System.out.println("Player " + (player.getID() + 1) + " has taken the role " + player.getRole().getName());
+                        invalidChoice = false;
+                    } else {
+                        System.out.println("You cannot take that extra role ! Choose another role");
+                        invalidChoice = true;
+                    }
                 }
             }
-        }
+        } while(invalidChoice);
 
     }
 
