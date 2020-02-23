@@ -131,7 +131,7 @@ public class Scene extends Space {
      */
     private void wrap(){
         if(card.hasPlayers()) {
-          System.out.println("There are players on the card. Players will receive a bonus");
+          Deadwood.sendMessage("There are players on the card. Players will receive a bonus");
           Dice d = new Dice(card.getBudget());
           List<Role> roleList = card.getRoles();
           int currRoleIndex = roleList.size() - 1;

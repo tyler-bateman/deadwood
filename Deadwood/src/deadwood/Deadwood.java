@@ -102,6 +102,7 @@ public class Deadwood {
                                 currSpace.moveTo(currPlayer, (moveChoice - 1));
 
                                 Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice - 1);
+                                
                                 System.out.println("Player " + (currPlayer.getID()+1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
                                 if(newSpace.getClass().equals((new Scene()).getClass())){
                                     

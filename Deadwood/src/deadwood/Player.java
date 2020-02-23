@@ -27,8 +27,8 @@ public class Player {
     public Player(int ID, int startingLocation) {
         this.ID = ID;
         location = startingLocation;
-        dollars = 0;
-        credits = 0;
+        dollars = 1000;
+        credits = 1000;
         rank = 1;
         currRole = null;
         rehearsalChips= 0;
@@ -80,5 +80,9 @@ public class Player {
     @Override
     public String toString() {
         return "Player " + (getID() + 1);
+    }
+    
+    public boolean equals(Player other) {
+        return this.getID() == other.getID();
     }
 }
