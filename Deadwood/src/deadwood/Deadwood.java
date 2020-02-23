@@ -102,9 +102,9 @@ public class Deadwood {
                                 currSpace.moveTo(currPlayer, (moveChoice - 1));
 
                                 Space newSpace = currSpace.getAdjacentSpaces().get(moveChoice - 1);
-                                System.out.println("Player " + (currPlayer.getID()+1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
-                                if(newSpace.getClass().equals((new Scene()).getClass())){
-                                    
+                                System.out.println("Player " + (currPlayer.getID() + 1) + " has moved from " + currSpace.getName() + " to " + newSpace.getName() + "\n");
+                                if (newSpace.getClass().equals((new Scene()).getClass())) {
+
                                     Scene currScene = board.getScene(newSpace.ID);
                                     do {
                                         afterMoveMenu();
@@ -116,9 +116,15 @@ public class Deadwood {
                                             if (currScene == null || currScene.getRemainingShots() == 0) {
                                                 System.out.println("There are no roles to take, your turn has ended.");
                                             } else {
+                                               
                                                 int extraRolesListSize = currScene.getOffCardRoles().size();
                                                 int starringRolesListSize = currScene.getCard().getRoles().size();
-                                                takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc);
+                                                do{
+                                                    if(takeARole(currScene, currPlayer, extraRolesListSize, starringRolesListSize, sc)){
+                                                        break;
+                                                    }
+                                                }while(true);
+                                                
                                             }
 
                                             break;
@@ -134,7 +140,7 @@ public class Deadwood {
                             }
                             break;
                         case 2: // Take a role
-                            if(board.getSpace(currPlayer.getLocation()).getClass().equals((new Scene()).getClass())) {
+                            if (board.getSpace(currPlayer.getLocation()).getClass().equals((new Scene()).getClass())) {
                                 Scene currScene = board.getScene(currPlayer.getLocation());
                                 if (currScene.getRemainingShots() == 0) {
                                     invalidChoice = true;
@@ -279,12 +285,12 @@ public class Deadwood {
      */
     public static void displayAdjacentSpaces(Space space) {
         int cnt = 1;
-        
-        for(Space adjacentSpace : space.getAdjacentSpaces()) {
+
+        for (Space adjacentSpace : space.getAdjacentSpaces()) {
             System.out.println(cnt + ". " + adjacentSpace.getName());
             cnt++;
         }
-        
+
 //        Iterator<Space> iterator = space.getAdjacentSpaces().iterator();
 //        while (iterator.hasNext()) {
 //            System.out.println(cnt + ". " + iterator.next().getName());
@@ -434,11 +440,11 @@ public class Deadwood {
         System.out.println(msg);
     }
 
-    public static void takeARole(Scene scene, Player player, int size1, int size2, Scanner sc) {
+    public static boolean takeARole(Scene scene, Player player, int size1, int size2, Scanner sc) {
 
         int roleChoice;
         System.out.println("You are currently in the scene " + scene.getName());
-        
+
         do {
             displaySceneRoles(scene);
             roleChoice = sc.nextInt();
@@ -447,20 +453,24 @@ public class Deadwood {
             roleChoice = roleChoice - scene.getOffCardRoles().size();
             if (scene.getCard().getRoles().get(roleChoice).requestRole(player)) {
                 System.out.println("You have successfully claimed the role " + player.getRole().getName());
+                return true;
             } else {
-                System.out.println("You cannot take that starring role ! Choose another role");
+                System.out.println("You cannot take starring role ! Choose another role");
+                return false;
             }
         } else {
 
             if (player.getRole() == null) {
                 if ((scene.getOffCardRoles().get(roleChoice - 1).requestRole(player))) {
                     System.out.println("Player " + (player.getID() + 1) + " has taken the role " + player.getRole().getName());
+                    return true;
                 } else {
-                    System.out.println("You cannot take that extra role ! Choose another role");
+                    System.out.println("You cannot take that role ! Choose another role");
+                    return false;
                 }
             }
         }
-
+        return true;
     }
 
 }
