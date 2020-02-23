@@ -449,7 +449,7 @@ public class Deadwood {
         
         do {
             displaySceneRoles(scene);
-            System.out.println("\n"+(size1+size2 +1)+". If you cannot take a role,choose my number to exit");
+            System.out.println("\n"+(size1+size2 +1)+". End turn");
             roleChoice = sc.nextInt();
             if(roleChoice == (size1+size2+1)){
                 return true;
@@ -461,7 +461,7 @@ public class Deadwood {
                 System.out.println("You have successfully claimed the role " + player.getRole().getName());
                 return true;
             } else {
-                System.out.println("You cannot take starring role ! Choose another role");
+                System.out.println("You cannot take that role ! Choose another role");
                 return false;
             }
         } else {
