@@ -270,7 +270,7 @@ public class ParseXML{
                         for(int n=0; n<board.getSpaces().length;n++){
                             if(board.getSpace(n).getName().equals(neighborName)){
                                 Neighbors.add(board.getSpace(n));
-                                board.getSpace(n).getAdjacentSpaces().add(board.getSpace(board.getTrailorsID()));
+                                
                             }
                         }
                     }
@@ -297,7 +297,6 @@ public class ParseXML{
                         for(int n=0; n<board.getSpaces().length;n++){
                             if(board.getSpace(n).getName().equals(neighborName)){
                                 Neighbors.add(board.getSpace(n));
-                                board.getSpace(n).getAdjacentSpaces().add(board.getSpace(11));
                             }
                         }
                     }
