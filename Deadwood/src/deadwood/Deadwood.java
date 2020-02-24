@@ -34,6 +34,7 @@ public class Deadwood {
         Stack<SceneCard> stackOfCards = new Stack<SceneCard>();
         Board board = Board.getInstance();
         CastingOffice castingOffice = CastingOffice.getInstance();
+       
 
         Document boardDoc = null;
         Document cardsDoc = null;
@@ -64,6 +65,7 @@ public class Deadwood {
             }
 
             players = new Player[numberOfPlayers];
+            ScoreManager.init(numberOfPlayers);
 
             for (int i = 0; i < numberOfPlayers; i++) {
                 Player player = new Player(i, board.getTrailorsID());

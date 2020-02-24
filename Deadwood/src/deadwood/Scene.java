@@ -175,6 +175,7 @@ public class Scene extends Space {
           }
         }
         setCard(null);
+        setRemainingShots(getTotalShots());
     }
    
 

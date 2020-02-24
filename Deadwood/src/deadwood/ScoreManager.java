@@ -5,32 +5,29 @@
  */
 package deadwood;
 import java.util.LinkedList;
+import java.util.Arrays;
 
 /**
  *
  * @author nada
  */
 public class ScoreManager {
-    private static int[] playerScores = new int[8];
+    private static int[] playerScores;
     
-    
+    public static void init(int numPlayers) {
+        playerScores = new int[numPlayers];
+    }
     /**
      * Decides on a winner at the end of the game
      * @param playerList the list of players
      */
     public static void declareWinner(Player[] playerList){  //ends the game
         calculateScores(playerList);
-        int maxScore = 0;
-        LinkedList<Integer> winningPlayerIDs = new LinkedList<Integer>();
+        Deadwood.sendMessage("The game is over!");
         for(int i = 0; i < playerScores.length; i++) {
-            if(playerScores[i] == maxScore) {
-                winningPlayerIDs.add(i);
-            } else if(playerScores[i] > maxScore) {
-                winningPlayerIDs = new LinkedList<Integer>();
-                winningPlayerIDs.add(i);
-            }
+            Deadwood.sendMessage("Player " + (i + 1) + " has " + playerScores[i] + " points");
         }
-        Deadwood.declareWinner(winningPlayerIDs);
+        System.exit(0);
     }
     
     /**

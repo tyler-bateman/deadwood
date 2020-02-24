@@ -53,7 +53,7 @@ public class DayManager{
   private static void dayEnd(Board b) {
     
     setCurrentDay(getCurrentDay() + 1);
-    if(getCurrentDay() >= getNumberOfDays()) {
+    if(getCurrentDay() > getNumberOfDays()) {
         ScoreManager.declareWinner(b.getPlayers());
     } else {
         b.newDay();
