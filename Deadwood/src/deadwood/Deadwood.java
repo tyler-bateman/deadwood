@@ -75,7 +75,7 @@ public class Deadwood {
 
             board.setPlayers(players);
 
-            DayManager.init(numberOfPlayers);
+            DayManager.getInstance().init(numberOfPlayers);
 
             setStartUpParameters(numberOfPlayers);
 
@@ -250,8 +250,8 @@ public class Deadwood {
                             System.exit(0);
                     }
                 } while (invalidChoice);
-                if (DayManager.checkForDayEnd()) {
-                    System.out.println("\n\n There is only 1 scene left. The day has ended.\n Starting day " + DayManager.getCurrentDay());
+                if (DayManager.getInstance().checkForDayEnd()) {
+                    System.out.println("\n\n There is only 1 scene left. The day has ended.\n Starting day " + DayManager.getInstance().getCurrentDay());
                 }
                 if (i == (numberOfPlayers - 1)) {
                     i = -1;
@@ -417,34 +417,34 @@ public class Deadwood {
     }
 
     public static void setStartUpParameters(int num) {
-
+        DayManager d = DayManager.getInstance();
         Board board = Board.getInstance();
         switch (num) {
             case 2:
             case 3:
-                System.out.printf("You will play for %d days \n ", DayManager.getNumberOfDays());
+                System.out.printf("You will play for %d days \n ", d.getNumberOfDays());
                 break;
             case 4:
-                System.out.printf("You will play for %d days \n ", DayManager.getNumberOfDays());
+                System.out.printf("You will play for %d days \n ", d.getNumberOfDays());
                 break;
             case 5:
                 for (int i = 0; i < num; i++) {
                     board.getPlayer(i).setCredits(2);
                 }
-                System.out.printf("You will play for %d days and every player will start with 2 credits \n", DayManager.getNumberOfDays());
+                System.out.printf("You will play for %d days and every player will start with 2 credits \n", d.getNumberOfDays());
                 break;
             case 6:
                 for (int i = 0; i < num; i++) {
                     board.getPlayer(i).setCredits(4);
                 }
-                System.out.printf("You will play for %d days and every player will start with 4 credits \n", DayManager.getNumberOfDays());
+                System.out.printf("You will play for %d days and every player will start with 4 credits \n", d.getNumberOfDays());
                 break;
             case 7:
             case 8:
                 for (int i = 0; i < num; i++) {
                     board.getPlayer(i).setRank(2);
                 }
-                System.out.printf("You will play for %d days and every player will start with a rank of 2 \n", DayManager.getNumberOfDays());
+                System.out.printf("You will play for %d days and every player will start with a rank of 2 \n", d.getNumberOfDays());
                 break;
             default:
                 System.out.println("Please enter a number between 2 and 8");

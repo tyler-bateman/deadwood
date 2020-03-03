@@ -2,17 +2,36 @@ package deadwood;
 
 /**
   * @author tyler
-  *
+  * The DayManager keeps track of the current day, checks for day ends,
+  * and triggers new days.
+  * 
+  * Implements Singleton design pattern.
   */
-public class DayManager{
+import java.util.Observable;
+import java.util.Observer;
+
+
+public class DayManager extends Observable {
+  private static DayManager instance = new DayManager();
   private static int currentDay;
   private static int numberOfDays;
   
   /**
-   * Initialises the day manger at the beginning of the game
+   * Private constructor, according to Singleton design pattern.
+   */
+  private DayManager() {
+      
+  }
+  
+  public static DayManager getInstance() {
+      return instance;
+  }
+  
+  /**
+   * Initializes the day manger at the beginning of the game
    * @param numPlayers the number of players playing the game
    */
-  public static void init(int numPlayers) {
+  public void init(int numPlayers) {
       if(numPlayers > 3) {
           numberOfDays = 3;
       } else {
@@ -23,12 +42,14 @@ public class DayManager{
       
   }
   
+  
+  
   /**
     * Resets the board for the new day if there is only one active scene left.
     * @return true if there is only one or less active scenes left on the board
     *         otherwise false
     */
-  public static boolean checkForDayEnd() {
+  public boolean checkForDayEnd() {
       Board b = Board.getInstance();
       int activeScenes = 0;
       for(Scene scene: b.getScenes()) {
@@ -50,7 +71,7 @@ public class DayManager{
    * Manages what happens at the end of a day, including incrementing the day and checking for whether the game is over
    * @param b: the game board
    */
-  private static void dayEnd(Board b) {
+  private void dayEnd(Board b) {
     
     setCurrentDay(getCurrentDay() + 1);
     if(getCurrentDay() > getNumberOfDays()) {
@@ -64,22 +85,22 @@ public class DayManager{
   /**
     * Returns the current day
     */
-  public static int getCurrentDay() {
+  public int getCurrentDay() {
       return currentDay;
   }
 
   /**
     * Sets the day number
     */
-  private static void setCurrentDay(int newDay) {
+  private void setCurrentDay(int newDay) {
       currentDay = newDay;
   }
   
-  public static int getNumberOfDays(){
+  public int getNumberOfDays(){
       return numberOfDays;
   }
   
-  public static void setNumberOfDays(int n){
+  public void setNumberOfDays(int n){
       numberOfDays = n;
   }
 }
