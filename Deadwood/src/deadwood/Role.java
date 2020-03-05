@@ -9,7 +9,9 @@ package deadwood;
  *
  * @author nada
  */
-public class Role {
+
+import java.util.Observable;
+public class Role extends Observable{
     private String name;
     private String line;
     private int ID;
@@ -17,7 +19,12 @@ public class Role {
     private Player occupant;
     private int payout;
 
-
+    /**
+     * Constructor: Adds an observer
+     */
+    public Role() {
+        addObserver(Controller.getInstance());
+    }
     /**
       * If the role is not taken and the player has the appropriate rank,
       * the player occupies this role.
@@ -29,8 +36,10 @@ public class Role {
         if(!isRoleTaken() && player.getRank() >= rank) {
           setOccupant(player);
           player.setRole(this);
+          notifyObservers();
           return true;
         } else {
+          notifyObservers();
           return false;
         }
     }
@@ -156,6 +165,7 @@ public class Role {
      */
     public void setOccupant(Player p){
         occupant = p;
+        notifyObservers();
     }
 
     /**
