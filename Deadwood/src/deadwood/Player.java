@@ -9,7 +9,10 @@ package deadwood;
  *
  * @author tyler
  */
-public class Player {
+
+//TODO: Implement Observable operations
+import java.util.Observable;
+public class Player extends Observable{
     private int ID;
     private int location;
     private int dollars;
@@ -25,6 +28,7 @@ public class Player {
      * @param name: the player's name
     */
     public Player(int ID, int startingLocation) {
+        addObserver(Controller.getInstance());
         this.ID = ID;
         location = startingLocation;
         dollars = 0;
@@ -45,30 +49,35 @@ public class Player {
     }
     public void setLocation(int newLocID) {
         location = newLocID;
+        notifyObservers();
     }
     public int getDollars() {
         return dollars;
     }
     public void setDollars(int amount) {
         dollars = amount;
+        notifyObservers();
     }
     public int getCredits() {
         return credits;
     }
     public void setCredits(int amount) {
         credits = amount;
+        notifyObservers();
     }
     public int getRank() {
         return rank;
     }
     public void setRank(int rank) {
         this.rank = rank;
+        notifyObservers();
     }
     public Role getRole() {
         return currRole;
     }
     public void setRole(Role role) {
         currRole = role;
+        notifyObservers();
     }
     public int getRehearsalChips() {
         return rehearsalChips;
