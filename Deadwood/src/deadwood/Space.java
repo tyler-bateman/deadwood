@@ -13,25 +13,37 @@ package deadwood;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Space {
+public class Space extends Observable implements Observer{
     protected int ID;
     protected String name;
     protected Set<Player> players = new HashSet<Player>(); //The set of players currently in this space
     protected LinkedList<Space> adjacentSpaces; //Array containing the IDs of all adjacent spaces
     
     /**
+     * Constructor
+     * Adds the controller as an observer.
+     */
+    public Space() {
+        addObserver(Controller.getInstance());
+    }
+    /**
      * 
      * @param player : the player requesting the move
-     * @param spaces: the spaces on the board
+     * @param index: the index of the new space in the adjacent spaces list
      * @return : True if move was successful 
      *           False if move was invalid
      */
-    public void moveTo(Player player, int index) {
-                
-                player.setLocation(this.getAdjacentSpaces().get(index).ID);          
-                this.removePlayer(player);
-                this.getAdjacentSpaces().get(index).addPlayer(player);
+    public boolean moveTo(Player player, int index) {    
+        if(index >= adjacentSpaces.size()) {
+            return false;
+        }
+        player.setLocation(this.getAdjacentSpaces().get(index).ID);          
+        this.removePlayer(player);
+        this.getAdjacentSpaces().get(index).addPlayer(player);
+        return true;
     }
     
     /**
@@ -40,6 +52,7 @@ public class Space {
      */
     public void addPlayer(Player player) {
         getPlayerSet().add(player);
+        notifyObservers();
 
     }
     
@@ -49,6 +62,7 @@ public class Space {
      */
     public void removePlayer(Player player) {
         getPlayerSet().remove(player);
+        notifyObservers();
     }
     
     /**
@@ -105,5 +119,10 @@ public class Space {
      */
     public void setAdjacentSpaces(LinkedList<Space> spaces) {
         adjacentSpaces = spaces;
+    }
+    
+    @Override
+    public void update(Observable o, Object obj) {
+        //TODO
     }
 }
