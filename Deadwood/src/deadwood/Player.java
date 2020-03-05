@@ -84,6 +84,7 @@ public class Player extends Observable{
     }
     public void setRehearsal(int amount) {
         rehearsalChips = amount;
+        notifyObservers();
     }
     
     @Override
