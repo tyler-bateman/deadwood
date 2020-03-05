@@ -58,7 +58,7 @@ public class DayManager extends Observable {
         }
       }
       if(activeScenes <= 1) {
-        Deadwood.sendMessage("There is only one active scene so the day has ended.");
+        //Deadwood.sendMessage("There is only one active scene so the day has ended.");
         dayEnd(b);
         return true;
         
@@ -79,7 +79,7 @@ public class DayManager extends Observable {
     } else {
         b.newDay();
     }
-    Deadwood.sendMessage("Wake up! It's a new day! Welcome to day " + getCurrentDay());
+    //Deadwood.sendMessage("Wake up! It's a new day! Welcome to day " + getCurrentDay());
   }
 
   /**

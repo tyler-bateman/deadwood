@@ -33,7 +33,7 @@ public class Dice {
        for(int i = 0; i < num; i++) {
            insertDie(r.nextInt(6) + 1);
        }
-       Deadwood.sendMessage("You rolled the following dice: " + dice.toString());
+       //Deadwood.sendMessage("You rolled the following dice: " + dice.toString());
     }
     
     /*

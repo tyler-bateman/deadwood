@@ -23,9 +23,9 @@ public class ScoreManager {
      */
     public static void declareWinner(Player[] playerList){  //ends the game
         calculateScores(playerList);
-        Deadwood.sendMessage("The game is over!");
+        //Deadwood.sendMessage("The game is over!");
         for(int i = 0; i < playerScores.length; i++) {
-            Deadwood.sendMessage("Player " + (i + 1) + " has " + playerScores[i] + " points");
+            //Deadwood.sendMessage("Player " + (i + 1) + " has " + playerScores[i] + " points");
         }
         System.exit(0);
     }
