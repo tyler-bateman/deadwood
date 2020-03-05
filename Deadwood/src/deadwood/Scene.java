@@ -43,6 +43,7 @@ public class Scene extends Space {
         card = null;
         resetShots();
         }
+        notifyObservers();
     }
 
     /**
@@ -102,22 +103,26 @@ public class Scene extends Space {
           Dice d = new Dice(1);
           int dieVal = d.nextDie();
           if(dieVal + player.getRehearsalChips() >= card.getBudget()) {
-              setRemainingShots(getRemainingShots() - 1);
-              if(card.hasRole(player.getRole())) {
-                Banker.giveCredits(player, 2);
-              } else {
-                Banker.giveCredits(player, 1);
-                Banker.giveDollars(player, 1);
-              }
+            setRemainingShots(getRemainingShots() - 1);
+            if(card.hasRole(player.getRole())) {
+              Banker.giveCredits(player, 2);
+              notifyObservers(1); // On card, successful
+            } else {
+              Banker.giveCredits(player, 1);
+              Banker.giveDollars(player, 1);
+              notifyObservers(2); //Off card, successful
+            }
 
-              if(getRemainingShots() == 0) {
-                wrap();
-              }
+            if(getRemainingShots() == 0) {
+              wrap();
+            }
           } else {
-              if(!card.hasRole(player.getRole())) {
-                Banker.giveDollars(player, 1);
-                return false;
-              }
+            if(!card.hasRole(player.getRole())) {
+              Banker.giveDollars(player, 1);
+              notifyObservers(3); // Off card, unsuccessful
+            } else {
+                notifyObservers(4); // On card, unsuccessful
+            }
           }
           return true;
         } else {
@@ -130,6 +135,7 @@ public class Scene extends Space {
      * Wraps the scene: assigns bonus amounts, pays bonus, 
      */
     private void wrap(){
+        int termination;
         if(card.hasPlayers()) {
           //Deadwood.sendMessage("There are players on the card. Players will receive a bonus");
           Dice d = new Dice(card.getBudget());
@@ -163,6 +169,7 @@ public class Scene extends Space {
             }
 
           }
+          termination = 5;
 
         } 
         else { //There are no players on the card
@@ -173,9 +180,12 @@ public class Scene extends Space {
               r.removePlayer();
             }
           }
+          termination = 6;
         }
         setCard(null);
+        notifyObservers(termination);
         setRemainingShots(getTotalShots());
+        
     }
    
 
@@ -201,6 +211,7 @@ public class Scene extends Space {
      */
     public void setName(String name){
         this.name = name;
+        notifyObservers();
     }
 
     /**
@@ -217,6 +228,7 @@ public class Scene extends Space {
      */
     public void setCard(SceneCard card){
         this.card = card;
+        notifyObservers(card);
     }
 
     /**
@@ -233,6 +245,7 @@ public class Scene extends Space {
      */
     private void setRemainingShots(int shots){
         remainingShots = shots;
+        notifyObservers();
     }
 
     /**
@@ -249,6 +262,7 @@ public class Scene extends Space {
      */
     public void setOffCardRoles(LinkedList<Role> roles){
         offCardRoles = roles;
+        notifyObservers();
     }
     
     /**
@@ -265,6 +279,7 @@ public class Scene extends Space {
      */
     public void setTotalShots(int t){
         totalShots = t;
+        notifyObservers();
     }
 
 }
