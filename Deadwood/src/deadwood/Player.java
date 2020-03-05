@@ -30,12 +30,12 @@ public class Player extends Observable{
     public Player(int ID, int startingLocation) {
         addObserver(Controller.getInstance());
         this.ID = ID;
-        location = startingLocation;
-        dollars = 0;
-        credits = 0;
-        rank = 1;
-        currRole = null;
-        rehearsalChips= 0;
+        setLocation(startingLocation);
+        setDollars(0);
+        setCredits(0);
+        setRank(1);
+        setRole(null);
+        setRehearsal(0);
         Board.getInstance().getSpaces()[location].addPlayer(this);
     }
     public int getScore() {
