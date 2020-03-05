@@ -21,11 +21,26 @@ public class Controller extends Observable implements Observer {
         return instance;
     }
     
-    
-    
     @Override
     public void update(Observable o, Object obj) {
-        //TODO
+        Class source = o.getClass();
+        if(source.equals(View.class)) {
+            //TODO
+        } else if(source.equals(Player.class)){
+            //TODO
+        } else if(source.equals(Space.class)) {
+            //TODO
+        } else if(source.equals(DayManager.class)) {
+            //TODO
+        } else if(source.equals(Role.class)) {
+            //TODO
+        } else if(source.equals(Scene.class)) {
+            //TODO
+        } else if(source.equals(ScoreManager.class)) {
+            //TODO
+        } else if (source.equals(TurnManager.class)) {
+            //TODO
+        }
     }
     
 }
