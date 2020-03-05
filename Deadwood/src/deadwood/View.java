@@ -9,6 +9,19 @@ package deadwood;
  *
  * @author tyler
  */
-public class View {
+
+import java.util.Observer;
+import java.util.Observable;
+public class View extends Observable implements Observer{
+    
+    
+    /**
+     * 
+     * @param o
+     * @param obj 
+     */
+    public void update(Observable o, Object obj) {
+        //TODO
+    }
     
 }
