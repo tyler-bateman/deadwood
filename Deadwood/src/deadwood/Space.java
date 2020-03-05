@@ -14,9 +14,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.Observable;
-import java.util.Observer;
 
-public class Space extends Observable implements Observer{
+public class Space extends Observable{
     protected int ID;
     protected String name;
     protected Set<Player> players = new HashSet<Player>(); //The set of players currently in this space
@@ -119,10 +118,5 @@ public class Space extends Observable implements Observer{
      */
     public void setAdjacentSpaces(LinkedList<Space> spaces) {
         adjacentSpaces = spaces;
-    }
-    
-    @Override
-    public void update(Observable o, Object obj) {
-        //TODO
     }
 }
