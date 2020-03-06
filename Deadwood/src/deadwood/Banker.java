@@ -18,11 +18,11 @@ public class Banker {
      */
     public static boolean chargeDollars(Player player, int amount) {
         if(player.getDollars() < amount) {
-            Deadwood.sendMessage("Player " + player.getID() + " cannot afford $" + amount);
+            //Deadwood.sendMessage("Player " + player.getID() + " cannot afford $" + amount);
             return false;
         } else {
             player.setDollars(player.getDollars() - amount);
-            Deadwood.sendMessage("Player " + player.getID() + " has been charged $" + amount + " and now has $" + player.getDollars());
+            //Deadwood.sendMessage("Player " + player.getID() + " has been charged $" + amount + " and now has $" + player.getDollars());
             return true;
         }
     }
@@ -37,10 +37,10 @@ public class Banker {
      */    
     public static boolean chargeCredits(Player player, int amount) {
         if(player.getCredits() < amount) {
-            Deadwood.sendMessage(player + " cannot afford " + amount + " credits");
+            //Deadwood.sendMessage(player + " cannot afford " + amount + " credits");
             return false;
         } else {
-            Deadwood.sendMessage(player + " has been charged " + amount + " credits and now has " + player.getDollars() + " credits");
+            //Deadwood.sendMessage(player + " has been charged " + amount + " credits and now has " + player.getDollars() + " credits");
             player.setCredits(player.getCredits() - amount);
             return true;
         }
@@ -72,7 +72,7 @@ public class Banker {
     public static void giveDollars(Player player, int amount) {
         
         player.setDollars(player.getDollars() + amount);
-        Deadwood.sendMessage(player + " has been given $" + amount + " and now has $" + player.getDollars());
+        //Deadwood.sendMessage(player + " has been given $" + amount + " and now has $" + player.getDollars());
     }
     
     /**
@@ -83,7 +83,7 @@ public class Banker {
     public static void giveCredits(Player player, int amount) {
         
         player.setCredits(player.getCredits() + amount);
-        Deadwood.sendMessage(player + " has been given " + amount + " credits and now has " + player.getCredits() + " credits.");
+        //Deadwood.sendMessage(player + " has been given " + amount + " credits and now has " + player.getCredits() + " credits.");
     }
 }
 
