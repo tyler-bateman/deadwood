@@ -7,6 +7,8 @@ package deadwood;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -16,7 +18,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Curveball
  */
-public class GameView extends JFrame {
+public class GameView extends JFrame implements ActionListener {
 
     private JPanel jpanel1;
     private JLayeredPane boardPane;
@@ -173,6 +175,7 @@ public class GameView extends JFrame {
         moveButton = new JButton();
         moveButton.setText("Move");
         moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        moveButton.addActionListener(this);
         actionsPanel.add(moveButton);
         actionsPanel.add(Box.createVerticalGlue());
 
@@ -204,6 +207,63 @@ public class GameView extends JFrame {
         endTurnButton.setText("End Turn");
         endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         actionsPanel.add(endTurnButton);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == moveButton) {
+            JFrame moveChoicesFrame = new JFrame();
+            centreWindow(moveChoicesFrame);
+            
+            JPanel contentPane = new JPanel();
+            contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+            
+
+            JLabel whereToLabel = new JLabel();
+            whereToLabel.setText("Where To ?");
+            whereToLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JPanel scenesPanel = new JPanel();
+            scenesPanel.setLayout(new BoxLayout(scenesPanel, BoxLayout.X_AXIS));
+
+            JButton scene1Button = new JButton("Scene 1");
+            scene1Button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton scene2Button = new JButton("Scene 2");
+            scene1Button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton scene3Button = new JButton("Scene 3");
+            scene1Button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            scenesPanel.add(Box.createHorizontalGlue());
+            scenesPanel.add(scene1Button);
+            scenesPanel.add(Box.createHorizontalGlue());
+            scenesPanel.add(scene2Button);
+            scenesPanel.add(Box.createHorizontalGlue());
+            scenesPanel.add(scene3Button);
+            scenesPanel.add(Box.createHorizontalGlue());
+            
+            contentPane.add(Box.createRigidArea(new Dimension((moveChoicesFrame.getHeight()/5),0)));
+            contentPane.add(whereToLabel);
+            contentPane.add(Box.createVerticalGlue());
+            contentPane.add(scenesPanel);
+            contentPane.add(Box.createVerticalGlue());
+            
+            
+            
+            moveChoicesFrame.setContentPane(contentPane);           
+            moveChoicesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            moveChoicesFrame.setVisible(true);
+
+        }
+    }
+
+    public static void centreWindow(Window frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = dimension.height / 3;
+        int width = dimension.width / 3;
+        frame.setSize(new Dimension(width, height));
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
     }
 
     private void setFonts() {
