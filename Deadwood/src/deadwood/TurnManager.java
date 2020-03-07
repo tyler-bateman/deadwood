@@ -47,6 +47,14 @@ public class TurnManager extends Observable implements Observer{
     
     /**
      * 
+     * @return the active player
+     */
+    public Player getActivePlayer() {
+        return Board.getInstance().getPlayer(getActivePlayerID());
+    }
+    
+    /**
+     * 
      * @param o the Observable that updated this observer
      * @param obj the new active player ID. If it is invalid, i.e. too large,
      *            it resets at the first player and notifies the controller.
