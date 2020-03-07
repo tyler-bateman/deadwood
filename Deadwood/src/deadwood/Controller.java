@@ -54,11 +54,12 @@ public class Controller extends Observable implements Observer {
         Board.getInstance().setPlayers(players);
     }
     
-    public void takeRole() {
-        
+    
+    public void takeRole(Role r) {
+        r.requestRole(Board.getInstance().getPlayer(TurnManager.getInstance().getActivePlayerID()));
     }
     
-    public void move() {
+    public void move(Space s) {
         
     }
     
