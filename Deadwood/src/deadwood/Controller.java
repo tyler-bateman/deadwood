@@ -24,9 +24,7 @@ public class Controller extends Observable implements Observer {
     @Override
     public void update(Observable o, Object obj) {
         Class source = o.getClass();
-        if(source.equals(View.class)) {
-            //TODO
-        } else if(source.equals(Player.class)){
+        if(source.equals(Player.class)){
             //TODO
         } else if(source.equals(Space.class)) {
             //TODO
@@ -43,4 +41,40 @@ public class Controller extends Observable implements Observer {
         }
     }
     
+    
+    /**
+     * Creates the player objects and stores them in the Board class
+     * @param num the number of players
+     */
+    public void setNumPlayers(int num) {
+        Player[] players = new Player[num];
+        for(int i = 0; i < num; i++) {
+            players[i] = new Player(i, Board.getInstance().getTrailorsID());
+        }
+        Board.getInstance().setPlayers(players);
+    }
+    
+    public void takeRole() {
+        
+    }
+    
+    public void move() {
+        
+    }
+    
+    public void act() {
+        
+    }
+    
+    public void rehearse() {
+        
+    }
+    
+    public void upgrade() {
+        
+    }
+    
+    public void endTurn() {
+        
+    }
 }
