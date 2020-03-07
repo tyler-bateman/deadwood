@@ -56,11 +56,12 @@ public class Controller extends Observable implements Observer {
     
     
     public void takeRole(Role r) {
-        r.requestRole(Board.getInstance().getPlayer(TurnManager.getInstance().getActivePlayerID()));
+        r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
     
-    public void move(Space s) {
-        
+    public void move(int index) {
+        Player p = TurnManager.getInstance().getActivePlayer();
+        Board.getInstance().getSpace(p.getLocation()).moveTo(p, index);
     }
     
     public void act() {
@@ -71,7 +72,7 @@ public class Controller extends Observable implements Observer {
         
     }
     
-    public void upgrade() {
+    public void upgrade(int rank, CurrencyType type) {
         
     }
     
