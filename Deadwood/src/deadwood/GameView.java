@@ -71,7 +71,6 @@ public class GameView extends JFrame implements ActionListener {
         updateTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 3));
         updateTextArea.setEditable(false);
         JScrollPane scrollpane = new JScrollPane(updateTextArea);
-        scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         infoPanel.add(scrollpane, BorderLayout.NORTH);
 
         playerInfoLabel = new JLabel();
