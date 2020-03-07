@@ -18,6 +18,8 @@ public class Role extends Observable{
     private int rank;
     private Player occupant;
     private int payout;
+    private int xCoordinates;
+    private int yCoordinates;
 
     /**
      * Constructor: Adds an observer
@@ -182,6 +184,21 @@ public class Role extends Observable{
      */
     private void setPayout(int newPayout){
         payout = newPayout;
+    }
+    
+    public int getXCoordinates(){
+        return xCoordinates;
+    }
+    
+    public void setXCoordinates(int x){
+        xCoordinates = x;
+    }
+    
+    public int getYCoordinates(){
+        return yCoordinates;
+    }
+    public void setYCoordinates(int y){
+        yCoordinates = y;
     }
 
 }

@@ -15,6 +15,7 @@ public class SceneCard {
     private String name;
     private String description;
     private LinkedList<Role> roles;
+    private String iconID;
     private int budget;
     private boolean faceUp;
 
@@ -147,5 +148,15 @@ public class SceneCard {
     public void setFaceUp(boolean b){
         faceUp = b;
     }
+    
+    public String getIconID(){
+        return iconID;
+    }
+    
+    public void setIconID(String id){
+        iconID = id;
+    }
+    
+
 
 }

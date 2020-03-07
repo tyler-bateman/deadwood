@@ -20,6 +20,8 @@ public class Space extends Observable{
     protected String name;
     protected Set<Player> players = new HashSet<Player>(); //The set of players currently in this space
     protected LinkedList<Space> adjacentSpaces; //Array containing the IDs of all adjacent spaces
+    protected int xCoordinates;
+    protected int yCoordinates;
     
     /**
      * Constructor
@@ -118,5 +120,20 @@ public class Space extends Observable{
      */
     public void setAdjacentSpaces(LinkedList<Space> spaces) {
         adjacentSpaces = spaces;
+    }
+    
+    public int getXCoordinates(){
+        return xCoordinates;
+    }
+    
+    public void setXCoordinates(int x){
+        xCoordinates = x;
+    }
+    
+    public int getYCoordinates(){
+        return yCoordinates;
+    }
+    public void setYCoordinates(int y){
+        yCoordinates = y;
     }
 }

@@ -19,6 +19,8 @@ public class Scene extends Space {
     private int remainingShots;
     private int totalShots;
     private LinkedList<Role> offCardRoles;
+    private LinkedList<Integer> shotCountersXCoordinates;
+    private LinkedList<Integer> shotCountersYCoordinates;
    
     /**
      * resets the shot counter
@@ -280,6 +282,22 @@ public class Scene extends Space {
     public void setTotalShots(int t){
         totalShots = t;
         notifyObservers();
+    }      
+    
+    public LinkedList<Integer> getShotCountersXCoordinates(){
+        return shotCountersXCoordinates;
+    }
+    
+    public void setShotCountersXCoordinates(LinkedList<Integer> s){
+        shotCountersXCoordinates = s;
+    }
+    
+    public LinkedList<Integer> getShotCountersYCoordinates(){
+        return shotCountersYCoordinates;
+    }
+    
+    public void setShotCountersYCoordinates(LinkedList<Integer> s){
+        shotCountersYCoordinates = s;
     }
 
 }

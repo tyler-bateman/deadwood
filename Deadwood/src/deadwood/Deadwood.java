@@ -5,6 +5,7 @@
  */
 package deadwood;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -25,7 +26,7 @@ public class Deadwood {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ParserConfigurationException {
+    public static void main(String[] args) throws ParserConfigurationException, IOException {
        
         ///////XML PARSING PREP///////
         Document boardDoc = null;
@@ -66,6 +67,8 @@ public class Deadwood {
         DayManager.getInstance().init(numberOfPlayers);
         ScoreManager.init(numberOfPlayers);
         ///////////////////////////////////////
+        
+        LaunchView launchView = new LaunchView();
     }
 }
 
