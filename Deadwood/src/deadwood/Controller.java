@@ -65,7 +65,12 @@ public class Controller extends Observable implements Observer {
     }
     
     public void act() {
-        
+        Player p = TurnManager.getInstance().getActivePlayer();
+        Space loc = Board.getInstance().getSpace(p.getLocation());
+        if(loc.getClass().equals(Scene.class)) {
+            Scene s = (Scene)loc;
+            s.requestActAttempt(p);
+        }
     }
     
     public void rehearse() {
