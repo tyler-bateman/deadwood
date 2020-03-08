@@ -181,7 +181,6 @@ public class ActionsPanel extends JPanel implements ActionListener {
             }
 
         }*/
-
         if (e.getSource() == upgradeButton) {
             JFrame upgradeChoicesFrame = new JFrame();
             centreWindow(upgradeChoicesFrame);
@@ -248,40 +247,6 @@ public class ActionsPanel extends JPanel implements ActionListener {
                 Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }*/
-
-    }
-
-    public static void centreWindow(Window frame) {
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = dimension.height / 3;
-        int width = dimension.width / 3;
-        frame.setSize(new Dimension(width, height));
-        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-        frame.setLocation(x, y);
-    }
-
-    private void setFonts() {
-        try {
-            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
-            Font boldFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-SemiBold.ttf").openStream());
-            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            genv.registerFont(regularFont);
-            genv.registerFont(boldFont);
-            Font font1 = boldFont.deriveFont(32f);
-            /*Font font2 = regularFont.deriveFont(18f);
-            /*updateTextArea.setFont(font2.deriveFont(Font.ITALIC));
-            playerInfoLabel.setFont(font2.deriveFont(Font.ITALIC));*/
-            moveButton.setFont(font1);
-            takeRoleButton.setFont(font1);
-            actButton.setFont(font1);
-            rehearseButton.setFont(font1);
-            upgradeButton.setFont(font1);
-            endTurnButton.setFont(font1);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void setJButtons() {
@@ -327,4 +292,33 @@ public class ActionsPanel extends JPanel implements ActionListener {
         add(endTurnButton);
     }
 
+    private void setFonts() {
+        try {
+            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
+            Font boldFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-SemiBold.ttf").openStream());
+            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            genv.registerFont(regularFont);
+            genv.registerFont(boldFont);
+            Font font1 = boldFont.deriveFont(32f);
+            moveButton.setFont(font1);
+            takeRoleButton.setFont(font1);
+            actButton.setFont(font1);
+            rehearseButton.setFont(font1);
+            upgradeButton.setFont(font1);
+            endTurnButton.setFont(font1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void centreWindow(Window frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = dimension.height / 3;
+        int width = dimension.width / 3;
+        frame.setSize(new Dimension(width, height));
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
+    }
 }
