@@ -66,6 +66,10 @@ public class GameView extends JFrame /*implements ActionListener*/ {
         this.setVisible(true);
 
     }
+    
+    public InfoPanel getInfoPanel(){
+        return infoPanel;
+    }
 
 
 

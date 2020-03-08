@@ -11,7 +11,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -31,13 +34,12 @@ public class InfoPanel extends JPanel {
         setElements(height, width, boardIcon);
         setFonts();
         JScrollPane scrollpane = new JScrollPane(updateTextArea);
-        add(scrollpane, BorderLayout.NORTH);    
+        add(scrollpane, BorderLayout.NORTH);
         add(playerInfoLabel, BorderLayout.SOUTH);
-        
+
     }
 
-    
-    private void setElements(int height,int width, ImageIcon boardIcon){
+    private void setElements(int height, int width, ImageIcon boardIcon) {
         updateTextArea = new JTextArea();
         updateTextArea.setBackground(Color.white);
         updateTextArea.setOpaque(true);
@@ -48,7 +50,7 @@ public class InfoPanel extends JPanel {
         updateTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         updateTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 3));
         updateTextArea.setEditable(false);
-        
+
         playerInfoLabel = new JLabel();
         playerInfoLabel.setBackground(Color.white);
         playerInfoLabel.setOpaque(true);
@@ -56,9 +58,9 @@ public class InfoPanel extends JPanel {
         playerInfoLabel.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 2));
         playerInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         playerInfoLabel.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-        
-        
+
     }
+
     private void setFonts() {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
@@ -72,6 +74,19 @@ public class InfoPanel extends JPanel {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setUpdateTextArea(String message) {
+        int end;
+        updateTextArea.setText(updateTextArea.getText() + message);
+        try {
+            if (updateTextArea.getLineCount() == 24) {
+                end = updateTextArea.getLineEndOffset(0);
+                updateTextArea.replaceRange("", 0, end);
+            }
+        } catch (BadLocationException ex) {
+            Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
