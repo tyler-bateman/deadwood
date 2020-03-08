@@ -22,21 +22,27 @@ import javax.swing.text.BadLocationException;
  */
 public class InfoPanel extends JPanel {
 
+    private static InfoPanel instance = new InfoPanel();
     private JTextArea updateTextArea;
     private JLabel playerInfoLabel;
 
-    public InfoPanel(int height, int width, ImageIcon boardIcon) {
+    private InfoPanel() {
 
-        setLayout(new BorderLayout());
-        setBackground(Color.red);
-        setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
+    }
 
-        setElements(height, width, boardIcon);
-        setFonts();
+    public static InfoPanel getInstance() {
+        return instance;
+    }
+
+    public void init(int height, int width, ImageIcon boardIcon) {
+        instance.setLayout(new BorderLayout());
+        instance.setBackground(Color.red);
+        instance.setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
+        instance.setElements(height, width, boardIcon);
+        instance.setFonts();
         JScrollPane scrollpane = new JScrollPane(updateTextArea);
-        add(scrollpane, BorderLayout.NORTH);
-        add(playerInfoLabel, BorderLayout.SOUTH);
-
+        instance.add(scrollpane, BorderLayout.NORTH);
+        instance.add(playerInfoLabel, BorderLayout.SOUTH);
     }
 
     private void setElements(int height, int width, ImageIcon boardIcon) {

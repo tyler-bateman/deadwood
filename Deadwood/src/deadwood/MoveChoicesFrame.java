@@ -39,24 +39,9 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
         scenesPanel = new JPanel();
         scenesPanel.setLayout(new BoxLayout(scenesPanel, BoxLayout.X_AXIS));
 
-        //sceneButtons[0] = new JButton("Scene 1");
-        //sceneButtons[0].setAlignmentX(Component.CENTER_ALIGNMENT);
-        //sceneButtons[0].addActionListener(this);
-        //sceneButtons[1] = new JButton("Scene 2");
-        //sceneButtons[1].setAlignmentX(Component.CENTER_ALIGNMENT);
-        //sceneButtons[2] = new JButton("Scene 3");
-        //sceneButtons[2].setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        //scenesPanel.add(Box.createHorizontalGlue());
-        //scenesPanel.add(sceneButtons[0]);
-        /*scenesPanel.add(Box.createHorizontalGlue());
-        scenesPanel.add(sceneButtons[1]);
-        scenesPanel.add(Box.createHorizontalGlue());
-        scenesPanel.add(sceneButtons[2]);
-        scenesPanel.add(Box.createHorizontalGlue());*/
         setJButtons();
         scenesPanel.add(Box.createHorizontalGlue());
-        
+
         contentPane.add(Box.createVerticalGlue());
         contentPane.add(whereToLabel);
         contentPane.add(Box.createVerticalGlue());
@@ -68,10 +53,14 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == sceneButtons[0]) {
-
+        for (int i = 0; i < Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().size(); i++) {
+            if (e.getSource() == sceneButtons[i]) {
+                
+            }
         }
     }
+
+    
 
     private void setFonts(JButton b) {
         try {
@@ -97,7 +86,7 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
             scenesPanel.add(Box.createHorizontalGlue());
             scenesPanel.add(sceneButtons[i]);
             setFonts(sceneButtons[i]);
-            
+
         }
     }
 

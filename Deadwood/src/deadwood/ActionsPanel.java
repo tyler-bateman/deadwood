@@ -21,10 +21,12 @@ import javax.swing.*;
  * @author Curveball
  */
 public class ActionsPanel extends JPanel implements ActionListener {
+
+    private static ActionsPanel instance = new ActionsPanel();
     private MoveChoicesFrame moveChoicesFrame;
     private TakeRoleChoicesFrame takeRoleChoicesFrame;
     private UpgradeFrame upgradeFrame;
-    
+
     private JButton moveButton;
     private JButton takeRoleButton;
     private JButton actButton;
@@ -32,19 +34,25 @@ public class ActionsPanel extends JPanel implements ActionListener {
     private JButton upgradeButton;
     private JButton endTurnButton;
 
-    public ActionsPanel(int height, int width, ImageIcon boardIcon) {
+    private ActionsPanel() {
 
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setBackground(Color.white);
-        setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
+    }
 
-        add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
-        setJButtons();
-        setFonts();
-        add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
-        add(Box.createVerticalGlue());
-        setBorder(BorderFactory.createLineBorder(Color.black, 3));
+    public static ActionsPanel getInstance() {
+        return instance;
+    }
 
+    public void init(int height, int width, ImageIcon boardIcon) {
+        instance.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        instance.setBackground(Color.white);
+        instance.setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
+
+        instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
+        instance.setJButtons();
+        instance.setFonts();
+        instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
+        instance.add(Box.createVerticalGlue());
+        instance.setBorder(BorderFactory.createLineBorder(Color.black, 3));
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -86,11 +94,11 @@ public class ActionsPanel extends JPanel implements ActionListener {
         }*/
         if (e.getSource() == upgradeButton) {
             upgradeFrame = new UpgradeFrame();
-            
+
         }
 
         if (e.getSource() == endTurnButton) {
-            
+
         }
     }
 

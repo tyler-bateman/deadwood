@@ -14,21 +14,28 @@ import javax.swing.*;
  */
 public class BoardPane extends JLayeredPane {
 
+    private static BoardPane instance = new BoardPane();
     private ImageIcon boardIcon;
     private JLabel boardLabel;
     private JLabel[] playerLabels;
 
-    BoardPane(int height, int width, ImageIcon boardIcon) {
+    private BoardPane() {
 
-        this.boardIcon = boardIcon;
-        playerLabels = new JLabel[2];
-        setLayout(null);
-        setPreferredSize(new Dimension(900, 1200));
-        boardLabel = new JLabel();
-        boardLabel.setIcon(boardIcon);
-        boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
-        add(boardLabel, new Integer(0));
-        
+    }
+
+    public static BoardPane getInstance() {
+        return instance;
+    }
+
+    public void init(int height, int width, ImageIcon boardIcon) {
+        instance.boardIcon = boardIcon;
+        instance.playerLabels = new JLabel[2];
+        instance.setLayout(null);
+        instance.setPreferredSize(new Dimension(900, 1200));
+        instance.boardLabel = new JLabel();
+        instance.boardLabel.setIcon(boardIcon);
+        instance.boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
+        instance.add(boardLabel, new Integer(0));
         Demo();
     }
 
@@ -90,7 +97,7 @@ public class BoardPane extends JLayeredPane {
 
         for (int i = 0; i < 2; i++) {
 
-            JLabel playerLabel = new JLabel();      
+            JLabel playerLabel = new JLabel();
             if (i == 0) {
                 ImageIcon playerIcon = new ImageIcon(getClass().getResource("/resources/r1.png"));
                 playerLabel.setIcon(playerIcon);
@@ -103,7 +110,7 @@ public class BoardPane extends JLayeredPane {
             }
             playerLabel.setOpaque(true);
             playerLabels[i] = playerLabel;
-            
+
             add(playerLabels[i], new Integer(2));
         }
     }

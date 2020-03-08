@@ -24,9 +24,9 @@ import javax.swing.text.BadLocationException;
 public class GameView extends JFrame /*implements ActionListener*/ {
 
     private JPanel jpanel1;
-    private ActionsPanel actionsPanel;
-    private BoardPane boardPane;
-    private InfoPanel infoPanel;   
+    private ActionsPanel actionsPanel = ActionsPanel.getInstance();
+    private BoardPane boardPane = BoardPane.getInstance();
+    private InfoPanel infoPanel = InfoPanel.getInstance();
     private int playerNumber;
 
     public GameView(int numOfPlayers) {
@@ -48,9 +48,9 @@ public class GameView extends JFrame /*implements ActionListener*/ {
         jpanel1.setLayout(new BorderLayout());
         add(jpanel1);
 
-        actionsPanel = new ActionsPanel(height,width,boardIcon);
-        infoPanel = new InfoPanel(height,width,boardIcon);
-        boardPane = new BoardPane(height,width,boardIcon);
+        actionsPanel.init(height, width, boardIcon);
+        infoPanel.init(height, width, boardIcon);
+        boardPane.init(height, width, boardIcon);
 
         jpanel1.add(actionsPanel, BorderLayout.WEST);
         jpanel1.add(boardPane, BorderLayout.CENTER);
@@ -67,9 +67,7 @@ public class GameView extends JFrame /*implements ActionListener*/ {
 
     }
     
-    public InfoPanel getInfoPanel(){
-        return infoPanel;
-    }
+
 
 
 
