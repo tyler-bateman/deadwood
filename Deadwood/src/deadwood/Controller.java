@@ -54,16 +54,26 @@ public class Controller extends Observable implements Observer {
         Board.getInstance().setPlayers(players);
     }
     
-    
+    /**
+     * Use case for taking a role
+     * @param r the role being taken
+     */
     public void takeRole(Role r) {
         r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
     
+    /**
+     * Use case for moving
+     * @param index the in the adjacent spaces array for the current space
+     */
     public void move(int index) {
         Player p = TurnManager.getInstance().getActivePlayer();
         Board.getInstance().getSpace(p.getLocation()).moveTo(p, index);
     }
     
+    /**
+     * Use case: Act
+     */
     public void act() {
         Player p = TurnManager.getInstance().getActivePlayer();
         Space loc = Board.getInstance().getSpace(p.getLocation());
@@ -73,15 +83,32 @@ public class Controller extends Observable implements Observer {
         }
     }
     
+    /**
+     * Use case: Rehearse
+     */
     public void rehearse() {
-        
+        Player p = TurnManager.getInstance().getActivePlayer();
+        Space loc = Board.getInstance().getSpace(p.getLocation());
+        if(loc.getClass().equals(Scene.class)) {
+            Scene s = (Scene)loc;
+            s.requestRehearsal(p);
+        }
     }
     
+    /**
+     * Use case: upgrade
+     * @param rank the desired rank
+     * @param type the type of currency the player is using to pay
+     */
     public void upgrade(int rank, CurrencyType type) {
-        
+        Player p = TurnManager.getInstance().getActivePlayer();
+        CastingOffice.getInstance().purchaseRank(p, rank, type);
     }
     
+    /**
+     * Use case: end turn
+     */
     public void endTurn() {
-        
+        TurnManager.getInstance().nextTurn();
     }
 }
