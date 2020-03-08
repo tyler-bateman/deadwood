@@ -1,17 +1,8 @@
-For Friday:
-
-Tyler:
-Banker, Dice, SceneCard, Space, CastingOffice, Deck
-
-Nada: 
-XML stuff
-
-
-2/12:
-	List of classes that need XML for constructor:
-		Board*
-		Role : Done
-		Scene
-		SceneCard : Done
-		Space
-		Casting Office (This one will be weird
+Things that need to be done:
+	Changes in the model are reflected in the view
+		
+	User actions in the view are reflected in the model
+	
+	Keeping track of which use cases are allowed at which times
+	
+	
