@@ -53,5 +53,14 @@ public class TurnManager extends Observable{
         return Board.getInstance().getPlayer(getActivePlayerID());
     }
     
-    
+    /**
+     * Begins the next player's turn
+     */
+    public void nextTurn() {
+        activePlayerID ++;
+        if(getActivePlayerID() >= numPlayers) {
+            activePlayerID = 0;
+        }
+        notifyObservers();
+    }
 }
