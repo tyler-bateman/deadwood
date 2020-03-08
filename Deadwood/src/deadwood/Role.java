@@ -38,10 +38,8 @@ public class Role extends Observable{
         if(!isRoleTaken() && player.getRank() >= rank) {
           setOccupant(player);
           player.setRole(this);
-          notifyObservers();
           return true;
         } else {
-          notifyObservers();
           return false;
         }
     }
