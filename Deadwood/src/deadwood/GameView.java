@@ -50,7 +50,7 @@ public class GameView extends JFrame /*implements ActionListener*/ {
 
         actionsPanel.init(height, width, boardIcon);
         infoPanel.init(height, width, boardIcon);
-        boardPane.init(height, width, boardIcon);
+        boardPane.init(height, width, boardIcon, playerNumber);
 
         jpanel1.add(actionsPanel, BorderLayout.WEST);
         jpanel1.add(boardPane, BorderLayout.CENTER);

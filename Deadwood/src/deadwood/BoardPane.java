@@ -27,19 +27,19 @@ public class BoardPane extends JLayeredPane {
         return instance;
     }
 
-    public void init(int height, int width, ImageIcon boardIcon) {
+    public void init(int height, int width, ImageIcon boardIcon, int playerNumber) {
         instance.boardIcon = boardIcon;
-        instance.playerLabels = new JLabel[2];
+        instance.playerLabels = new JLabel[playerNumber];
         instance.setLayout(null);
         instance.setPreferredSize(new Dimension(900, 1200));
         instance.boardLabel = new JLabel();
         instance.boardLabel.setIcon(boardIcon);
         instance.boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
         instance.add(boardLabel, new Integer(0));
-        Demo();
+        initializeNewDay();
     }
 
-    private void Demo() {
+    private void initializeNewDay() {
         Board board = Board.getInstance();
         Deck deck = Deck.getInstance();
 
@@ -95,24 +95,35 @@ public class BoardPane extends JLayeredPane {
             }*/
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < playerLabels.length; i++) {
 
-            JLabel playerLabel = new JLabel();
-            if (i == 0) {
-                ImageIcon playerIcon = new ImageIcon(getClass().getResource("/resources/r1.png"));
-                playerLabel.setIcon(playerIcon);
-                playerLabel.setBounds(board.getSpace(10).getXCoordinates(), board.getSpace(10).getYCoordinates(), playerIcon.getIconWidth(), playerIcon.getIconHeight());
+            playerLabels[i] = new JLabel();
+            playerLabels[i].setIcon(getIcon(i));
+            playerLabels[i].setOpaque(true);
+            if (i < (playerLabels.length / 2)) {
+                playerLabels[i].setBounds(board.getSpace(10).getXCoordinates() + (i * 50), board.getSpace(10).getYCoordinates(), getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
 
             } else {
-                ImageIcon playerIcon = new ImageIcon(getClass().getResource("/resources/b1.png"));
-                playerLabel.setIcon(playerIcon);
-                playerLabel.setBounds(board.getSpace(10).getXCoordinates() + 50, board.getSpace(10).getYCoordinates(), playerIcon.getIconWidth(), playerIcon.getIconHeight());
+                playerLabels[i].setBounds(board.getSpace(10).getXCoordinates() + ((i - (playerLabels.length / 2)) * 50), board.getSpace(10).getYCoordinates() + 50, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
             }
-            playerLabel.setOpaque(true);
-            playerLabels[i] = playerLabel;
 
             add(playerLabels[i], new Integer(2));
         }
+    }
+
+    private ImageIcon getIcon(int index) {
+
+        ImageIcon[] icons = new ImageIcon[8];
+        icons[0] = new ImageIcon(getClass().getResource("/resources/b1.png"));
+        icons[1] = new ImageIcon(getClass().getResource("/resources/r1.png"));
+        icons[2] = new ImageIcon(getClass().getResource("/resources/g1.png"));
+        icons[3] = new ImageIcon(getClass().getResource("/resources/p1.png"));
+        icons[4] = new ImageIcon(getClass().getResource("/resources/c1.png"));
+        icons[5] = new ImageIcon(getClass().getResource("/resources/o1.png"));
+        icons[6] = new ImageIcon(getClass().getResource("/resources/v1.png"));
+        icons[7] = new ImageIcon(getClass().getResource("/resources/w1.png"));
+
+        return icons[index];
     }
 
 }
