@@ -55,12 +55,10 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().size(); i++) {
             if (e.getSource() == sceneButtons[i]) {
-                
+                BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i)));
             }
         }
     }
-
-    
 
     private void setFonts(JButton b) {
         try {
@@ -79,7 +77,7 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
     }
 
     private void setJButtons() {
-        for (int i = 0; i < Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().size(); i++) {
+        for (int i = 0; i < sceneButtons.length; i++) {
             sceneButtons[i] = new JButton(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i).getName());
             sceneButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             sceneButtons[i].addActionListener(this);
