@@ -45,7 +45,6 @@ public class InfoPanel extends JPanel {
         JScrollPane scrollpane = new JScrollPane(updateTextArea);
         instance.add(scrollpane, BorderLayout.NORTH);
         instance.add(playerInfoDisplay, BorderLayout.SOUTH);
-        setPlayerInfoData();
     }
 
     private void setElements(int height, int width, ImageIcon boardIcon) {
@@ -123,16 +122,15 @@ public class InfoPanel extends JPanel {
         }
     }
 
-    private void setPlayerInfoData() {
-        Player player = TurnManager.getInstance().getActivePlayer();
-        playerInfoData.setText("Active player: player " + player.getID()
-                + "\n\nCurrent position: " + Board.getInstance().getSpace(player.getLocation()).getName()
-                + "\n\nRank: " + player.getRank()
-                + "\n\nDollars: " + player.getDollars()
-                + "\n\nCredits: " + player.getCredits()
-                + "\n\nRehearsal chips: " + player.getRehearsalChips());
-        if (player.getRole() != null) {
-            playerInfoData.setText(playerInfoData.getText() + "\n\n Role: " + player.getRole().getName());
+    public void setPlayerInfoData(Player p) {
+        playerInfoData.setText("Active player: player " + p.getID()
+                + "\n\nCurrent position: " + Board.getInstance().getSpace(p.getLocation()).getName()
+                + "\n\nRank: " + p.getRank()
+                + "\n\nDollars: " + p.getDollars()
+                + "\n\nCredits: " + p.getCredits()
+                + "\n\nRehearsal chips: " + p.getRehearsalChips());
+        if (p.getRole() != null) {
+            playerInfoData.setText(playerInfoData.getText() + "\n\n Role: " + p.getRole().getName());
         }
 
     }

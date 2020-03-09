@@ -18,6 +18,8 @@ public class BoardPane extends JLayeredPane {
     private ImageIcon boardIcon;
     private JLabel boardLabel;
     private JLabel[] playerLabels;
+    private final int playerIconWidth = 40;
+    private final int playerIconHeight = 40;
 
     private BoardPane() {
 
@@ -126,8 +128,12 @@ public class BoardPane extends JLayeredPane {
         return icons[index];
     }
     
-    public void movePlayerLabel(){
-        
+    public void movePlayerLabelTo(int adjacentSpaceID){
+        Player active = TurnManager.getInstance().getActivePlayer();
+        playerLabels[active.getID()].setBounds(Board.getInstance().getSpace(active.getLocation()).getAdjacentSpaces().get(adjacentSpaceID).getXCoordinates(), Board.getInstance().getSpace(active.getLocation()).getAdjacentSpaces().get(adjacentSpaceID).getYCoordinates(), playerIconWidth, playerIconHeight);
+        add(playerLabels[active.getID()], new Integer(3));
+        Controller.getInstance().move(adjacentSpaceID);
+        InfoPanel.getInstance().setPlayerInfoData(active);       
     }
 
 }
