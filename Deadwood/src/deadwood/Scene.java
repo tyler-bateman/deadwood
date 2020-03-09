@@ -264,7 +264,6 @@ public class Scene extends Space {
      */
     public void setOffCardRoles(LinkedList<Role> roles){
         offCardRoles = roles;
-        notifyObservers();
     }
     
     /**
@@ -281,7 +280,6 @@ public class Scene extends Space {
      */
     public void setTotalShots(int t){
         totalShots = t;
-        notifyObservers();
     }      
     
     public LinkedList<Integer> getShotCountersXCoordinates(){
