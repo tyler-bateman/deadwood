@@ -9,20 +9,23 @@ import static deadwood.ActionsPanel.centreWindow;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
  *
  * @author Curveball
  */
-public class TakeRoleChoicesFrame extends JFrame {
+public class TakeRoleChoicesFrame extends JFrame implements ActionListener {
+
     private JPanel contentPane;
     private JLabel whatRoleLabel;
     private JPanel rolesPanel;
     private JButton[] roleButtons;
-        
+
     public TakeRoleChoicesFrame() {
-        roleButtons = new JButton[3];
+        roleButtons = new JButton[Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().size() + Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().size()];
         centreWindow(this);
 
         contentPane = new JPanel();
@@ -33,37 +36,10 @@ public class TakeRoleChoicesFrame extends JFrame {
         whatRoleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         rolesPanel = new JPanel();
-        rolesPanel.setLayout(new BoxLayout(rolesPanel, BoxLayout.X_AXIS));
-
-        roleButtons[0] = new JButton("Role 1");
-        roleButtons[0].setAlignmentX(Component.CENTER_ALIGNMENT);
-        roleButtons[1] = new JButton("Role 2");
-        roleButtons[1].setAlignmentX(Component.CENTER_ALIGNMENT);
-        roleButtons[2] = new JButton("Role 3");
-        roleButtons[2].setAlignmentX(Component.CENTER_ALIGNMENT);
-        try {
-            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
-            Font boldFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Medium.ttf").openStream());
-            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            genv.registerFont(regularFont);
-            genv.registerFont(boldFont);
-            Font font1 = boldFont.deriveFont(24f);
-            Font font2 = regularFont.deriveFont(30f);
-            roleButtons[0].setFont(font1);
-            roleButtons[1].setFont(font1);
-            roleButtons[2].setFont(font1);
-            whatRoleLabel.setFont(font2.deriveFont(Font.ITALIC));
-        } catch (Exception ex) {
-
-        }
-
-        rolesPanel.add(Box.createHorizontalGlue());
-        rolesPanel.add(roleButtons[0]);
-        rolesPanel.add(Box.createHorizontalGlue());
-        rolesPanel.add(roleButtons[1]);
-        rolesPanel.add(Box.createHorizontalGlue());
-        rolesPanel.add(roleButtons[2]);
-        rolesPanel.add(Box.createHorizontalGlue());
+        rolesPanel.setLayout(new BoxLayout(rolesPanel, BoxLayout.PAGE_AXIS));
+        
+        setJButtons();
+        rolesPanel.add(Box.createVerticalGlue());
 
         contentPane.add(Box.createVerticalGlue());
         contentPane.add(whatRoleLabel);
@@ -73,6 +49,55 @@ public class TakeRoleChoicesFrame extends JFrame {
 
         setContentPane(contentPane);
         setVisible(true);
+    }
+
+    private void setJButtons() {
+        int i;
+        
+        for (i = 0; i < Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().size(); i++) {
+            Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(i);
+            roleButtons[i] = new JButton(role.getName() + " - rank "+role.getRank());
+            roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+            roleButtons[i].addActionListener(this);
+            rolesPanel.add(Box.createVerticalGlue());
+            rolesPanel.add(roleButtons[i]);
+            setFonts(roleButtons[i]);
+
+        }
+        
+        for(int j=0 ; j<Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().size();j++){
+            Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(j);
+            roleButtons[i] = new JButton(role.getName() + " - rank "+role.getRank());
+            roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+            roleButtons[i].addActionListener(this);
+            rolesPanel.add(Box.createVerticalGlue());
+            rolesPanel.add(roleButtons[i]);
+            setFonts(roleButtons[i]);
+            i++;
+        }
+    }
+    private void setFonts(JButton b) {
+        try {
+            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
+            Font boldFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Medium.ttf").openStream());
+            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            genv.registerFont(regularFont);
+            genv.registerFont(boldFont);
+            Font font1 = boldFont.deriveFont(24f);
+            Font font2 = regularFont.deriveFont(30f);
+            b.setFont(font1);
+            whatRoleLabel.setFont(font2.deriveFont(Font.ITALIC));
+        } catch (Exception ex) {
+
+        }
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < roleButtons.length; i++) {
+            if (e.getSource() == roleButtons[i]) {
+                //BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i)));
+            }
+        }
     }
 
 }
