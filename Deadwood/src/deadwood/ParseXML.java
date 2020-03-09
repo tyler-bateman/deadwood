@@ -146,7 +146,7 @@ public class ParseXML {
             for (int i = 10; i < (trailer.getLength() + 10); i++) {
                 Space space = new Space();
 
-                space.setName("trailer");
+                space.setName("Trailer");
                 space.ID = i;
 
                 Node trailerNode = trailer.item(0);
@@ -162,7 +162,7 @@ public class ParseXML {
             for (int i = 11; i < (office.getLength() + 11); i++) {
                 CastingOffice space = CastingOffice.getInstance();
 
-                space.setName("office");
+                space.setName("Office");
                 space.ID = i;
 
                 Node officeNode = office.item(0);

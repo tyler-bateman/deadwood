@@ -24,7 +24,9 @@ public class InfoPanel extends JPanel {
 
     private static InfoPanel instance = new InfoPanel();
     private JTextArea updateTextArea;
-    private JLabel playerInfoLabel;
+    private JPanel playerInfoDisplay;
+    private JLabel playerInfoHeader;
+    private JTextArea playerInfoData;
 
     private InfoPanel() {
 
@@ -42,7 +44,8 @@ public class InfoPanel extends JPanel {
         instance.setFonts();
         JScrollPane scrollpane = new JScrollPane(updateTextArea);
         instance.add(scrollpane, BorderLayout.NORTH);
-        instance.add(playerInfoLabel, BorderLayout.SOUTH);
+        instance.add(playerInfoDisplay, BorderLayout.SOUTH);
+        setPlayerInfoData();
     }
 
     private void setElements(int height, int width, ImageIcon boardIcon) {
@@ -57,13 +60,36 @@ public class InfoPanel extends JPanel {
         updateTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 3));
         updateTextArea.setEditable(false);
 
-        playerInfoLabel = new JLabel();
-        playerInfoLabel.setBackground(Color.white);
-        playerInfoLabel.setOpaque(true);
-        playerInfoLabel.setText("Display active player's info ");
-        playerInfoLabel.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 2));
-        playerInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        playerInfoLabel.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+        playerInfoDisplay = new JPanel();
+        playerInfoDisplay.setLayout(new BoxLayout(playerInfoDisplay, BoxLayout.PAGE_AXIS));
+        playerInfoDisplay.setBackground(Color.white);
+        playerInfoDisplay.setOpaque(true);
+        //playerInfoLabel.setText("Player Information");
+        playerInfoDisplay.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 2));
+        //playerInfoDisplay.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerInfoDisplay.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+
+        playerInfoHeader = new JLabel();
+        playerInfoHeader.setText("Player Information");
+        playerInfoHeader.setBackground(Color.white);
+        playerInfoHeader.setOpaque(true);
+        playerInfoHeader.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 10));
+        playerInfoHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        playerInfoData = new JTextArea();
+        playerInfoData.setBackground(Color.white);
+        playerInfoData.setOpaque(true);
+        playerInfoData.setWrapStyleWord(true);
+        playerInfoData.setLineWrap(true);
+        playerInfoData.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 2 - 50));
+        playerInfoData.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerInfoData.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
+        playerInfoData.setEditable(false);
+
+        playerInfoDisplay.add(Box.createVerticalGlue());
+        playerInfoDisplay.add(playerInfoHeader);
+        playerInfoDisplay.add(Box.createVerticalGlue());
+        playerInfoDisplay.add(playerInfoData);
 
     }
 
@@ -76,7 +102,8 @@ public class InfoPanel extends JPanel {
             genv.registerFont(boldFont);
             Font font2 = regularFont.deriveFont(18f);
             updateTextArea.setFont(font2.deriveFont(Font.ITALIC));
-            playerInfoLabel.setFont(font2.deriveFont(Font.ITALIC));
+            playerInfoHeader.setFont(font2.deriveFont(Font.ITALIC));
+            playerInfoData.setFont(font2);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,5 +121,19 @@ public class InfoPanel extends JPanel {
         } catch (BadLocationException ex) {
             Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void setPlayerInfoData() {
+        Player player = TurnManager.getInstance().getActivePlayer();
+        playerInfoData.setText("Active player: player " + player.getID()
+                + "\n\nCurrent position: " + Board.getInstance().getSpace(player.getLocation()).getName()
+                + "\n\nRank: " + player.getRank()
+                + "\n\nDollars: " + player.getDollars()
+                + "\n\nCredits: " + player.getCredits()
+                + "\n\nRehearsal chips: " + player.getRehearsalChips());
+        if (player.getRole() != null) {
+            playerInfoData.setText(playerInfoData.getText() + "\n\n Role: " + player.getRole().getName());
+        }
+
     }
 }

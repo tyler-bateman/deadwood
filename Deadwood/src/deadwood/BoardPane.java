@@ -125,5 +125,9 @@ public class BoardPane extends JLayeredPane {
 
         return icons[index];
     }
+    
+    public void movePlayerLabel(){
+        
+    }
 
 }
