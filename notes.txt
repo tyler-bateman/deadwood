@@ -8,3 +8,5 @@ Things that need to be done:
 	
 GUI methods that should have Controller methods called after them:
 	-initializeNewDay() in BoardPane.java
+	
+I used controller in movePlayerLabelTo() in BoardPane to test it 
