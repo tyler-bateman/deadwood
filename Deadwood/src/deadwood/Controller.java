@@ -10,7 +10,7 @@ package deadwood;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Controller extends Observable implements Observer {
+public class Controller  implements Observer {
     private static Controller instance = new Controller();
     
     private Controller() {
@@ -24,20 +24,46 @@ public class Controller extends Observable implements Observer {
     @Override
     public void update(Observable o, Object obj) {
         Class source = o.getClass();
-        if(source.equals(Player.class)){
-            //TODO
-        } else if(source.equals(Space.class)) {
-            //TODO
-        } else if(source.equals(DayManager.class)) {
-            //TODO
-        } else if(source.equals(Role.class)) {
-            //TODO
-        } else if(source.equals(Scene.class)) {
-            //TODO
-        } else if(source.equals(ScoreManager.class)) {
-            //TODO
+        if(o instanceof Player){
+            Player p = (Player)o;
+            if(p.equals(TurnManager.getInstance().getActivePlayer())) {
+                //TODO: Call update active player info method
+            }
+            
+        } else if(o instanceof Space) {
+            //TODO: Update players in the space
+            // Maybe handle which roles the players have?
+        } else if(o instanceof DayManager) {
+            //TODO: Update day counter
+        } else if(o instanceof Role) {
+            //TODO: Update role graphic to have or not have the player
+        } else if(o instanceof Scene) {
+            Scene s = (Scene)o;
+            if(obj instanceof SceneCard) {
+                //TODO: Call set card method 
+            } else if(obj instanceof Integer) {
+                switch ((Integer)obj) {
+                    case 1:
+                        //TODO: Act attempt successful, active player on card
+                        break;
+                    case 2:
+                        //TODO: Act attempt successful, active player off card
+                        break;
+                    case 3:
+                        //TODO: Act attempt unsuccessful, active player on card
+                    case 4:
+                        //TODO: Act attempt unsuccessful, active player off card
+                    case 5:
+                        //TODO: Scene wrapped with bonus
+                    case 6:
+                        //TODO: Scene wrapped without bonus
+                }
+            } else {
+                //TODO: Redraw shot counters
+            }
+                
         } else if (source.equals(TurnManager.class)) {
-            //TODO
+            //TODO: Update active player info
         }
     }
     
