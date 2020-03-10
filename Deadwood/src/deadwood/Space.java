@@ -44,6 +44,7 @@ public class Space extends Observable{
         player.setLocation(this.getAdjacentSpaces().get(index).ID);          
         this.removePlayer(player);
         this.getAdjacentSpaces().get(index).addPlayer(player);
+        TurnManager.getInstance().setHasMoved(true);
         return true;
     }
     
