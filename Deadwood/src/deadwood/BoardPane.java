@@ -19,6 +19,7 @@ public class BoardPane extends JLayeredPane {
     private JLabel boardLabel;
     private JLabel[] cardLabels;
     private JLabel[] playerLabels;
+    private JLabel[] shotCounterLabels;
     private final int playerIconWidth = 40;
     private final int playerIconHeight = 40;
 
@@ -34,6 +35,7 @@ public class BoardPane extends JLayeredPane {
         instance.boardIcon = boardIcon;
         instance.playerLabels = new JLabel[playerNumber];
         instance.cardLabels = new JLabel[10];
+        instance.shotCounterLabels = new JLabel[1000];
         instance.setLayout(null);
         instance.setPreferredSize(new Dimension(900, 1200));
         instance.boardLabel = new JLabel();
@@ -68,12 +70,12 @@ public class BoardPane extends JLayeredPane {
 
             /// SETTING SHOT COUNTERS
             for (int j = 0; j < board.getScene(i).getShotCountersXCoordinates().size(); j++) {
-                JLabel shotCounterLabel = new JLabel();
+                shotCounterLabels[(i+1)*(j+1)] = new JLabel();
                 ImageIcon shotCounterIcon = new ImageIcon(getClass().getResource("/resources/shot.png"));
-                shotCounterLabel.setIcon(shotCounterIcon);
-                shotCounterLabel.setBounds(board.getScene(i).getShotCountersXCoordinates().get(j), board.getScene(i).getShotCountersYCoordinates().get(j), shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
-                shotCounterLabel.setOpaque(false);
-                add(shotCounterLabel, new Integer(2));
+                shotCounterLabels[(i+1)*(j+1)].setIcon(shotCounterIcon);
+                shotCounterLabels[(i+1)*(j+1)].setBounds(board.getScene(i).getShotCountersXCoordinates().get(j), board.getScene(i).getShotCountersYCoordinates().get(j), shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
+                shotCounterLabels[(i+1)*(j+1)].setOpaque(false);
+                add(shotCounterLabels[(i+1)*(j+1)], new Integer(2));
             }
 
             /// MOVING PLAYER ICON TO ON CARD ROLES
@@ -151,6 +153,10 @@ public class BoardPane extends JLayeredPane {
         add(cardLabels[active.getLocation()], new Integer(3));
         Controller.getInstance().takeRole(role);
         InfoPanel.getInstance().setPlayerInfoData(active);
+    }
+    
+    public void removeShotCounter(int index){
+        shotCounterLabels[index].setVisible(false);
     }
 
 }

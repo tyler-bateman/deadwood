@@ -63,6 +63,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
 
         if (e.getSource() == actButton) {
             InfoPanel.getInstance().setUpdateTextArea("Your have acted !\n");
+            BoardPane.getInstance().removeShotCounter(1);
         }
 
         if (e.getSource() == takeRoleButton) {
