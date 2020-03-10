@@ -201,6 +201,27 @@ public class Scene extends Space {
     public boolean isSceneActive(){
         return getCard()!=null;
     }
+    
+    /**
+     * Constructs a list of all roles that are available to a player with a given rank
+     * @param rank all roles will be equal or less than this rank
+     * @return a list of all roles that is available to a player with the given rank
+     */
+    public LinkedList<Role> getAvailableRoles(int rank) {
+        LinkedList<Role> roles = new LinkedList<Role>();
+        for(Role r : getOffCardRoles()) {
+            if(r.getRank() <= rank) {
+                roles.add(r);
+            }
+        }
+        
+        for(Role r : getCard().getRoles()) {
+            if(r.getRank() <= rank) {
+                roles.add(r);
+            }
+        }
+        return roles;
+    }
 
     /**
      * 
