@@ -9,6 +9,7 @@ package deadwood;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.LinkedList;
 
 public class Controller  implements Observer {
     private static Controller instance = new Controller();
@@ -21,6 +22,13 @@ public class Controller  implements Observer {
         return instance;
     }
     
+    
+    /**
+     * This method is called whenever an observable in the model is updated.
+     * It then calls the appropriate methods in the view depending on the nature of the update
+     * @param o
+     * @param obj 
+     */
     @Override
     public void update(Observable o, Object obj) {
         Class source = o.getClass();
@@ -63,6 +71,10 @@ public class Controller  implements Observer {
             }
                 
         } else if (source.equals(TurnManager.class)) {
+            if(obj instanceof LinkedList) {
+                LinkedList<UseCase> availableActions = (LinkedList)obj;
+                //TODO: Update active buttons
+            }
             //TODO: Update active player info
         }
     }
@@ -79,6 +91,12 @@ public class Controller  implements Observer {
         }
         Board.getInstance().setPlayers(players);
     }
+    
+    ///////////////////////////////////////////
+    //             USE CASES                 //
+    // The following methods are called by   //
+    // the view upon user input/interaction. //
+    ///////////////////////////////////////////
     
     /**
      * Use case for taking a role

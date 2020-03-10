@@ -92,6 +92,7 @@ public class TurnManager extends Observable{
      */
     public void setHasTakenRole(boolean b) {
         hasTakenRole = b;
+        notifyObservers(getAvailableActions());
     }
     
     /**
@@ -106,6 +107,7 @@ public class TurnManager extends Observable{
      */
     public void setHasMoved(Boolean b) {
         hasMoved = b;
+        notifyObservers(getAvailableActions());
     }
     
     /**
@@ -120,6 +122,7 @@ public class TurnManager extends Observable{
      */
     public void setHasActed(Boolean b) {
         hasActed = b;
+        notifyObservers(getAvailableActions());
     }
     
     /**
@@ -134,6 +137,7 @@ public class TurnManager extends Observable{
      */
     public void setHasUpgraded(Boolean b) {
         hasUpgraded = b;
+        notifyObservers(getAvailableActions());
     }
     
     /**
@@ -148,6 +152,7 @@ public class TurnManager extends Observable{
      */
     public void setHasRehearsed(Boolean b) {
         hasRehearsed = b;
+        notifyObservers(getAvailableActions());
     }
     
     
