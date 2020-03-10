@@ -21,7 +21,7 @@ public class TurnManager extends Observable{
     private boolean hasRehearsed = false;
     private boolean hasUpgraded = false;
     
-    private final UseCase[] useCases = {UseCase.MOVE, UseCase.TAKE_ROLE, UseCase.REHEARSE, UseCase.ACT, UseCase.UPGRADE};
+    private final UseCase[] useCases = {UseCase.MOVE, UseCase.TAKE_ROLE, UseCase.REHEARSE, UseCase.ACT, UseCase.UPGRADE, UseCase.END_TURN};
     
     
     /**
@@ -208,6 +208,14 @@ public class TurnManager extends Observable{
         return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice;
     }
     
+    /**
+     * The player can end their turn immediately if they are not working.
+     * Otherwise, they must act or rehearse.
+     */
+    public boolean canEndTurn() {
+        return getActivePlayer().getRole() == null || hasRehearsed() || hasActed();
+    }
+    
         
     /**
      * @return true if the given use case is available
@@ -224,8 +232,10 @@ public class TurnManager extends Observable{
                 return canRehearse();
             case UPGRADE:
                 return canUpgrade();
+            case END_TURN:
+                return canEndTurn();
             default:
-                return true;
+                return false;
         }
     }
     
