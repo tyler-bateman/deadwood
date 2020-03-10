@@ -52,7 +52,7 @@ public class BoardPane extends JLayeredPane {
             backlabel.setBounds(board.getScene(i).getXCoordinates(), board.getScene(i).getYCoordinates(), backIcon.getIconWidth(), backIcon.getIconHeight());
             backlabel.setOpaque(false);
 
-            add(backlabel, new Integer(1));
+            //add(backlabel, new Integer(1));
 
             /// DEALING CARD FACES DEMO
             JLabel cardlabel = new JLabel();
@@ -100,7 +100,7 @@ public class BoardPane extends JLayeredPane {
 
             playerLabels[i] = new JLabel();
             playerLabels[i].setIcon(getIcon(i));
-            playerLabels[i].setOpaque(true);
+            playerLabels[i].setOpaque(false);
             if (i < (playerLabels.length / 2)) {
                 playerLabels[i].setBounds(board.getSpace(10).getXCoordinates() + (i * 50), board.getSpace(10).getYCoordinates(), getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
 

@@ -17,7 +17,7 @@ import javax.swing.*;
  *
  * @author Curveball
  */
-public class MoveChoicesFrame extends JFrame implements ActionListener {
+public class MoveChoicesFrame extends JFrame  {
 
     private JPanel contentPane;
     private JLabel whereToLabel;
@@ -52,14 +52,13 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
+    /*public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().size(); i++) {
             if (e.getSource() == sceneButtons[i]) {
                 BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i)));
             }
         }
-    }
-
+    }*/
     private void setFonts(JButton b) {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
@@ -77,10 +76,18 @@ public class MoveChoicesFrame extends JFrame implements ActionListener {
     }
 
     private void setJButtons() {
+        final JFrame frame = this;
         for (int i = 0; i < sceneButtons.length; i++) {
+            final int index =i; 
             sceneButtons[i] = new JButton(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i).getName());
             sceneButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
-            sceneButtons[i].addActionListener(this);
+            sceneButtons[i].addActionListener((new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index)));
+                    frame.dispose();
+                }
+            }));
             scenesPanel.add(Box.createHorizontalGlue());
             scenesPanel.add(sceneButtons[i]);
             setFonts(sceneButtons[i]);
