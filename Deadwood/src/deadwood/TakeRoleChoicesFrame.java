@@ -17,7 +17,7 @@ import javax.swing.*;
  *
  * @author Curveball
  */
-public class TakeRoleChoicesFrame extends JFrame{
+public class TakeRoleChoicesFrame extends JFrame {
 
     private JPanel contentPane;
     private JLabel whatRoleLabel;
@@ -64,6 +64,7 @@ public class TakeRoleChoicesFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     BoardPane.getInstance().movePlayerLabelToExtraRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
+                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
                     frame.dispose();
                 }
             }));
@@ -74,7 +75,7 @@ public class TakeRoleChoicesFrame extends JFrame{
         }
 
         for (int j = 0; j < Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().size(); j++) {
-            final int index=j;
+            final int index = j;
             Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(j);
             roleButtons[i] = new JButton(role.getName() + " - rank " + role.getRank());
             roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -82,7 +83,7 @@ public class TakeRoleChoicesFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     BoardPane.getInstance().movePlayerToStarringRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
-                            System.out.println(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index).getXCoordinates());
+                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
                     frame.dispose();
                 }
             }));
@@ -108,6 +109,5 @@ public class TakeRoleChoicesFrame extends JFrame{
 
         }
     }
-
 
 }

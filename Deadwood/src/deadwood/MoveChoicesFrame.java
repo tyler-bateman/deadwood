@@ -17,7 +17,7 @@ import javax.swing.*;
  *
  * @author Curveball
  */
-public class MoveChoicesFrame extends JFrame  {
+public class MoveChoicesFrame extends JFrame {
 
     private JPanel contentPane;
     private JLabel whereToLabel;
@@ -71,13 +71,14 @@ public class MoveChoicesFrame extends JFrame  {
     private void setJButtons() {
         final JFrame frame = this;
         for (int i = 0; i < sceneButtons.length; i++) {
-            final int index =i; 
+            final int index = i;
             sceneButtons[i] = new JButton(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i).getName());
             sceneButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             sceneButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index)));
+                    InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
                     frame.dispose();
                 }
             }));
