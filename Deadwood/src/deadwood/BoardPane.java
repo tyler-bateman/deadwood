@@ -17,6 +17,7 @@ public class BoardPane extends JLayeredPane {
     private static BoardPane instance = new BoardPane();
     private ImageIcon boardIcon;
     private JLabel boardLabel;
+    private JLabel[] cardLabels;
     private JLabel[] playerLabels;
     private final int playerIconWidth = 40;
     private final int playerIconHeight = 40;
@@ -32,6 +33,7 @@ public class BoardPane extends JLayeredPane {
     public void init(int height, int width, ImageIcon boardIcon, int playerNumber) {
         instance.boardIcon = boardIcon;
         instance.playerLabels = new JLabel[playerNumber];
+        instance.cardLabels = new JLabel[10];
         instance.setLayout(null);
         instance.setPreferredSize(new Dimension(900, 1200));
         instance.boardLabel = new JLabel();
@@ -53,17 +55,16 @@ public class BoardPane extends JLayeredPane {
             backlabel.setOpaque(false);
 
             //add(backlabel, new Integer(1));
-
             /// DEALING CARD FACES DEMO
-            JLabel cardlabel = new JLabel();
+            cardLabels[i] = new JLabel();
             SceneCard card = board.getScene(i).getCard();
             String cardImage = card.getIconID();
             ImageIcon cIcon = new ImageIcon(getClass().getResource("/resources/" + cardImage));
-            cardlabel.setIcon(cIcon);
-            cardlabel.setBounds(board.getScene(i).getXCoordinates(), board.getScene(i).getYCoordinates(), cIcon.getIconWidth(), cIcon.getIconHeight());
-            cardlabel.setOpaque(false);
+            cardLabels[i].setIcon(cIcon);
+            cardLabels[i].setBounds(board.getScene(i).getXCoordinates(), board.getScene(i).getYCoordinates(), cIcon.getIconWidth(), cIcon.getIconHeight());
+            cardLabels[i].setOpaque(false);
 
-            add(cardlabel, new Integer(2));
+            add(cardLabels[i], new Integer(2));
 
             /// SETTING SHOT COUNTERS
             for (int j = 0; j < board.getScene(i).getShotCountersXCoordinates().size(); j++) {
@@ -108,7 +109,7 @@ public class BoardPane extends JLayeredPane {
                 playerLabels[i].setBounds(board.getSpace(10).getXCoordinates() + ((i - (playerLabels.length / 2)) * 50), board.getSpace(10).getYCoordinates() + 50, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
             }
 
-            add(playerLabels[i], new Integer(2));
+            add(playerLabels[i], new Integer(4));
         }
     }
 
@@ -126,17 +127,30 @@ public class BoardPane extends JLayeredPane {
 
         return icons[index];
     }
-    
-    public void movePlayerLabelToScene(int adjacentSpaceID){
+
+    public void movePlayerLabelToScene(int adjacentSpaceID) {
         Player active = TurnManager.getInstance().getActivePlayer();
         playerLabels[active.getID()].setBounds(Board.getInstance().getSpace(active.getLocation()).getAdjacentSpaces().get(adjacentSpaceID).getXCoordinates(), Board.getInstance().getSpace(active.getLocation()).getAdjacentSpaces().get(adjacentSpaceID).getYCoordinates(), playerIconWidth, playerIconHeight);
-        add(playerLabels[active.getID()], new Integer(3));       
+        add(playerLabels[active.getID()], new Integer(3));
         Controller.getInstance().move(adjacentSpaceID);
-        InfoPanel.getInstance().setPlayerInfoData(active);       
+        InfoPanel.getInstance().setPlayerInfoData(active);
+    }
+
+    public void movePlayerLabelToExtraRole(Role role) {
+        Player active = TurnManager.getInstance().getActivePlayer();
+        playerLabels[active.getID()].setBounds(role.getXCoordinates()+3, role.getYCoordinates()+3, playerIconWidth, playerIconHeight);
+        add(playerLabels[active.getID()], new Integer(3));
+        Controller.getInstance().takeRole(role);
+        InfoPanel.getInstance().setPlayerInfoData(active);
     }
     
-    public void movePlayerLabelToExtraRole(int roleID){
-        
+    public void movePlayerToStarringRole(Role role){
+        Player active = TurnManager.getInstance().getActivePlayer();
+        playerLabels[active.getID()].setBounds(role.getXCoordinates(), role.getYCoordinates(), playerIconWidth, playerIconHeight);
+        cardLabels[active.getLocation()].add(playerLabels[active.getID()]);
+        add(cardLabels[active.getLocation()], new Integer(3));
+        Controller.getInstance().takeRole(role);
+        InfoPanel.getInstance().setPlayerInfoData(active);
     }
 
 }

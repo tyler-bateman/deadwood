@@ -52,13 +52,6 @@ public class MoveChoicesFrame extends JFrame  {
         setVisible(true);
     }
 
-    /*public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().size(); i++) {
-            if (e.getSource() == sceneButtons[i]) {
-                BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i)));
-            }
-        }
-    }*/
     private void setFonts(JButton b) {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
