@@ -7,7 +7,7 @@ package deadwood;
  */
 
 import java.util.Observable;
-import java.util.Observer;
+
 public class TurnManager extends Observable{
     private static TurnManager instance;
     private int numPlayers;
@@ -68,6 +68,12 @@ public class TurnManager extends Observable{
         if(getActivePlayerID() >= numPlayers) {
             activePlayerID = 0;
         }
+        setHasTakenRole(false);
+        setHasMoved(false);
+        setHasActed(false);
+        setHasRehearsed(false);
+        setHasUpgraded(false);
+        
         notifyObservers();
     }
     
@@ -81,7 +87,7 @@ public class TurnManager extends Observable{
     /**
      * @param b the new flag for whether the active player has taken a role this turn
      */
-    public void setTakenRole(boolean b) {
+    public void setHasTakenRole(boolean b) {
         hasTakenRole = b;
     }
     
@@ -142,4 +148,55 @@ public class TurnManager extends Observable{
     }
     
     
+    //////////////////////////////////////
+    //        AVAILABLE ACTIONS         //
+    // The the following methods        //
+    // determine which actions the      //
+    // active player is allowed to take //
+    //////////////////////////////////////
+    
+    /**
+     * The player can take a role if they are on a scene, and not already working
+     * @return true if the active player is allowed to take a role
+     */
+    public boolean canTakeRole() {
+        Player p = getActivePlayer();
+        Space currSpace = Board.getInstance().getSpace(p.getLocation());
+        
+        return currSpace instanceof Scene && p.getRole() == null;
+    }
+    
+    /**
+     * The player can move if they are not working, they have not moved or acted
+     * @return true if the active player is allowed to move
+     */
+    public boolean canMove() {
+        return !hasMoved() && !hasActed() && getActivePlayer().getRole() == null;
+    }
+    
+    /**
+     * The player can rehearse if they are working, they are not guaranteed 
+     * success if they choose to act, and they haven't already acted, rehearsed, or taken a role
+     * @return true if the active player is allowed to rehearse
+     */
+    public boolean canRehearse() {
+        Player p = getActivePlayer();
+        return !hasActed() && !hasRehearsed() && !hasTakenRole() && p.getRole() != null && (p.getRehearsalChips() + 1) < ((Scene)Board.getInstance().getSpace(p.getLocation())).getCard().getBudget();
+    }
+    
+    /**
+     * The player can act if they are working, and they haven't already acted, rehearsed, or taken a role
+     * @return true if the active player is allowed to act
+     */
+    public boolean canAct() {
+        return !hasActed() && !hasRehearsed() && !hasTakenRole() && getActivePlayer().getRole() != null;
+    }
+    
+    /**
+     * The player can upgrade if they are on the casting office
+     * @return true if the active player is allowed to upgrade.
+     */
+    public boolean canUpgrade() {
+        return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice;
+    }
 }
