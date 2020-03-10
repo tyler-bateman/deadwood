@@ -138,13 +138,13 @@ public class BoardPane extends JLayeredPane {
 
     public void movePlayerLabelToExtraRole(Role role) {
         Player active = TurnManager.getInstance().getActivePlayer();
-        playerLabels[active.getID()].setBounds(role.getXCoordinates()+3, role.getYCoordinates()+3, playerIconWidth, playerIconHeight);
+        playerLabels[active.getID()].setBounds(role.getXCoordinates() + 3, role.getYCoordinates() + 3, playerIconWidth, playerIconHeight);
         add(playerLabels[active.getID()], new Integer(3));
         Controller.getInstance().takeRole(role);
         InfoPanel.getInstance().setPlayerInfoData(active);
     }
-    
-    public void movePlayerToStarringRole(Role role){
+
+    public void movePlayerToStarringRole(Role role) {
         Player active = TurnManager.getInstance().getActivePlayer();
         playerLabels[active.getID()].setBounds(role.getXCoordinates(), role.getYCoordinates(), playerIconWidth, playerIconHeight);
         cardLabels[active.getLocation()].add(playerLabels[active.getID()]);
