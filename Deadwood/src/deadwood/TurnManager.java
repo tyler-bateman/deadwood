@@ -7,6 +7,7 @@ package deadwood;
  */
 
 import java.util.Observable;
+import java.util.LinkedList;
 
 public class TurnManager extends Observable{
     private static TurnManager instance;
@@ -19,6 +20,8 @@ public class TurnManager extends Observable{
     private boolean hasActed = false;
     private boolean hasRehearsed = false;
     private boolean hasUpgraded = false;
+    
+    private final UseCase[] useCases = {UseCase.MOVE, UseCase.TAKE_ROLE, UseCase.REHEARSE, UseCase.ACT, UseCase.UPGRADE};
     
     
     /**
@@ -199,4 +202,41 @@ public class TurnManager extends Observable{
     public boolean canUpgrade() {
         return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice;
     }
+    
+        
+    /**
+     * @return true if the given use case is available
+     */
+    public boolean can(UseCase action) {
+        switch(action) {
+            case TAKE_ROLE:
+                return canTakeRole();
+            case MOVE:
+                return canMove();
+            case ACT:
+                return canAct();
+            case REHEARSE:
+                return canRehearse();
+            case UPGRADE:
+                return canUpgrade();
+            default:
+                return true;
+        }
+    }
+    
+    /**
+     * 
+     * @return the list of all actions that the user is allowed to perform
+     */
+    public LinkedList<UseCase> getAvailableActions() {
+        LinkedList<UseCase> availableActions = new LinkedList<UseCase>();
+        for(UseCase action: useCases) {
+            if(can(action)) {
+                availableActions.add(action);
+            }
+        }   
+        return availableActions;
+    }
+    
+    
 }
