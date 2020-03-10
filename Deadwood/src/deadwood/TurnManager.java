@@ -105,7 +105,7 @@ public class TurnManager extends Observable{
     /**
      * @param b the new flag for whether the active player has moved this turn
      */
-    public void setHasMoved(Boolean b) {
+    public void setHasMoved(boolean b) {
         hasMoved = b;
         notifyObservers(getAvailableActions());
     }
@@ -120,7 +120,7 @@ public class TurnManager extends Observable{
     /**
      * @param b the new flag for whether the active player has acted this turn
      */
-    public void setHasActed(Boolean b) {
+    public void setHasActed(boolean b) {
         hasActed = b;
         notifyObservers(getAvailableActions());
     }
@@ -135,7 +135,7 @@ public class TurnManager extends Observable{
     /**
      * @param b the new flag for whether the active player has upgraded this turn
      */
-    public void setHasUpgraded(Boolean b) {
+    public void setHasUpgraded(boolean b) {
         hasUpgraded = b;
         notifyObservers(getAvailableActions());
     }
@@ -150,7 +150,7 @@ public class TurnManager extends Observable{
     /**
      * @param b the new flag for whether the active player has rehearsed this turn
      */
-    public void setHasRehearsed(Boolean b) {
+    public void setHasRehearsed(boolean b) {
         hasRehearsed = b;
         notifyObservers(getAvailableActions());
     }

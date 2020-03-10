@@ -126,6 +126,7 @@ public class Scene extends Space {
                 notifyObservers(4); // On card, unsuccessful
             }
           }
+          TurnManager.getInstance().setHasActed(true);
           return true;
         } else {
           return false;
