@@ -130,6 +130,8 @@ public class BoardPane extends JLayeredPane {
 
     public void movePlayerLabel(int playerID, int x, int y) {
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
+        System.out.println(x);
+        System.out.println(y);
         add(playerLabels[playerID], new Integer(3));
         
         

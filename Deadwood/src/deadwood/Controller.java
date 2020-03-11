@@ -54,7 +54,8 @@ public class Controller implements Observer {
         } else if (o instanceof Space) {
             //Updates player icon location
             Space s = (Space) o;
-            BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
+            System.out.println("I m in instance of SPACE");
+            //BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
             int i = 0;
             /* for (Player p : s.getPlayerSet()) {
                 if (p.getRole() == null) {
