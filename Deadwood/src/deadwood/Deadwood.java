@@ -46,11 +46,11 @@ public class Deadwood {
         Deck deck = Deck.getInstance();
         deck.initDeck(stackOfCards); 
         ////////////////////////////////////////
-        
+      /*  
         ///////INITIALIZE PLAYERS///////
-        int numberOfPlayers;                            //TODO!!!
-        if(args.length > 0 ) {                          //We need some sort of window to select the number of players
-            numberOfPlayers = Integer.parseInt(args[0]);//We'll figure it out
+        int numberOfPlayers;                            
+        if(args.length > 0 ) {                          
+            numberOfPlayers = Integer.parseInt(args[0]);
         } else {                                        
             numberOfPlayers = 2;                        
         }
@@ -61,13 +61,9 @@ public class Deadwood {
             players[i] = player;
         }
         ////////////////////////////////
-        
-        ///////CONNECT PLAYERS TO SYSTEM///////
-        board.setPlayers(players);
-        DayManager.getInstance().init(numberOfPlayers);
-        ScoreManager.init(numberOfPlayers);
-        ///////////////////////////////////////
-        
+        */
+      
+        //Launch the GUI. Fingers crossed
         LaunchView launchView = new LaunchView();
     }
 }
