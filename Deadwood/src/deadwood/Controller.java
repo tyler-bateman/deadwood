@@ -14,12 +14,22 @@ import java.util.LinkedList;
 public class Controller  implements Observer {
     private static Controller instance = new Controller();
     
+    private GameView view;
+    
     private Controller() {
         
     }
     
     public static Controller getInstance() {
         return instance;
+    }
+    
+    public void setView(GameView v) {
+        view = v;
+    }
+    
+    private GameView getView() {
+        return view;
     }
     
     
@@ -74,8 +84,10 @@ public class Controller  implements Observer {
             if(obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList)obj;
                 //TODO: Update active buttons
+            } else {
+                //TODO: Update active player info
             }
-            //TODO: Update active player info
+            
         }
     }
     
