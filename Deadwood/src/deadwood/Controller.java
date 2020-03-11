@@ -52,9 +52,9 @@ public class Controller implements Observer {
                 //TODO: Call update active player info method
             }
         } else if (o instanceof Space) {
-           /* //Updates player icon location
+            //Updates player icon location
             Space s = (Space) o;
-            System.out.println("I m in instance of SPACE");
+            //System.out.println("I m in instance of SPACE");
             //BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
             int i = 0;
             /* for (Player p : s.getPlayerSet()) {
@@ -83,10 +83,12 @@ public class Controller implements Observer {
                         case 5:
                         //TODO: Scene wrapped with bonus
                             InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.");
+                            redrawPlayers(s);
                             break;
                         case 6:
                         //TODO: Scene wrapped without bonus
                             InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! There were no starring actors, so there will be no bonuses.");
+                            redrawPlayers(s);
                             break;
                     }
                 } else {
@@ -202,5 +204,25 @@ public class Controller implements Observer {
      */
     public void endTurn() {
         TurnManager.getInstance().nextTurn();
+    }
+    
+    /**
+     * Redraws the players on a given space, except for the ones that are working on a role.
+     * @param s the space to be redrawn
+     */
+    public void redrawPlayers(Space s) {
+        int xOffset = 0;
+        int yOffset = 0;
+        for(Player p: s.getPlayerSet()) {
+            if(p.getRole() == null) {
+                BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (50 * xOffset) , s.getYCoordinates() + (50 * yOffset));
+                if(xOffset >= 3) {
+                    xOffset = 0;
+                    yOffset ++;
+                } else {
+                    xOffset ++;
+                }
+            }
+        }
     }
 }
