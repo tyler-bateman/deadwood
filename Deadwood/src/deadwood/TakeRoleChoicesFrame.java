@@ -65,7 +65,6 @@ public class TakeRoleChoicesFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent event) {           
                     Controller.getInstance().takeRole(role);
-                    BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayerID(), role.getXCoordinates()+3, role.getYCoordinates()+3);
                     InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
                     
                     frame.dispose();
