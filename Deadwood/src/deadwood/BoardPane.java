@@ -67,17 +67,15 @@ public class BoardPane extends JLayeredPane {
             cardLabels[i].setOpaque(false);
 
             add(cardLabels[i], new Integer(2));*/
-
             /// SETTING SHOT COUNTERS
-            for (int j = 0; j < board.getScene(i).getShotCountersXCoordinates().size(); j++) {
+            /*for (int j = 0; j < board.getScene(i).getShotCountersXCoordinates().size(); j++) {
                 shotCounterLabels[(i + 1) * (j + 1)] = new JLabel();
                 ImageIcon shotCounterIcon = new ImageIcon(getClass().getResource("/resources/shot.png"));
                 shotCounterLabels[(i + 1) * (j + 1)].setIcon(shotCounterIcon);
                 shotCounterLabels[(i + 1) * (j + 1)].setBounds(board.getScene(i).getShotCountersXCoordinates().get(j), board.getScene(i).getShotCountersYCoordinates().get(j), shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
                 shotCounterLabels[(i + 1) * (j + 1)].setOpaque(false);
                 add(shotCounterLabels[(i + 1) * (j + 1)], new Integer(2));
-            }
-
+            }*/
             /// MOVING PLAYER ICON TO ON CARD ROLES
             /*for (int m = 0; m < card.getRoles().size(); m++) {
                 JLabel playerLabel1 = new JLabel();
@@ -99,7 +97,7 @@ public class BoardPane extends JLayeredPane {
             }*/
         }
 
-        for (int i = 0; i < playerLabels.length; i++) {
+        /*for (int i = 0; i < playerLabels.length; i++) {
 
             playerLabels[i] = new JLabel();
             playerLabels[i].setIcon(getIcon(i));
@@ -112,7 +110,7 @@ public class BoardPane extends JLayeredPane {
             }
 
             add(playerLabels[i], new Integer(4));
-        }
+        }*/
     }
 
     private ImageIcon getIcon(int index) {
@@ -176,10 +174,36 @@ public class BoardPane extends JLayeredPane {
         //String cardImage = card.getIconID();
         ImageIcon cIcon = new ImageIcon(getClass().getResource("/resources/" + iconID));
         cardLabels[labelID].setIcon(cIcon);
-        cardLabels[labelID].setBounds(x , y, cIcon.getIconWidth(), cIcon.getIconHeight());
+        cardLabels[labelID].setBounds(x, y, cIcon.getIconWidth(), cIcon.getIconHeight());
         cardLabels[labelID].setOpaque(false);
 
         add(cardLabels[labelID], new Integer(2));
+    }
+
+    public void setShotCountersInView(int x, int y) {
+        JLabel shotCounterLabel = new JLabel();
+        ImageIcon shotCounterIcon = new ImageIcon(getClass().getResource("/resources/shot.png"));
+        shotCounterLabel.setIcon(shotCounterIcon);
+        shotCounterLabel.setBounds(x, y, shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
+        shotCounterLabel.setOpaque(false);
+        add(shotCounterLabel, new Integer(2));
+    }
+
+    public void positionPlayersInTrailer(int x, int y) {
+        for (int i = 0; i < playerLabels.length; i++) {
+
+            playerLabels[i] = new JLabel();
+            playerLabels[i].setIcon(getIcon(i));
+            playerLabels[i].setOpaque(false);
+            if (i < (playerLabels.length / 2)) {
+                playerLabels[i].setBounds(x + (i * 50), y, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
+
+            } else {
+                playerLabels[i].setBounds(x + ((i - (playerLabels.length / 2)) * 50), y + 50, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
+            }
+
+            add(playerLabels[i], new Integer(4));
+        }
     }
 
 }
