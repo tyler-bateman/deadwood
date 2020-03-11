@@ -36,7 +36,6 @@ public class Player extends Observable{
         setRank(1);
         setRole(null);
         setRehearsal(0);
-        Board.getInstance().getSpaces()[location].addPlayer(this);
     }
     public int getScore() {
         return ScoreManager.getScore(ID);
