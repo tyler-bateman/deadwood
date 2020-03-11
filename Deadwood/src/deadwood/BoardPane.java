@@ -50,13 +50,13 @@ public class BoardPane extends JLayeredPane {
 
         ////DEALING CARDBACKS DEMO
         for (int i = 0; i < board.getScenes().length; i++) {
-            JLabel backlabel = new JLabel();
+            /*JLabel backlabel = new JLabel();
             ImageIcon backIcon = new ImageIcon(getClass().getResource("/resources/CardBack.jpg"));
             backlabel.setIcon(backIcon);
             backlabel.setBounds(board.getScene(i).getXCoordinates(), board.getScene(i).getYCoordinates(), backIcon.getIconWidth(), backIcon.getIconHeight());
             backlabel.setOpaque(false);
+            add(backlabel, new Integer(1));*/
 
-            //add(backlabel, new Integer(1));
             /// DEALING CARD FACES DEMO
             cardLabels[i] = new JLabel();
             SceneCard card = board.getScene(i).getCard();
@@ -70,12 +70,12 @@ public class BoardPane extends JLayeredPane {
 
             /// SETTING SHOT COUNTERS
             for (int j = 0; j < board.getScene(i).getShotCountersXCoordinates().size(); j++) {
-                shotCounterLabels[(i+1)*(j+1)] = new JLabel();
+                shotCounterLabels[(i + 1) * (j + 1)] = new JLabel();
                 ImageIcon shotCounterIcon = new ImageIcon(getClass().getResource("/resources/shot.png"));
-                shotCounterLabels[(i+1)*(j+1)].setIcon(shotCounterIcon);
-                shotCounterLabels[(i+1)*(j+1)].setBounds(board.getScene(i).getShotCountersXCoordinates().get(j), board.getScene(i).getShotCountersYCoordinates().get(j), shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
-                shotCounterLabels[(i+1)*(j+1)].setOpaque(false);
-                add(shotCounterLabels[(i+1)*(j+1)], new Integer(2));
+                shotCounterLabels[(i + 1) * (j + 1)].setIcon(shotCounterIcon);
+                shotCounterLabels[(i + 1) * (j + 1)].setBounds(board.getScene(i).getShotCountersXCoordinates().get(j), board.getScene(i).getShotCountersYCoordinates().get(j), shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
+                shotCounterLabels[(i + 1) * (j + 1)].setOpaque(false);
+                add(shotCounterLabels[(i + 1) * (j + 1)], new Integer(2));
             }
 
             /// MOVING PLAYER ICON TO ON CARD ROLES
@@ -130,10 +130,10 @@ public class BoardPane extends JLayeredPane {
         return icons[index];
     }
 
-    public void movePlayerLabelToScene(int playerID, int x,int y) {
+    public void movePlayerLabelToScene(int playerID, int x, int y) {
 
-        playerLabels[playerID].setBounds(x,y, playerIconWidth, playerIconHeight);
-        add(playerLabels[playerID], new Integer(3));     
+        playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
+        add(playerLabels[playerID], new Integer(3));
 //        InfoPanel.getInstance().setPlayerInfoData(active);
 //        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
@@ -156,9 +156,30 @@ public class BoardPane extends JLayeredPane {
         InfoPanel.getInstance().setPlayerInfoData(active);
         InfoPanel.getInstance().setUpdateTextArea("You took a starring role !\n");
     }
-    
-    public void removeShotCounter(int index){
+
+    public void removeShotCounter(int index) {
         shotCounterLabels[index].setVisible(false);
+    }
+
+    public void setCardBackInView(int x, int y) {
+        JLabel backlabel = new JLabel();
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("/resources/CardBack.jpg"));
+        backlabel.setIcon(backIcon);
+        backlabel.setBounds(x, y, backIcon.getIconWidth(), backIcon.getIconHeight());
+        backlabel.setOpaque(false);
+        add(backlabel, new Integer(1));
+    }
+
+    public void setCardFaceUpInView(int labelID, String iconID, int x, int y) {
+        cardLabels[labelID] = new JLabel();
+        //SceneCard card = scene.getCard();
+        //String cardImage = card.getIconID();
+        ImageIcon cIcon = new ImageIcon(getClass().getResource("/resources/" + iconID));
+        cardLabels[labelID].setIcon(cIcon);
+        cardLabels[labelID].setBounds(x , y, cIcon.getIconWidth(), cIcon.getIconHeight());
+        cardLabels[labelID].setOpaque(false);
+
+        add(cardLabels[labelID], new Integer(2));
     }
 
 }
