@@ -47,6 +47,10 @@ public class Controller  implements Observer {
             if(p.equals(TurnManager.getInstance().getActivePlayer())) {
                 //TODO: Call update active player info method
             }
+        } else if(o instanceof Space) {
+            //Updates player icon location
+            Space s = (Space)o;
+            BoardPane.getInstance().movePlayerLabelToScene(s.getID());
         } else if(o instanceof DayManager) {
             //TODO: Update day counter
         } else if(o instanceof Role) {
@@ -83,12 +87,7 @@ public class Controller  implements Observer {
             } else {
                 //TODO: Update active player info
             } 
-        }  else if(o instanceof Space) {
-            //Updates player icon location
-            Space s = (Space)o;
-            BoardPane.getInstance().movePlayerLabelToScene(s.getID());
-            
-        }
+        }  
     }
     
     
