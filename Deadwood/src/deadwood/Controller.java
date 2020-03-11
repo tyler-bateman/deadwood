@@ -45,11 +45,10 @@ public class Controller implements Observer {
     public void update(Observable o, Object obj) {
 
         System.out.println("update");
-        Class source = o.getClass();
         if (o instanceof Player) {
             Player p = (Player) o;
             if (p.equals(TurnManager.getInstance().getActivePlayer())) {
-                //TODO: Call update active player info method
+                InfoPanel.getInstance().setPlayerInfoData(p);
             }
         } else if (o instanceof Space) {
             //Updates player icon location
@@ -112,7 +111,7 @@ public class Controller implements Observer {
                 BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
             }
 
-        } else if (source.equals(TurnManager.class)) {
+        } else if (o instanceof TurnManager) {
             if (obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList) obj;
                 ActionsPanel.getInstance().updateEnabledButtons(availableActions);
