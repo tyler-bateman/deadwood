@@ -59,6 +59,7 @@ public class Role extends Observable{
     public void removePlayer(){
         if(occupant != null) {
             occupant.setRole(null);
+            occupant.setRehearsal(0);
             setOccupant(null);
         }
         payout = 0;
