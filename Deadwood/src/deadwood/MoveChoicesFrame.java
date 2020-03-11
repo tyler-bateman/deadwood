@@ -77,16 +77,20 @@ public class MoveChoicesFrame extends JFrame {
             sceneButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index)));
-                    InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
+                    /*BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index)));
+                    InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");*/
+                    
+                    Controller.getInstance().move(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index).getID());
                     frame.dispose();
                 }
-            }));
+                }));
             scenesPanel.add(Box.createHorizontalGlue());
             scenesPanel.add(sceneButtons[i]);
             setFonts(sceneButtons[i]);
 
         }
     }
+    
+    
 
 }

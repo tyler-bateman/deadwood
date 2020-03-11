@@ -130,12 +130,12 @@ public class BoardPane extends JLayeredPane {
         return icons[index];
     }
 
-    public void movePlayerLabelToScene(int adjacentSpaceID) {
+    public void movePlayerLabelToScene(int spaceID) {
         Player active = TurnManager.getInstance().getActivePlayer();
-        playerLabels[active.getID()].setBounds(Board.getInstance().getSpace(active.getLocation()).getAdjacentSpaces().get(adjacentSpaceID).getXCoordinates(), Board.getInstance().getSpace(active.getLocation()).getAdjacentSpaces().get(adjacentSpaceID).getYCoordinates(), playerIconWidth, playerIconHeight);
-        add(playerLabels[active.getID()], new Integer(3));
-        Controller.getInstance().move(adjacentSpaceID);
+        playerLabels[active.getID()].setBounds(Board.getInstance().getSpace(spaceID).getXCoordinates(), Board.getInstance().getSpace(spaceID).getYCoordinates(), playerIconWidth, playerIconHeight);
+        add(playerLabels[active.getID()], new Integer(3));     
         InfoPanel.getInstance().setPlayerInfoData(active);
+        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
 
     public void movePlayerLabelToExtraRole(Role role) {
