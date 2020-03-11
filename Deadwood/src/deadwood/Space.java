@@ -64,7 +64,6 @@ public class Space extends Observable{
      */
     public void removePlayer(Player player) {
         getPlayerSet().remove(player);
-        notifyObservers();
     }
     
     /**
