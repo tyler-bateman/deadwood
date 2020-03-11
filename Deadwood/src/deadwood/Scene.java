@@ -26,7 +26,7 @@ public class Scene extends Space {
      * resets the shot counter
      */
     public void resetShots(){
-        remainingShots = totalShots;
+        setRemainingShots(getTotalShots());
     }
     
     /**
