@@ -58,7 +58,7 @@ public class Controller implements Observer {
             for (Player p : s.getPlayerSet()) {
                 if (p.getRole() == null) {
                     System.out.println("Redrawing players...");
-                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (10 * i), s.getYCoordinates());
+                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (20 * i), s.getYCoordinates());
                     i++;
                 }
             }
@@ -93,7 +93,9 @@ public class Controller implements Observer {
             BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
 
         } else if (o instanceof Role) {
-            //TODO: Update role graphic to have or not have the player
+            //TODO: Updates the player icon for a role
+            Role r = (Role)o;
+            BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
 
         } else if (source.equals(TurnManager.class)) {
             if (obj instanceof LinkedList) {
