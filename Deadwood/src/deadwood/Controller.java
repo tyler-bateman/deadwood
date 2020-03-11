@@ -99,12 +99,14 @@ public class Controller  implements Observer {
      */
     public void setNumPlayers(int num) {
         Player[] players = new Player[num];
+        DayManager.getInstance().init(num);
+        ScoreManager.init(num); 
+        TurnManager.init(num);
         for(int i = 0; i < num; i++) {
             players[i] = new Player(i, Board.getInstance().getTrailorsID());
         }
         Board.getInstance().setPlayers(players);
-        DayManager.getInstance().init(num);
-        ScoreManager.init(num);        
+               
     }
     
     ///////////////////////////////////////////
