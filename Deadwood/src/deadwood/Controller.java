@@ -15,7 +15,6 @@ import java.lang.Throwable;
 public class Controller implements Observer {
 
     private static Controller instance = new Controller();
-
     private GameView view;
 
     private Controller() {
@@ -44,6 +43,7 @@ public class Controller implements Observer {
      */
     @Override
     public void update(Observable o, Object obj) {
+
         System.out.println("update");
         Class source = o.getClass();
         if (o instanceof Player) {
@@ -54,15 +54,17 @@ public class Controller implements Observer {
         } else if (o instanceof Space) {
             //Updates player icon location
             Space s = (Space) o;
+            BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
             int i = 0;
-            for (Player p : s.getPlayerSet()) {
+            /* for (Player p : s.getPlayerSet()) {
                 if (p.getRole() == null) {
+                    System.out.println("i am in controller, p.get id is " + p.getID());
                     BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates(), s.getYCoordinates());
-                    System.out.println("Redrawing players...");
-                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (10 * i), s.getYCoordinates());
-                    i++;
+                    //System.out.println("Redrawing players...");
+                    //BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (10 * i), s.getYCoordinates());
+                    //i++;
                 }
-            }
+            }*/
             if (o instanceof Scene) {
                 Scene scene = (Scene) o;
                 if (obj instanceof SceneCard) {
@@ -90,8 +92,9 @@ public class Controller implements Observer {
             }
         } else if (o instanceof DayManager) {
             //TODO: Update day counter
-            Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
-            BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
+            //Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
+            //BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
+            //System.out.println("POSITIONFZEJNF ZEJKFNKZJEFZE");
 
         } else if (o instanceof Role) {
             //TODO: Update role graphic to have or not have the player

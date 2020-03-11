@@ -129,9 +129,10 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void movePlayerLabel(int playerID, int x, int y) {
-        //System.out.println(x);
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
         add(playerLabels[playerID], new Integer(3));
+        
+        
 //        InfoPanel.getInstance().setPlayerInfoData(active);
 //        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
