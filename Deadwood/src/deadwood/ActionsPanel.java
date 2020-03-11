@@ -68,6 +68,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
 
         if (e.getSource() == takeRoleButton) {
             takeRoleChoicesFrame = new TakeRoleChoicesFrame();
+            
         }
 
         if (e.getSource() == rehearseButton) {

@@ -63,8 +63,9 @@ public class TakeRoleChoicesFrame extends JFrame {
             roleButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    BoardPane.getInstance().movePlayerLabelToExtraRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
-                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    //BoardPane.getInstance().movePlayerLabelToExtraRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
+                    //InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    Controller.getInstance().takeRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
                     frame.dispose();
                 }
             }));
@@ -82,8 +83,9 @@ public class TakeRoleChoicesFrame extends JFrame {
             roleButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    BoardPane.getInstance().movePlayerToStarringRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
-                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    //BoardPane.getInstance().movePlayerToStarringRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
+                    //InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");   
+                    Controller.getInstance().takeRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
                     frame.dispose();
                 }
             }));

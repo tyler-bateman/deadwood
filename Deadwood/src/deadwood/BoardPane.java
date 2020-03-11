@@ -142,8 +142,9 @@ public class BoardPane extends JLayeredPane {
         Player active = TurnManager.getInstance().getActivePlayer();
         playerLabels[active.getID()].setBounds(role.getXCoordinates() + 3, role.getYCoordinates() + 3, playerIconWidth, playerIconHeight);
         add(playerLabels[active.getID()], new Integer(3));
-        Controller.getInstance().takeRole(role);
+        //Controller.getInstance().takeRole(role);
         InfoPanel.getInstance().setPlayerInfoData(active);
+        InfoPanel.getInstance().setUpdateTextArea("You took an extra role !\n");
     }
 
     public void movePlayerToStarringRole(Role role) {
@@ -151,8 +152,9 @@ public class BoardPane extends JLayeredPane {
         playerLabels[active.getID()].setBounds(role.getXCoordinates(), role.getYCoordinates(), playerIconWidth, playerIconHeight);
         cardLabels[active.getLocation()].add(playerLabels[active.getID()]);
         add(cardLabels[active.getLocation()], new Integer(3));
-        Controller.getInstance().takeRole(role);
+        //Controller.getInstance().takeRole(role);
         InfoPanel.getInstance().setPlayerInfoData(active);
+        InfoPanel.getInstance().setUpdateTextArea("You took a starring role !\n");
     }
     
     public void removeShotCounter(int index){
