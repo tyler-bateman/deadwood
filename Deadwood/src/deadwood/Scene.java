@@ -113,10 +113,12 @@ public class Scene extends Space {
             setRemainingShots(getRemainingShots() - 1);
             if(card.hasRole(player.getRole())) {
               Banker.giveCredits(player, 2);
+              setChanged();
               notifyObservers(1); // On card, successful
             } else {
               Banker.giveCredits(player, 1);
               Banker.giveDollars(player, 1);
+              setChanged();
               notifyObservers(2); //Off card, successful
             }
 
@@ -126,8 +128,10 @@ public class Scene extends Space {
           } else {
             if(!card.hasRole(player.getRole())) {
               Banker.giveDollars(player, 1);
+              setChanged();
               notifyObservers(3); // Off card, unsuccessful
             } else {
+                setChanged();
                 notifyObservers(4); // On card, unsuccessful
             }
           }
@@ -143,7 +147,6 @@ public class Scene extends Space {
      * Wraps the scene: assigns bonus amounts, pays bonus, 
      */
     private void wrap(){
-        setChanged();
         int termination;
         if(card.hasPlayers()) {
           //Deadwood.sendMessage("There are players on the card. Players will receive a bonus");
@@ -192,6 +195,7 @@ public class Scene extends Space {
           termination = 6;
         }
         setCard(null);
+        setChanged();
         notifyObservers(termination);
         setRemainingShots(getTotalShots());
         

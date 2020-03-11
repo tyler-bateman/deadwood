@@ -75,6 +75,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
 
         if (e.getSource() == rehearseButton) {
             InfoPanel.getInstance().setUpdateTextArea("Your have rehearsed !\n");
+            Controller.getInstance().rehearse();
         }
 
         if (e.getSource() == upgradeButton) {
