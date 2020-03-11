@@ -54,7 +54,7 @@ public class Controller  implements Observer {
             Space s = (Space)o;
             for(Player p : s.getPlayerSet()) {
                 if(p.getRole() == null) {
-                    BoardPane.getInstance().movePlayerLabelToScene(p.getID(),s.getXCoordinates(),s.getYCoordinates());
+                    BoardPane.getInstance().movePlayerLabel(p.getID(),s.getXCoordinates(),s.getYCoordinates());
                 }
             }
             if(o instanceof Scene) {
