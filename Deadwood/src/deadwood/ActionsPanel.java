@@ -180,8 +180,10 @@ public class ActionsPanel extends JPanel implements ActionListener {
                     break;
                 case REHEARSE:
                     rehearseButton.setEnabled(true);
+                    break;
                 case UPGRADE:
                     upgradeButton.setEnabled(true);
+                    break;
                 case END_TURN:
                     endTurnButton.setEnabled(true);
             }
