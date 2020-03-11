@@ -52,7 +52,11 @@ public class Controller  implements Observer {
             //Updates player icon location
             System.out.println("Got back to controller");
             Space s = (Space)o;
-            BoardPane.getInstance().movePlayerLabelToScene(s.getID(),s.getXCoordinates(),s.getYCoordinates());
+            for(Player p : s.getPlayerSet()) {
+                if(p.getRole() == null) {
+                    BoardPane.getInstance().movePlayerLabelToScene(p.getID(),s.getXCoordinates(),s.getYCoordinates());
+                }
+            }
             if(o instanceof Scene) {
                 Scene scene = (Scene)o;
                 if(obj instanceof SceneCard) {
