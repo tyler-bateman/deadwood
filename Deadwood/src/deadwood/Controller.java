@@ -67,23 +67,27 @@ public class Controller implements Observer {
             if (o instanceof Scene) {
                 Scene scene = (Scene) o;
                 if (obj instanceof SceneCard) {
-                    //TODO: Call set card method
+                    
                 } else if (obj instanceof Integer) {
                     switch ((Integer) obj) {
                         case 1:
-                            //TODO: Act attempt successful, active player on card
-                            break;
                         case 2:
-                            //TODO: Act attempt successful, active player off card
+                            //TODO: Act attempt successful
+                            InfoPanel.getInstance().setUpdateTextArea("You have successfully acted!");
                             break;
                         case 3:
-                        //TODO: Act attempt unsuccessful, active player on card
                         case 4:
-                        //TODO: Act attempt unsuccessful, active player off card
+                            //TODO: Act attempt unsuccessful
+                            InfoPanel.getInstance().setUpdateTextArea("Your act attempt was unsuccessful :(");
+                            break;
                         case 5:
                         //TODO: Scene wrapped with bonus
+                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.");
+                            break;
                         case 6:
                         //TODO: Scene wrapped without bonus
+                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! There were no starring actors, so there will be no bonuses.");
+                            break;
                     }
                 } else {
                     //TODO: Redraw shot counters
