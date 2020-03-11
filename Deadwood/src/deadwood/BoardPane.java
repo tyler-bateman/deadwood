@@ -130,9 +130,9 @@ public class BoardPane extends JLayeredPane {
         return icons[index];
     }
 
-    public void movePlayerLabelToScene(int spaceID) {
+    public void movePlayerLabelToScene(int spaceID,int x,int y) {
         Player active = TurnManager.getInstance().getActivePlayer();
-        playerLabels[active.getID()].setBounds(Board.getInstance().getSpace(spaceID).getXCoordinates(), Board.getInstance().getSpace(spaceID).getYCoordinates(), playerIconWidth, playerIconHeight);
+        playerLabels[active.getID()].setBounds(x,y, playerIconWidth, playerIconHeight);
         add(playerLabels[active.getID()], new Integer(3));     
         InfoPanel.getInstance().setPlayerInfoData(active);
         InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
