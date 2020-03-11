@@ -225,7 +225,7 @@ public class TurnManager extends Observable{
      * Otherwise, they must act or rehearse.
      */
     public boolean canEndTurn() {
-        return getActivePlayer().getRole() == null || hasRehearsed() || hasActed();
+        return getActivePlayer().getRole() == null || hasRehearsed() || hasActed() || hasTakenRole();
     }
     
         
