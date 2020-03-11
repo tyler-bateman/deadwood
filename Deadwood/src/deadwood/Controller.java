@@ -68,6 +68,7 @@ public class Controller implements Observer {
                 Scene scene = (Scene) o;
                 if (obj instanceof SceneCard) {
                     //TODO: Call set card method
+                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
                 } else if (obj instanceof Integer) {
                     switch ((Integer) obj) {
                         case 1:

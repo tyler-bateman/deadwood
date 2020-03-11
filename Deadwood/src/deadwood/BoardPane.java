@@ -129,6 +129,7 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void movePlayerLabel(int playerID, int x, int y) {
+        
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
         System.out.println(x);
         System.out.println(y);
@@ -138,26 +139,27 @@ public class BoardPane extends JLayeredPane {
 //        InfoPanel.getInstance().setPlayerInfoData(active);
 //        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
-/*
-    public void movePlayerLabelToExtraRole(Role role) {
+
+    /*public void movePlayerLabelToExtraRole(Role role) {
         Player active = TurnManager.getInstance().getActivePlayer();
         playerLabels[active.getID()].setBounds(role.getXCoordinates() + 3, role.getYCoordinates() + 3, playerIconWidth, playerIconHeight);
         add(playerLabels[active.getID()], new Integer(3));
         //Controller.getInstance().takeRole(role);
         InfoPanel.getInstance().setPlayerInfoData(active);
         InfoPanel.getInstance().setUpdateTextArea("You took an extra role !\n");
-    }
+    }*/
 
-    public void movePlayerToStarringRole(Role role) {
-        Player active = TurnManager.getInstance().getActivePlayer();
-        playerLabels[active.getID()].setBounds(role.getXCoordinates(), role.getYCoordinates(), playerIconWidth, playerIconHeight);
-        cardLabels[active.getLocation()].add(playerLabels[active.getID()]);
-        add(cardLabels[active.getLocation()], new Integer(3));
+    public void movePlayerToStarringRole(int playerID, int labelID,int x, int y) {
+        //Player active = TurnManager.getInstance().getActivePlayer();
+        playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
+        //cardLabels[active.getLocation()].add(playerLabels[active.getID()]);
+        cardLabels[labelID].add(playerLabels[playerID]);
+        add(cardLabels[labelID], new Integer(3));
         //Controller.getInstance().takeRole(role);
-        InfoPanel.getInstance().setPlayerInfoData(active);
-        InfoPanel.getInstance().setUpdateTextArea("You took a starring role !\n");
+        //InfoPanel.getInstance().setPlayerInfoData(active);
+        //InfoPanel.getInstance().setUpdateTextArea("You took a starring role !\n");
     }
-    */
+    
     public void removeShotCounter(int index) {
         shotCounterLabels[index].setVisible(false);
     }

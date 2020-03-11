@@ -57,17 +57,17 @@ public class TakeRoleChoicesFrame extends JFrame {
 
         for (i = 0; i < Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().size(); i++) {
             final int index = i;
-            Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(i);
+            final Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(i);
             roleButtons[i] = new JButton(role.getName() + " - rank " + role.getRank());
             roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             roleButtons[i].addActionListener((new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent event) {
-                    Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index);             
-                    Controller.getInstance().takeRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
+                public void actionPerformed(ActionEvent event) {           
+                    Controller.getInstance().takeRole(role);
+                    InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
                     BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayerID(), role.getXCoordinates()+3, role.getYCoordinates()+3);
                     InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
-                    InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+                    
                     frame.dispose();
                 }
             }));
@@ -79,15 +79,19 @@ public class TakeRoleChoicesFrame extends JFrame {
 
         for (int j = 0; j < Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().size(); j++) {
             final int index = j;
-            Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(j);
+            final Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(j);
             roleButtons[i] = new JButton(role.getName() + " - rank " + role.getRank());
             roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             roleButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     //BoardPane.getInstance().movePlayerToStarringRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
-                    //InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");   
-                    Controller.getInstance().takeRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
+                    //InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");               
+                    Controller.getInstance().takeRole(role);
+                    InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+                    BoardPane.getInstance().movePlayerToStarringRole(TurnManager.getInstance().getActivePlayerID(),TurnManager.getInstance().getActivePlayer().getLocation(), role.getXCoordinates()+3, role.getYCoordinates()+3);
+                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    
                     frame.dispose();
                 }
             }));
