@@ -79,6 +79,8 @@ public class DayManager extends Observable {
     } else {
         b.newDay();
     }
+    setChanged();
+    notifyObservers();
     //Deadwood.sendMessage("Wake up! It's a new day! Welcome to day " + getCurrentDay());
   }
 
@@ -94,8 +96,6 @@ public class DayManager extends Observable {
     */
   private void setCurrentDay(int newDay) {
       currentDay = newDay;
-      setChanged();
-      notifyObservers();
   }
   
   public int getNumberOfDays(){
