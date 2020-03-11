@@ -47,10 +47,6 @@ public class Controller  implements Observer {
             if(p.equals(TurnManager.getInstance().getActivePlayer())) {
                 //TODO: Call update active player info method
             }
-            
-        } else if(o instanceof Space) {
-            //TODO: Update players in the space
-            // Maybe handle which roles the players have?
         } else if(o instanceof DayManager) {
             //TODO: Update day counter
         } else if(o instanceof Role) {
@@ -58,7 +54,7 @@ public class Controller  implements Observer {
         } else if(o instanceof Scene) {
             Scene s = (Scene)o;
             if(obj instanceof SceneCard) {
-                //TODO: Call set card method 
+                //TODO: Call set card method
             } else if(obj instanceof Integer) {
                 switch ((Integer)obj) {
                     case 1:
@@ -83,11 +79,13 @@ public class Controller  implements Observer {
         } else if (source.equals(TurnManager.class)) {
             if(obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList)obj;
-                //TODO: Update active buttons
+                
             } else {
                 //TODO: Update active player info
-            }
-            
+            } 
+        }  else if(o instanceof Space) {
+            Space s = (Space)o;
+            //Update player icons
         }
     }
     
