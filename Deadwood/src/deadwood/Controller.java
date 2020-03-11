@@ -146,6 +146,15 @@ public class Controller implements Observer {
     // The following methods are called by   //
     // the view upon user input/interaction. //
     ///////////////////////////////////////////
+    
+    public void takeRoleMenu() {
+        Player p = TurnManager.getInstance().getActivePlayer();
+        Scene s = (Board.getInstance().getScene(p.getLocation()));
+        System.out.println(p.getRank());
+        System.out.print(s.getName());
+        System.out.println(" Available roles: " + s.getAvailableRoles(p.getRank()));
+        TakeRoleChoicesFrame f = new TakeRoleChoicesFrame(s.getAvailableRoles(p.getRank()));
+    }
     /**
      * Use case for taking a role
      *
@@ -154,7 +163,7 @@ public class Controller implements Observer {
     public void takeRole(Role r) {
         r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
-
+    
     /**
      * Use case for moving
      *

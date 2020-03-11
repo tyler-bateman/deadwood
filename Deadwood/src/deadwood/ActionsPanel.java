@@ -69,7 +69,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == takeRoleButton) {
-            takeRoleChoicesFrame = new TakeRoleChoicesFrame();
+            Controller.getInstance().takeRoleMenu();
             
         }
 
