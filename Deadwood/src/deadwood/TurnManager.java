@@ -83,6 +83,7 @@ public class TurnManager extends Observable{
         setHasRehearsed(false);
         setHasUpgraded(false);
         
+        setChanged();
         notifyObservers();
     }
     
