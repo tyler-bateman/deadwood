@@ -33,17 +33,14 @@ public class Space extends Observable{
     /**
      * 
      * @param player : the player requesting the move
-     * @param index: the index of the new space in the adjacent spaces list
+     * @param index: the ID of the new space
      * @return : True if move was successful 
      *           False if move was invalid
      */
     public boolean moveTo(Player player, int index) {    
-        if(index >= adjacentSpaces.size()) {
-            return false;
-        }
-        player.setLocation(this.getAdjacentSpaces().get(index).ID);          
+        player.setLocation(index);          
         this.removePlayer(player);
-        this.getAdjacentSpaces().get(index).addPlayer(player);
+        Board.getInstance().getSpace(index).addPlayer(player);
         TurnManager.getInstance().setHasMoved(true);
         return true;
     }
