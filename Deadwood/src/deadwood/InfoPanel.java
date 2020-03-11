@@ -123,7 +123,7 @@ public class InfoPanel extends JPanel {
     }
 
     public void setPlayerInfoData(Player p) {
-        playerInfoData.setText("Active player: player " + p.getID()
+        playerInfoData.setText("Active player: " + p
                 + "\n\nCurrent position: " + Board.getInstance().getSpace(p.getLocation()).getName()
                 + "\n\nRank: " + p.getRank()
                 + "\n\nDollars: " + p.getDollars()

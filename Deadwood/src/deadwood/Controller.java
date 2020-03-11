@@ -105,7 +105,12 @@ public class Controller implements Observer {
         } else if (o instanceof Role) {
             //TODO: Updates the player icon for a role
             Role r = (Role)o;
-            BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
+            Player p = TurnManager.getInstance().getActivePlayer();
+            if(r.getOnCard()) {
+                BoardPane.getInstance().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
+            } else {
+                BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
+            }
 
         } else if (source.equals(TurnManager.class)) {
             if (obj instanceof LinkedList) {
