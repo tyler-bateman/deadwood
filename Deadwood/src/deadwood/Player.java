@@ -48,6 +48,7 @@ public class Player extends Observable{
     }
     public void setLocation(int newLocID) {
         location = newLocID;
+        setChanged();
         notifyObservers();
     }
     public int getDollars() {
@@ -55,6 +56,7 @@ public class Player extends Observable{
     }
     public void setDollars(int amount) {
         dollars = amount;
+        setChanged();
         notifyObservers();
     }
     public int getCredits() {
@@ -62,6 +64,7 @@ public class Player extends Observable{
     }
     public void setCredits(int amount) {
         credits = amount;
+        setChanged();
         notifyObservers();
     }
     public int getRank() {
@@ -69,6 +72,7 @@ public class Player extends Observable{
     }
     public void setRank(int rank) {
         this.rank = rank;
+        setChanged();
         notifyObservers();
     }
     public Role getRole() {
@@ -76,6 +80,7 @@ public class Player extends Observable{
     }
     public void setRole(Role role) {
         currRole = role;
+        setChanged();
         notifyObservers();
     }
     public int getRehearsalChips() {
@@ -83,6 +88,7 @@ public class Player extends Observable{
     }
     public void setRehearsal(int amount) {
         rehearsalChips = amount;
+        setChanged();
         notifyObservers();
     }
     

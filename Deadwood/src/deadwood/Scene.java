@@ -45,6 +45,7 @@ public class Scene extends Space {
         card = null;
         resetShots();
         }
+        setChanged();
         notifyObservers();
     }
 
@@ -104,6 +105,7 @@ public class Scene extends Space {
       */
     public boolean requestActAttempt(Player player){
         if(this.hasRole(player.getRole())) {
+          setChanged();
           Dice d = new Dice(1);
           int dieVal = d.nextDie();
           if(dieVal + player.getRehearsalChips() >= card.getBudget()) {
@@ -140,6 +142,7 @@ public class Scene extends Space {
      * Wraps the scene: assigns bonus amounts, pays bonus, 
      */
     private void wrap(){
+        setChanged();
         int termination;
         if(card.hasPlayers()) {
           //Deadwood.sendMessage("There are players on the card. Players will receive a bonus");
@@ -271,6 +274,7 @@ public class Scene extends Space {
      */
     private void setRemainingShots(int shots){
         remainingShots = shots;
+        setChanged();
         notifyObservers();
     }
 
