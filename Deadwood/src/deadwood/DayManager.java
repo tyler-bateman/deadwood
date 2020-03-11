@@ -19,7 +19,7 @@ public class DayManager extends Observable {
      * Private constructor, according to Singleton design pattern.
      */
     private DayManager() {
-
+        addObserver(Controller.getInstance());
     }
 
     public static DayManager getInstance() {
@@ -32,6 +32,7 @@ public class DayManager extends Observable {
      * @param numPlayers the number of players playing the game
      */
     public void init(int numPlayers) {
+        System.out.println("DayManager: init");
         if (numPlayers > 3) {
             setNumberOfDays(3);
         } else {

@@ -10,6 +10,7 @@ package deadwood;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.LinkedList;
+import java.lang.Throwable;
 
 public class Controller implements Observer {
 
@@ -52,11 +53,13 @@ public class Controller implements Observer {
             }
         } else if (o instanceof Space) {
             //Updates player icon location
-            System.out.println("Got back to controller");
             Space s = (Space) o;
+            int i = 0;
             for (Player p : s.getPlayerSet()) {
                 if (p.getRole() == null) {
-                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates(), s.getYCoordinates());
+                    System.out.println("Redrawing players...");
+                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (10 * i), s.getYCoordinates());
+                    i++;
                 }
             }
             if (o instanceof Scene) {
