@@ -214,13 +214,13 @@ public class Scene extends Space {
     public LinkedList<Role> getAvailableRoles(int rank) {
         LinkedList<Role> roles = new LinkedList<Role>();
         for(Role r : getOffCardRoles()) {
-            if(r.getRank() <= rank) {
+            if(r.getRank() <= rank && r.getOccupant() == null) {
                 roles.add(r);
             }
         }
         
-        for(Role r : getCard().getRoles()) {
-            if(r.getRank() <= rank) {
+        for(Role r : getCard().getRoles() ) {
+            if(r.getRank() <= rank && r.getOccupant() == null) {
                 roles.add(r);
             }
         }
