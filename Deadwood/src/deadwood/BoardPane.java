@@ -206,6 +206,9 @@ public class BoardPane extends JLayeredPane {
 
             add(playerLabels[i], new Integer(2));
         }
+       
+        
+        
     }
 
 }

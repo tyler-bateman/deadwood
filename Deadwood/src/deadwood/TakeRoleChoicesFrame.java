@@ -63,9 +63,11 @@ public class TakeRoleChoicesFrame extends JFrame {
             roleButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    //BoardPane.getInstance().movePlayerLabelToExtraRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
-                    //InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index);             
                     Controller.getInstance().takeRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
+                    BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayerID(), role.getXCoordinates()+3, role.getYCoordinates()+3);
+                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
                     frame.dispose();
                 }
             }));

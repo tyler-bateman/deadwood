@@ -77,10 +77,11 @@ public class MoveChoicesFrame extends JFrame {
             sceneButtons[i].addActionListener((new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    /*BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index)));
-                    InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");*/
-                    
+                    Space space = Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index);                   
                     Controller.getInstance().move(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index).getID());
+                    BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayerID(), space.getXCoordinates(), space.getYCoordinates());
+                    InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
+                    InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
                     frame.dispose();
                 }
                 }));
