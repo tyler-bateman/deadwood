@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import javax.swing.*;
 
 /**
@@ -155,5 +156,34 @@ public class ActionsPanel extends JPanel implements ActionListener {
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
+    }
+    
+    public void updateEnabledButtons(LinkedList<UseCase> useCaseList) {
+        moveButton.setEnabled(false);
+        takeRoleButton.setEnabled(false);
+        actButton.setEnabled(false);
+        rehearseButton.setEnabled(false);
+        upgradeButton.setEnabled(false);
+        endTurnButton.setEnabled(false);
+        for(UseCase u: useCaseList) {
+            switch(u) {
+                case MOVE:
+                    moveButton.setEnabled(true);
+                    break;
+                case TAKE_ROLE:
+                    takeRoleButton.setEnabled(true);
+                    break;
+                case ACT:
+                    actButton.setEnabled(true);
+                    break;
+                case REHEARSE:
+                    rehearseButton.setEnabled(true);
+                case UPGRADE:
+                    upgradeButton.setEnabled(true);
+                case END_TURN:
+                    endTurnButton.setEnabled(true);
+            }
+                    
+        }
     }
 }

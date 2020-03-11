@@ -103,7 +103,7 @@ public class Controller implements Observer {
         } else if (source.equals(TurnManager.class)) {
             if (obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList) obj;
-
+                ActionsPanel.getInstance().updateEnabledButtons(availableActions);
             } else {
                 //TODO: Update active player info
             }
