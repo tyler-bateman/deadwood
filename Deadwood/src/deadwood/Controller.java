@@ -41,6 +41,7 @@ public class Controller  implements Observer {
      */
     @Override
     public void update(Observable o, Object obj) {
+        System.out.println("update");
         Class source = o.getClass();
         if(o instanceof Player){
             Player p = (Player)o;
@@ -49,6 +50,7 @@ public class Controller  implements Observer {
             }
         } else if(o instanceof Space) {
             //Updates player icon location
+            System.out.println("Got back to controller");
             Space s = (Space)o;
             BoardPane.getInstance().movePlayerLabelToScene(s.getID());
         } else if(o instanceof DayManager) {
@@ -101,6 +103,8 @@ public class Controller  implements Observer {
             players[i] = new Player(i, Board.getInstance().getTrailorsID());
         }
         Board.getInstance().setPlayers(players);
+        DayManager.getInstance().init(num);
+        ScoreManager.init(num);        
     }
     
     ///////////////////////////////////////////
