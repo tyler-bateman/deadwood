@@ -167,6 +167,7 @@ public class Role extends Observable{
      */
     public void setOccupant(Player p){
         occupant = p;
+        setChanged();
         notifyObservers();
     }
 
