@@ -94,6 +94,7 @@ public class DayManager extends Observable {
     */
   private void setCurrentDay(int newDay) {
       currentDay = newDay;
+      setChanged();
       notifyObservers();
   }
   
@@ -103,6 +104,5 @@ public class DayManager extends Observable {
   
   private void setNumberOfDays(int n){
       numberOfDays = n;
-      notifyObservers();
   }
 }
