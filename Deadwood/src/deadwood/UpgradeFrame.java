@@ -24,7 +24,7 @@ public class UpgradeFrame extends JFrame {
     private JPanel ranksPanel;
     private JButton[] rankButtons;
 
-    public UpgradeFrame() {
+    public UpgradeFrame(int currRank, int dollars, int credits, int[] dollarPrice, int[] creditPrice) {
         rankButtons = new JButton[5];
         centreWindow(this);
 
