@@ -138,6 +138,9 @@ public class Controller implements Observer {
         for (Player p : players) {
             p.setLocation(Board.getInstance().getTrailorsID());
         }
+        
+        InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+        ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
 
     }
 
