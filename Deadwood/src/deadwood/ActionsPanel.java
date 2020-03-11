@@ -59,46 +59,27 @@ public class ActionsPanel extends JPanel implements ActionListener {
 
         if (e.getSource() == moveButton) {
             moveChoicesFrame = new MoveChoicesFrame();
-
         }
 
-        /*if (e.getSource() == actButton) {
-            int end;
-            updateTextArea.setText(updateTextArea.getText() + "You have acted !\n");
-            try {
-                if (updateTextArea.getLineCount() == 24) {
-                    end = updateTextArea.getLineEndOffset(0);
-                    updateTextArea.replaceRange("", 0, end);
-                }
-            } catch (BadLocationException ex) {
-                Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (e.getSource() == actButton) {
+            InfoPanel.getInstance().setUpdateTextArea("Your have acted !\n");
+            BoardPane.getInstance().removeShotCounter(1);
+        }
 
-        }*/
         if (e.getSource() == takeRoleButton) {
             takeRoleChoicesFrame = new TakeRoleChoicesFrame();
         }
 
-        /*if (e.getSource() == rehearseButton) {
-            int end;
-            updateTextArea.setText(updateTextArea.getText() + "You have rehearsed !\n");
-            try {
-                if (updateTextArea.getLineCount() == 24) {
-                    end = updateTextArea.getLineEndOffset(0);
-                    updateTextArea.replaceRange("", 0, end);
-                }
-            } catch (BadLocationException ex) {
-                Logger.getLogger(GameView.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (e.getSource() == rehearseButton) {
+            InfoPanel.getInstance().setUpdateTextArea("Your have rehearsed !\n");
+        }
 
-        }*/
         if (e.getSource() == upgradeButton) {
             upgradeFrame = new UpgradeFrame();
-
         }
 
         if (e.getSource() == endTurnButton) {
-
+            InfoPanel.getInstance().setUpdateTextArea("Your turn has ended.\n");
         }
     }
 

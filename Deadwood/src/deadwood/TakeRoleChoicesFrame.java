@@ -17,7 +17,7 @@ import javax.swing.*;
  *
  * @author Curveball
  */
-public class TakeRoleChoicesFrame extends JFrame implements ActionListener {
+public class TakeRoleChoicesFrame extends JFrame {
 
     private JPanel contentPane;
     private JLabel whatRoleLabel;
@@ -37,7 +37,7 @@ public class TakeRoleChoicesFrame extends JFrame implements ActionListener {
 
         rolesPanel = new JPanel();
         rolesPanel.setLayout(new BoxLayout(rolesPanel, BoxLayout.PAGE_AXIS));
-        
+
         setJButtons();
         rolesPanel.add(Box.createVerticalGlue());
 
@@ -52,30 +52,48 @@ public class TakeRoleChoicesFrame extends JFrame implements ActionListener {
     }
 
     private void setJButtons() {
+        final JFrame frame = this;
         int i;
-        
+
         for (i = 0; i < Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().size(); i++) {
+            final int index = i;
             Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(i);
-            roleButtons[i] = new JButton(role.getName() + " - rank "+role.getRank());
+            roleButtons[i] = new JButton(role.getName() + " - rank " + role.getRank());
             roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
-            roleButtons[i].addActionListener(this);
+            roleButtons[i].addActionListener((new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    BoardPane.getInstance().movePlayerLabelToExtraRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getOffCardRoles().get(index));
+                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    frame.dispose();
+                }
+            }));
             rolesPanel.add(Box.createVerticalGlue());
             rolesPanel.add(roleButtons[i]);
             setFonts(roleButtons[i]);
 
         }
-        
-        for(int j=0 ; j<Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().size();j++){
+
+        for (int j = 0; j < Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().size(); j++) {
+            final int index = j;
             Role role = Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(j);
-            roleButtons[i] = new JButton(role.getName() + " - rank "+role.getRank());
+            roleButtons[i] = new JButton(role.getName() + " - rank " + role.getRank());
             roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
-            roleButtons[i].addActionListener(this);
+            roleButtons[i].addActionListener((new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    BoardPane.getInstance().movePlayerToStarringRole(Board.getInstance().getScene(TurnManager.getInstance().getActivePlayer().getLocation()).getCard().getRoles().get(index));
+                    InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
+                    frame.dispose();
+                }
+            }));
             rolesPanel.add(Box.createVerticalGlue());
             rolesPanel.add(roleButtons[i]);
             setFonts(roleButtons[i]);
             i++;
         }
     }
+
     private void setFonts(JButton b) {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
@@ -89,14 +107,6 @@ public class TakeRoleChoicesFrame extends JFrame implements ActionListener {
             whatRoleLabel.setFont(font2.deriveFont(Font.ITALIC));
         } catch (Exception ex) {
 
-        }
-    }
-    
-    public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < roleButtons.length; i++) {
-            if (e.getSource() == roleButtons[i]) {
-                //BoardPane.getInstance().movePlayerLabelToScene(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().indexOf(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i)));
-            }
         }
     }
 
