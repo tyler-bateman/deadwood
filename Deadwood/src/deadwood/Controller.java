@@ -52,7 +52,7 @@ public class Controller implements Observer {
                 //TODO: Call update active player info method
             }
         } else if (o instanceof Space) {
-            //Updates player icon location
+           /* //Updates player icon location
             Space s = (Space) o;
             System.out.println("I m in instance of SPACE");
             //BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
