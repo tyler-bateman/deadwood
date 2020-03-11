@@ -84,7 +84,9 @@ public class Controller  implements Observer {
                 //TODO: Update active player info
             } 
         }  else if(o instanceof Space) {
+            //Updates player icon location
             Space s = (Space)o;
+            BoardPane.getInstance().movePlayerLabelToScene(s.getID());
             
         }
     }
