@@ -57,6 +57,7 @@ public class Controller implements Observer {
             int i = 0;
             for (Player p : s.getPlayerSet()) {
                 if (p.getRole() == null) {
+                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates(), s.getYCoordinates());
                     System.out.println("Redrawing players...");
                     BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (10 * i), s.getYCoordinates());
                     i++;
