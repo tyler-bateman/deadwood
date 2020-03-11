@@ -288,57 +288,58 @@ public class ParseXML {
             }
 
             NodeList trailer = root.getElementsByTagName("trailer");
-            for (int i = 10; i < (trailer.getLength() + 10); i++) {
-                LinkedList<Space> Neighbors = new LinkedList<>();
+            
+            LinkedList<Space> Neighbors = new LinkedList<>();
 
-                Node trailerNode = trailer.item(0);
+            Node trailerNode = trailer.item(0);
 
-                NodeList trailerChildren = trailerNode.getChildNodes();
-                Node neighborNode = trailerChildren.item(1);
-                if ("neighbors".equals(neighborNode.getNodeName())) {
-                    NodeList neighborsChildren = neighborNode.getChildNodes();
+            NodeList trailerChildren = trailerNode.getChildNodes();
+            Node neighborNode = trailerChildren.item(1);
+            if ("neighbors".equals(neighborNode.getNodeName())) {
+                NodeList neighborsChildren = neighborNode.getChildNodes();
 
-                    for (int k = 0; k < neighborsChildren.getLength(); k++) {
-                        Node neighborChild = neighborsChildren.item(k);
-                        if ("neighbor".equals(neighborChild.getNodeName())) {
-                            String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                            for (int n = 0; n < board.getSpaces().length; n++) {
-                                if (board.getSpace(n).getName().equals(neighborName)) {
-                                    Neighbors.add(board.getSpace(n));
-
-                                }
+                for (int k = 0; k < neighborsChildren.getLength(); k++) {
+                    Node neighborChild = neighborsChildren.item(k);
+                    if ("neighbor".equals(neighborChild.getNodeName())) {
+                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                        for (int n = 0; n < board.getSpaces().length; n++) {
+                            if (board.getSpace(n).getName().equals(neighborName)) {
+                                Neighbors.add(board.getSpace(n));
+                                board.getSpace(n).getAdjacentSpaces().add(board.getSpace(board.getTrailorsID()));
                             }
                         }
                     }
                 }
-                board.getSpace(i).setAdjacentSpaces(Neighbors);
             }
+            board.getSpace(board.getTrailorsID()).setAdjacentSpaces(Neighbors);
+            
 
             NodeList office = root.getElementsByTagName("office");
-            for (int i = 11; i < (trailer.getLength() + 11); i++) {
-                LinkedList<Space> Neighbors = new LinkedList<>();
+            
+            Neighbors = new LinkedList<>();
 
-                Node officeNode = office.item(0);
+            Node officeNode = office.item(0);
 
-                NodeList officeChildren = officeNode.getChildNodes();
-                Node neighborNode = officeChildren.item(1);
-                if ("neighbors".equals(neighborNode.getNodeName())) {
-                    NodeList neighborsChildren = neighborNode.getChildNodes();
+            NodeList officeChildren = officeNode.getChildNodes();
+            neighborNode = officeChildren.item(1);
+            if ("neighbors".equals(neighborNode.getNodeName())) {
+                NodeList neighborsChildren = neighborNode.getChildNodes();
 
-                    for (int k = 0; k < neighborsChildren.getLength(); k++) {
-                        Node neighborChild = neighborsChildren.item(k);
-                        if ("neighbor".equals(neighborChild.getNodeName())) {
-                            String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
-                            for (int n = 0; n < board.getSpaces().length; n++) {
-                                if (board.getSpace(n).getName().equals(neighborName)) {
-                                    Neighbors.add(board.getSpace(n));
-                                }
+                for (int k = 0; k < neighborsChildren.getLength(); k++) {
+                    Node neighborChild = neighborsChildren.item(k);
+                    if ("neighbor".equals(neighborChild.getNodeName())) {
+                        String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
+                        for (int n = 0; n < board.getSpaces().length; n++) {
+                            if (board.getSpace(n).getName().equals(neighborName)) {
+                                Neighbors.add(board.getSpace(n));
+                                board.getSpace(n).getAdjacentSpaces().add(CastingOffice.getInstance());
                             }
                         }
                     }
                 }
-                board.getSpace(i).setAdjacentSpaces(Neighbors);
             }
+            CastingOffice.getInstance().setAdjacentSpaces(Neighbors);
+            
 
         } catch (Exception e) {
             e.printStackTrace();

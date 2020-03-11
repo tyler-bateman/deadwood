@@ -44,13 +44,15 @@ public class Controller implements Observer {
     @Override
     public void update(Observable o, Object obj) {
 
-        System.out.println("update");
+        System.out.println("update " + o.getClass().toString());
         if (o instanceof Player) {
             Player p = (Player) o;
             if (p.equals(TurnManager.getInstance().getActivePlayer())) {
+                System.out.println("Update player info");
                 InfoPanel.getInstance().setPlayerInfoData(p);
             }
         } else if (o instanceof Space) {
+            System.out.println("update space");
             //Updates player icon location
             Space s = (Space) o;
             //System.out.println("I m in instance of SPACE");
@@ -78,7 +80,8 @@ public class Controller implements Observer {
                     BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
 
                 } else if (obj instanceof Integer) {
-                    switch ((Integer) obj) {
+                    int actResult = (Integer) obj;
+                    switch (actResult) {
                         case 1:
                         case 2:
                             //TODO: Act attempt successful
@@ -114,10 +117,15 @@ public class Controller implements Observer {
             //TODO: Updates the player icon for a role
             Role r = (Role) o;
             Player p = TurnManager.getInstance().getActivePlayer();
-            if (r.getOnCard()) {
-                BoardPane.getInstance().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
+            if(r.getOccupant() == null) {
+                redrawPlayers(Board.getInstance().getSpace(p.getLocation()));
             } else {
-                BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
+            
+                if(r.getOnCard()) {
+                    BoardPane.getInstance().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
+                } else {
+                    BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
+                }
             }
 
         } else if (o instanceof TurnManager) {
@@ -195,11 +203,8 @@ public class Controller implements Observer {
      */
     public void act() {
         Player p = TurnManager.getInstance().getActivePlayer();
-        Space loc = Board.getInstance().getSpace(p.getLocation());
-        if (loc.getClass().equals(Scene.class)) {
-            Scene s = (Scene) loc;
-            s.requestActAttempt(p);
-        }
+        Scene s = (Scene)Board.getInstance().getSpace(p.getLocation());
+        s.requestActAttempt(p);
     }
 
     /**
