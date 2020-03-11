@@ -241,7 +241,6 @@ public class Scene extends Space {
      */
     public void setName(String name){
         this.name = name;
-        notifyObservers();
     }
 
     /**
@@ -258,6 +257,7 @@ public class Scene extends Space {
      */
     public void setCard(SceneCard card){
         this.card = card;
+        setChanged();
         notifyObservers(card);
     }
 
