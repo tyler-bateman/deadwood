@@ -85,7 +85,7 @@ public class Controller  implements Observer {
             } 
         }  else if(o instanceof Space) {
             Space s = (Space)o;
-            //Update player icons
+            
         }
     }
     
@@ -118,7 +118,7 @@ public class Controller  implements Observer {
     
     /**
      * Use case for moving
-     * @param index the in the adjacent spaces array for the current space
+     * @param index the ID of the desired space
      */
     public void move(int index) {
         Player p = TurnManager.getInstance().getActivePlayer();
