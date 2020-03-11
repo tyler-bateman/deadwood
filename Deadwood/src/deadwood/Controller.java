@@ -53,34 +53,35 @@ public class Controller  implements Observer {
             System.out.println("Got back to controller");
             Space s = (Space)o;
             BoardPane.getInstance().movePlayerLabelToScene(s.getID());
+            if(o instanceof Scene) {
+                Scene scene = (Scene)o;
+                if(obj instanceof SceneCard) {
+                    //TODO: Call set card method
+                } else if(obj instanceof Integer) {
+                    switch ((Integer)obj) {
+                        case 1:
+                            //TODO: Act attempt successful, active player on card
+                            break;
+                        case 2:
+                            //TODO: Act attempt successful, active player off card
+                            break;
+                        case 3:
+                            //TODO: Act attempt unsuccessful, active player on card
+                        case 4:
+                            //TODO: Act attempt unsuccessful, active player off card
+                        case 5:
+                            //TODO: Scene wrapped with bonus
+                        case 6:
+                            //TODO: Scene wrapped without bonus
+                    }
+                } else {
+                    //TODO: Redraw shot counters
+                }
+            }
         } else if(o instanceof DayManager) {
             //TODO: Update day counter
         } else if(o instanceof Role) {
             //TODO: Update role graphic to have or not have the player
-        } else if(o instanceof Scene) {
-            Scene s = (Scene)o;
-            if(obj instanceof SceneCard) {
-                //TODO: Call set card method
-            } else if(obj instanceof Integer) {
-                switch ((Integer)obj) {
-                    case 1:
-                        //TODO: Act attempt successful, active player on card
-                        break;
-                    case 2:
-                        //TODO: Act attempt successful, active player off card
-                        break;
-                    case 3:
-                        //TODO: Act attempt unsuccessful, active player on card
-                    case 4:
-                        //TODO: Act attempt unsuccessful, active player off card
-                    case 5:
-                        //TODO: Scene wrapped with bonus
-                    case 6:
-                        //TODO: Scene wrapped without bonus
-                }
-            } else {
-                //TODO: Redraw shot counters
-            }
                 
         } else if (source.equals(TurnManager.class)) {
             if(obj instanceof LinkedList) {
@@ -99,14 +100,19 @@ public class Controller  implements Observer {
      */
     public void setNumPlayers(int num) {
         Player[] players = new Player[num];
-        DayManager.getInstance().init(num);
-        ScoreManager.init(num); 
         TurnManager.init(num);
-        for(int i = 0; i < num; i++) {
-            players[i] = new Player(i, Board.getInstance().getTrailorsID());
-        }
+        ScoreManager.init(num); 
         Board.getInstance().setPlayers(players);
-               
+        for(int i = 0; i < num; i++) {
+            players[i] = new Player(i);
+        }
+        DayManager.getInstance().init(num);
+        
+        
+        //Set players' locations
+        for(Player p : players) {
+            p.setLocation(Board.getInstance().getTrailorsID());
+        }
     }
     
     ///////////////////////////////////////////

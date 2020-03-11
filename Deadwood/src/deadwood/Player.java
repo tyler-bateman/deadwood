@@ -27,16 +27,16 @@ public class Player extends Observable{
      * @param ID: The player's ID
      * @param name: the player's name
     */
-    public Player(int ID, int startingLocation) {
+    public Player(int ID) {
         addObserver(Controller.getInstance());
         this.ID = ID;
-        setLocation(startingLocation);
-        setDollars(0);
-        setCredits(0);
-        setRank(1);
-        setRole(null);
-        setRehearsal(0);
+        dollars = 0;
+        credits = 0;
+        rank = 0;
+        currRole = null;
+        rehearsalChips = 0;
     }
+    
     public int getScore() {
         return ScoreManager.getScore(ID);
     }

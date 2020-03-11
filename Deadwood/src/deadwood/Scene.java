@@ -44,9 +44,10 @@ public class Scene extends Space {
         }
         card = null;
         resetShots();
-        }
         setChanged();
         notifyObservers();
+        }
+        
     }
 
     /**
