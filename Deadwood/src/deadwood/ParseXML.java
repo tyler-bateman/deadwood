@@ -108,6 +108,7 @@ public class ParseXML {
                                     if ("part".equals(part.getNodeName())) {
 
                                         Role role = new Role();
+                                        role.setOnCard(false);
                                         String partName = part.getAttributes().getNamedItem("name").getNodeValue();
                                         role.setName(partName);
                                         String partLevel = part.getAttributes().getNamedItem("level").getNodeValue();
@@ -216,6 +217,7 @@ public class ParseXML {
 
                 if ("part".equals(cardChild.getNodeName())) {
                     Role cardRole = new Role();
+                    cardRole.setOnCard(true);
 
                     String partName = cardChild.getAttributes().getNamedItem("name").getNodeValue();
                     cardRole.setName(partName);
