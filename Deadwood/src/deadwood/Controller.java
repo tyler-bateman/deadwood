@@ -84,6 +84,9 @@ public class Controller  implements Observer {
             }
         } else if(o instanceof DayManager) {
             //TODO: Update day counter
+            Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
+            BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
+            
         } else if(o instanceof Role) {
             //TODO: Update role graphic to have or not have the player
                 
