@@ -83,6 +83,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
 
         if (e.getSource() == endTurnButton) {
             InfoPanel.getInstance().setUpdateTextArea("Your turn has ended.\n");
+            Controller.getInstance().endTurn();
         }
     }
 
