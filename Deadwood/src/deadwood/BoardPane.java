@@ -42,7 +42,7 @@ public class BoardPane extends JLayeredPane {
         instance.boardLabel.setIcon(boardIcon);
         instance.boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
         instance.add(boardLabel, new Integer(0));
-        initializeNewDay();
+        //initializeNewDay();
     }
 
     private void initializeNewDay() {
@@ -58,7 +58,7 @@ public class BoardPane extends JLayeredPane {
             add(backlabel, new Integer(1));*/
 
             /// DEALING CARD FACES DEMO
-            cardLabels[i] = new JLabel();
+            /*cardLabels[i] = new JLabel();
             SceneCard card = board.getScene(i).getCard();
             String cardImage = card.getIconID();
             ImageIcon cIcon = new ImageIcon(getClass().getResource("/resources/" + cardImage));
@@ -66,7 +66,7 @@ public class BoardPane extends JLayeredPane {
             cardLabels[i].setBounds(board.getScene(i).getXCoordinates(), board.getScene(i).getYCoordinates(), cIcon.getIconWidth(), cIcon.getIconHeight());
             cardLabels[i].setOpaque(false);
 
-            add(cardLabels[i], new Integer(2));
+            add(cardLabels[i], new Integer(2));*/
 
             /// SETTING SHOT COUNTERS
             for (int j = 0; j < board.getScene(i).getShotCountersXCoordinates().size(); j++) {
