@@ -129,9 +129,10 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void movePlayerLabel(int playerID, int x, int y) {
-        
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
         add(playerLabels[playerID], new Integer(3));
+        
+        
 //        InfoPanel.getInstance().setPlayerInfoData(active);
 //        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
@@ -191,7 +192,6 @@ public class BoardPane extends JLayeredPane {
 
     public void positionPlayersInTrailer(int x, int y) {
         for (int i = 0; i < playerLabels.length; i++) {
-
             playerLabels[i] = new JLabel();
             playerLabels[i].setIcon(getIcon(i));
             playerLabels[i].setOpaque(false);
@@ -202,7 +202,7 @@ public class BoardPane extends JLayeredPane {
                 playerLabels[i].setBounds(x + ((i - (playerLabels.length / 2)) * 50), y + 50, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
             }
 
-            add(playerLabels[i], new Integer(4));
+            add(playerLabels[i], new Integer(2));
         }
     }
 
