@@ -95,7 +95,7 @@ public class ParseXML {
                             }
                             Arrays.sort(takes);
                             scene.setTotalShots(takes[9]);
-                            scene.resetShots();
+                            //scene.resetShots();
                         } else if ("parts".equals(setChildrenSub.getNodeName())) {
 
                             NodeList partsChildren = setChildrenSub.getChildNodes();

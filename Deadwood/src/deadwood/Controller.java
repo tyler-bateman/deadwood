@@ -67,14 +67,11 @@ public class Controller implements Observer {
             }*/
             if (o instanceof Scene) {
                 Scene scene = (Scene) o;
-                System.out.println(scene.getName());
-                System.out.println(scene.getShotCountersXCoordinates().get(0));
                 System.out.println(scene.getTotalShots());
-                    for (int j = 0; j < scene.getTotalShots(); j++) {
-                        
-                        BoardPane.getInstance().setShotCountersInView(scene.getShotCountersXCoordinates().get(j), scene.getShotCountersYCoordinates().get(j));
-                    }
-                
+                for (int j = 0; j < scene.getShotCountersXCoordinates().size(); j++) {
+                    BoardPane.getInstance().setShotCountersInView(scene.getShotCountersXCoordinates().get(j), scene.getShotCountersYCoordinates().get(j));
+                }
+
                 if (obj instanceof SceneCard) {
                     //TODO: Call set card method
                     BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
@@ -117,11 +114,11 @@ public class Controller implements Observer {
             //TODO: Updates the player icon for a role
             Role r = (Role) o;
             Player p = TurnManager.getInstance().getActivePlayer();
-            if(r.getOccupant() == null) {
+            if (r.getOccupant() == null) {
                 redrawPlayers(Board.getInstance().getSpace(p.getLocation()));
             } else {
-            
-                if(r.getOnCard()) {
+
+                if (r.getOnCard()) {
                     BoardPane.getInstance().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
                 } else {
                     BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
@@ -203,7 +200,7 @@ public class Controller implements Observer {
      */
     public void act() {
         Player p = TurnManager.getInstance().getActivePlayer();
-        Scene s = (Scene)Board.getInstance().getSpace(p.getLocation());
+        Scene s = (Scene) Board.getInstance().getSpace(p.getLocation());
         s.requestActAttempt(p);
     }
 
