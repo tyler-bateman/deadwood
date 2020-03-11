@@ -20,6 +20,7 @@ public class Role extends Observable{
     private int payout;
     private int xCoordinates;
     private int yCoordinates;
+    private boolean onCard;
 
     /**
      * Constructor: Adds an observer
@@ -169,6 +170,14 @@ public class Role extends Observable{
         occupant = p;
         setChanged();
         notifyObservers();
+    }
+    
+    public void setOnCard(boolean b) {
+        onCard = b;
+    }
+    
+    public boolean getOnCard() {
+        return onCard;
     }
 
     /**
