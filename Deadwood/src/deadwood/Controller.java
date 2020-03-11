@@ -65,9 +65,18 @@ public class Controller implements Observer {
             }*/
             if (o instanceof Scene) {
                 Scene scene = (Scene) o;
+                System.out.println(scene.getName());
+                System.out.println(scene.getShotCountersXCoordinates().get(0));
+                System.out.println(scene.getTotalShots());
+                    for (int j = 0; j < scene.getTotalShots(); j++) {
+                        
+                        BoardPane.getInstance().setShotCountersInView(scene.getShotCountersXCoordinates().get(j), scene.getShotCountersYCoordinates().get(j));
+                    }
+                
                 if (obj instanceof SceneCard) {
                     //TODO: Call set card method
                     BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+
                 } else if (obj instanceof Integer) {
                     switch ((Integer) obj) {
                         case 1:
@@ -81,12 +90,12 @@ public class Controller implements Observer {
                             InfoPanel.getInstance().setUpdateTextArea("Your act attempt was unsuccessful :(");
                             break;
                         case 5:
-                        //TODO: Scene wrapped with bonus
+                            //TODO: Scene wrapped with bonus
                             InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.");
                             redrawPlayers(s);
                             break;
                         case 6:
-                        //TODO: Scene wrapped without bonus
+                            //TODO: Scene wrapped without bonus
                             InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! There were no starring actors, so there will be no bonuses.");
                             redrawPlayers(s);
                             break;
@@ -103,9 +112,9 @@ public class Controller implements Observer {
 
         } else if (o instanceof Role) {
             //TODO: Updates the player icon for a role
-            Role r = (Role)o;
+            Role r = (Role) o;
             Player p = TurnManager.getInstance().getActivePlayer();
-            if(r.getOnCard()) {
+            if (r.getOnCard()) {
                 BoardPane.getInstance().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
             } else {
                 BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
@@ -142,7 +151,7 @@ public class Controller implements Observer {
         for (Player p : players) {
             p.setLocation(Board.getInstance().getTrailorsID());
         }
-        
+
         InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
         ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
 
@@ -153,7 +162,6 @@ public class Controller implements Observer {
     // The following methods are called by   //
     // the view upon user input/interaction. //
     ///////////////////////////////////////////
-    
     public void takeRoleMenu() {
         Player p = TurnManager.getInstance().getActivePlayer();
         Scene s = (Board.getInstance().getScene(p.getLocation()));
@@ -162,6 +170,7 @@ public class Controller implements Observer {
         System.out.println(" Available roles: " + s.getAvailableRoles(p.getRank()));
         TakeRoleChoicesFrame f = new TakeRoleChoicesFrame(s.getAvailableRoles(p.getRank()));
     }
+
     /**
      * Use case for taking a role
      *
@@ -170,7 +179,7 @@ public class Controller implements Observer {
     public void takeRole(Role r) {
         r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
-    
+
     /**
      * Use case for moving
      *
@@ -222,22 +231,24 @@ public class Controller implements Observer {
     public void endTurn() {
         TurnManager.getInstance().nextTurn();
     }
-    
+
     /**
-     * Redraws the players on a given space, except for the ones that are working on a role.
+     * Redraws the players on a given space, except for the ones that are
+     * working on a role.
+     *
      * @param s the space to be redrawn
      */
     public void redrawPlayers(Space s) {
         int xOffset = 0;
         int yOffset = 0;
-        for(Player p: s.getPlayerSet()) {
-            if(p.getRole() == null) {
-                BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (50 * xOffset) , s.getYCoordinates() + (50 * yOffset));
-                if(xOffset >= 3) {
+        for (Player p : s.getPlayerSet()) {
+            if (p.getRole() == null) {
+                BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (50 * xOffset), s.getYCoordinates() + (50 * yOffset));
+                if (xOffset >= 3) {
                     xOffset = 0;
-                    yOffset ++;
+                    yOffset++;
                 } else {
-                    xOffset ++;
+                    xOffset++;
                 }
             }
         }

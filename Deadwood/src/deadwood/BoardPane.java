@@ -35,7 +35,7 @@ public class BoardPane extends JLayeredPane {
         instance.boardIcon = boardIcon;
         instance.playerLabels = new JLabel[playerNumber];
         instance.cardLabels = new JLabel[10];
-        instance.shotCounterLabels = new JLabel[1000];
+        instance.shotCounterLabels = new JLabel[22];
         instance.setLayout(null);
         instance.setPreferredSize(new Dimension(900, 1200));
         instance.boardLabel = new JLabel();
