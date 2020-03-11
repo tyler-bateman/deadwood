@@ -130,12 +130,12 @@ public class BoardPane extends JLayeredPane {
         return icons[index];
     }
 
-    public void movePlayerLabelToScene(int spaceID,int x,int y) {
-        Player active = TurnManager.getInstance().getActivePlayer();
-        playerLabels[active.getID()].setBounds(x,y, playerIconWidth, playerIconHeight);
-        add(playerLabels[active.getID()], new Integer(3));     
-        InfoPanel.getInstance().setPlayerInfoData(active);
-        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
+    public void movePlayerLabelToScene(int playerID, int x,int y) {
+
+        playerLabels[playerID].setBounds(x,y, playerIconWidth, playerIconHeight);
+        add(playerLabels[playerID], new Integer(3));     
+//        InfoPanel.getInstance().setPlayerInfoData(active);
+//        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
 
     public void movePlayerLabelToExtraRole(Role role) {
