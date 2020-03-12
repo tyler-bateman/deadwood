@@ -112,7 +112,7 @@ public class Controller implements Observer {
                 for(int i = 0; i < scores.length; i++) {
                     message += Board.getInstance().getPlayer(i) + " : " + scores[i] + "\n";
                 }
-                view.importantMessage(message, "Game Over!");
+                view.gameOver(message);
             } else {
                 redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
             }
