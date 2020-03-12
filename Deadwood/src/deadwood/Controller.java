@@ -57,10 +57,17 @@ public class Controller implements Observer {
                 
                 Scene scene = (Scene) o;
                 
+                if(scene.getCard() == null) {
+                    BoardPane.getInstance().removeCard(scene.getID());
+                }
+                
                 if (obj instanceof SceneCard) {
                     // Call set card method
                     //
-                    BoardPane.getInstance().setCardBackInView(scene.xCoordinates, scene.yCoordinates);
+                    
+                    BoardPane.getInstance().setCardBackInView(scene.getID(), scene.xCoordinates, scene.yCoordinates);
+                    
+                    
 
                 } else if (obj instanceof Integer) {
                     int actResult = (Integer) obj;
