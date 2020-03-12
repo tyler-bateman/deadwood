@@ -24,10 +24,6 @@ import javax.swing.*;
 public class ActionsPanel extends JPanel implements ActionListener {
 
     private static ActionsPanel instance = new ActionsPanel();
-    private MoveChoicesFrame moveChoicesFrame;
-    private TakeRoleChoicesFrame takeRoleChoicesFrame;
-    private UpgradeFrame upgradeFrame;
-
     private JButton moveButton;
     private JButton takeRoleButton;
     private JButton actButton;
@@ -47,7 +43,6 @@ public class ActionsPanel extends JPanel implements ActionListener {
         instance.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         instance.setBackground(Color.white);
         instance.setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
-
         instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
         instance.setJButtons();
         instance.setFonts();
@@ -63,14 +58,12 @@ public class ActionsPanel extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == actButton) {
-            /*InfoPanel.getInstance().setUpdateTextArea("Your have acted !\n");
-            BoardPane.getInstance().removeShotCounter(1);*/
             Controller.getInstance().act();
         }
 
         if (e.getSource() == takeRoleButton) {
             Controller.getInstance().takeRoleMenu();
-            
+
         }
 
         if (e.getSource() == rehearseButton) {
@@ -160,7 +153,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
     }
-    
+
     public void updateEnabledButtons(LinkedList<UseCase> useCaseList) {
         moveButton.setEnabled(false);
         takeRoleButton.setEnabled(false);
@@ -168,8 +161,8 @@ public class ActionsPanel extends JPanel implements ActionListener {
         rehearseButton.setEnabled(false);
         upgradeButton.setEnabled(false);
         endTurnButton.setEnabled(false);
-        for(UseCase u: useCaseList) {
-            switch(u) {
+        for (UseCase u : useCaseList) {
+            switch (u) {
                 case MOVE:
                     moveButton.setEnabled(true);
                     break;
@@ -188,7 +181,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
                 case END_TURN:
                     endTurnButton.setEnabled(true);
             }
-                    
+
         }
     }
 }
