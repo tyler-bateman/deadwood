@@ -310,7 +310,12 @@ public class BoardPane extends JLayeredPane {
     }
     
     public void deleteUpgradeLabels() {
-        
+        for(int i=0; i<dollarLabels.length; i++){
+            dollarLabels[i].setVisible(false);
+            remove(dollarLabels[i]);
+            creditLabels[i].setVisible(false);
+            remove(creditLabels[i]);
+        }
     }
 
 }
