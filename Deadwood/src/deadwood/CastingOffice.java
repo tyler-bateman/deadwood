@@ -59,6 +59,23 @@ public class CastingOffice extends Space{
         return false;
     }
     
+    public int getMaxRank(int wealth, CurrencyType payment) {
+        for(int i = 0; i < dollarPrices.length; i++) {
+            if(getPrice(i, payment) > wealth) {
+                return i + 1;
+            }
+        }
+        return 6;
+    }
+    
+    public int getPrice(int rank, CurrencyType payment) {
+        if(payment == CurrencyType.CREDITS) {
+            return getCreditPrice(rank);
+        } else {
+            return getDollarPrice(rank);
+        }
+    }
+    
     /**
      * @return: the dollar price of a rank
      * If the given price is out of range, returns max integer
@@ -85,7 +102,6 @@ public class CastingOffice extends Space{
         catch(ArrayIndexOutOfBoundsException e) {
             return Integer.MAX_VALUE;
         }
-        
     }
     
     /**
