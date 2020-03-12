@@ -1,3 +1,5 @@
+
+  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,7 +26,7 @@ public class UpgradeFrame extends JFrame {
     private JPanel ranksPanel;
     private JButton[] rankButtons;
 
-    public UpgradeFrame(int currRank, int dollars, int credits, int[] dollarPrice, int[] creditPrice) {
+    public UpgradeFrame(/*int currRank, int dollars, int credits, int[] dollarPrice, int[] creditPrice*/) {
         rankButtons = new JButton[5];
         centreWindow(this);
 
@@ -88,3 +90,4 @@ public class UpgradeFrame extends JFrame {
         }
     }
 }
+

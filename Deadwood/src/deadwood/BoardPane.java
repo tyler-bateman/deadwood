@@ -5,8 +5,12 @@
  */
 package deadwood;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 /**
  *
@@ -20,6 +24,8 @@ public class BoardPane extends JLayeredPane {
     private JLabel[] cardLabels;
     private JLabel[] playerLabels;
     private JLabel[] shotCounterLabels;
+    private JLabel[] dollarLabels;
+    private JLabel[] creditLabels;
     private final int playerIconWidth = 40;
     private final int playerIconHeight = 40;
 
@@ -36,6 +42,8 @@ public class BoardPane extends JLayeredPane {
         instance.playerLabels = new JLabel[playerNumber];
         instance.cardLabels = new JLabel[10];
         instance.shotCounterLabels = new JLabel[22];
+        instance.dollarLabels = new JLabel[5];
+        instance.creditLabels = new JLabel[5];
         instance.setLayout(null);
         instance.setPreferredSize(new Dimension(900, 1200));
         instance.boardLabel = new JLabel();
@@ -129,13 +137,12 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void movePlayerLabel(int playerID, int x, int y) {
-        
+
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
         System.out.println(x);
         System.out.println(y);
         add(playerLabels[playerID], new Integer(3));
-        
-        
+
 //        InfoPanel.getInstance().setPlayerInfoData(active);
 //        InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
     }
@@ -148,8 +155,7 @@ public class BoardPane extends JLayeredPane {
         InfoPanel.getInstance().setPlayerInfoData(active);
         InfoPanel.getInstance().setUpdateTextArea("You took an extra role !\n");
     }*/
-
-    public void movePlayerToStarringRole(int playerID, int labelID,int x, int y) {
+    public void movePlayerToStarringRole(int playerID, int labelID, int x, int y) {
         //Player active = TurnManager.getInstance().getActivePlayer();
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
         //cardLabels[active.getLocation()].add(playerLabels[active.getID()]);
@@ -159,7 +165,7 @@ public class BoardPane extends JLayeredPane {
         //InfoPanel.getInstance().setPlayerInfoData(active);
         //InfoPanel.getInstance().setUpdateTextArea("You took a starring role !\n");
     }
-    
+
     public void removeShotCounter(int index) {
         shotCounterLabels[index].setVisible(false);
     }
@@ -194,22 +200,22 @@ public class BoardPane extends JLayeredPane {
         add(shotCounterLabel, new Integer(2));
         return shotCounterLabel;
     }
-    
+
     public void initializeAllShots(int[] xCoords, int[] yCoords) {
         System.out.println("Initializing shots...");
-        for(int i = 0; i < xCoords.length; i++) {
+        for (int i = 0; i < xCoords.length; i++) {
             shotCounterLabels[i] = shotCounter(xCoords[i], yCoords[i]);
         }
     }
-    
+
     public void redrawShots(int startingIndex, int num, int total) {
         System.out.println("Redrawing shots: " + num);
-        for(int i = 0; i < total; i++) {
+        for (int i = 0; i < total; i++) {
             shotCounterLabels[i + startingIndex].setVisible(false);
         }
         //shotCounterLabels[startingIndex].setVisible(true);
-        for(int i = 0; i < num; i++) {
-           shotCounterLabels[i + startingIndex].setVisible(true);
+        for (int i = 0; i < num; i++) {
+            shotCounterLabels[i + startingIndex].setVisible(true);
         }
     }
 
@@ -227,9 +233,62 @@ public class BoardPane extends JLayeredPane {
 
             add(playerLabels[i], new Integer(2));
         }
-       
-        
-        
+
+    }
+
+    public void displayUpgradeLabels() {
+        int dollarIndex = 1;
+        int creditIndex = 1;
+        for (int i = 0; i < dollarLabels.length; i++) {
+            dollarLabels[i] = new JLabel();
+            Border border = BorderFactory.createLineBorder(Color.BLUE, 1);
+            dollarLabels[i].setBorder(border);
+            dollarLabels[i].setBounds(CastingOffice.getInstance().getDollarCoordinates().get(i * 2), CastingOffice.getInstance().getDollarCoordinates().get(dollarIndex), 19, 19);
+            dollarLabels[i].setOpaque(false);
+            dollarLabels[i].addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent e){
+                    JLabel lab = (JLabel) e.getSource();
+                    Border border = BorderFactory.createLineBorder(Color.RED, 2);
+                    lab.setBorder(border);
+                }
+                public void mouseReleased(MouseEvent e) {
+                    //TODO
+                }
+                public void mouseExited(MouseEvent e){
+                    JLabel lab = (JLabel) e.getSource();
+                    Border border = BorderFactory.createLineBorder(Color.GREEN, 1);
+                    lab.setBorder(border);
+                }
+                
+            });
+
+            dollarIndex = dollarIndex + 2;
+
+            creditLabels[i] = new JLabel();
+            creditLabels[i].setBorder(border);
+            creditLabels[i].setBounds(CastingOffice.getInstance().getCreditCoordinates().get(i * 2), CastingOffice.getInstance().getCreditCoordinates().get(creditIndex), 19, 19);
+            creditLabels[i].setOpaque(false);
+            creditLabels[i].addMouseListener(new MouseAdapter() {
+                public void mouseReleased(MouseEvent e) {
+                    //TODO
+                }
+                public void mouseEntered(MouseEvent e){
+                    JLabel lab = (JLabel) e.getSource();
+                    Border border = BorderFactory.createLineBorder(Color.RED, 2);
+                    lab.setBorder(border);
+                }
+                public void mouseExited(MouseEvent e){
+                    JLabel lab = (JLabel) e.getSource();
+                    Border border = BorderFactory.createLineBorder(Color.GREEN, 1);
+                    lab.setBorder(border);
+                }
+            });
+            creditIndex = creditIndex + 2;
+
+            add(dollarLabels[i], new Integer(2));
+            add(creditLabels[i], new Integer(2));
+
+        }
     }
 
 }

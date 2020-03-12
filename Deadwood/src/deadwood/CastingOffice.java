@@ -11,15 +11,19 @@ package deadwood;
  */
 
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.util.LinkedList;
 
 public class CastingOffice extends Space{
     private int[] dollarPrices;
     private int[] creditPrices;
+    private LinkedList<Integer> dollarCoordinates;
+    private LinkedList<Integer> creditCoordinates;
     private static CastingOffice instance = new CastingOffice();
     
     private CastingOffice(){
         dollarPrices = new int[]{4, 10, 18, 28, 40};
         creditPrices = new int[]{5, 10, 15, 20, 25};
+        
     }
     
     public static CastingOffice getInstance() {
@@ -96,6 +100,22 @@ public class CastingOffice extends Space{
      */
     public int[] getCreditPrices() {
         return creditPrices;
+    }
+    
+    public LinkedList<Integer> getDollarCoordinates(){
+        return dollarCoordinates;
+    }
+    
+    public void setDollarCoordinates(LinkedList<Integer> d){
+        dollarCoordinates = d;
+    }
+    
+    public LinkedList<Integer> getCreditCoordinates(){
+        return creditCoordinates;
+    }
+    
+    public void setCreditCoordinates(LinkedList<Integer> c){
+        creditCoordinates = c;
     }
         
 }

@@ -46,7 +46,7 @@ public class ParseXML {
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();
         NodeList sets = root.getElementsByTagName("set");
-        
+
         int shotNum = 0;
         try {
             for (int i = 0; i < sets.getLength(); i++) {
@@ -81,14 +81,13 @@ public class ParseXML {
                                 try {
 
                                     Node take = takesChildren.item(k);
-                                    
+
                                     if ((take.getNodeName()).equals("take")) {
                                         String takeNumber = take.getAttributes().getNamedItem("number").getNodeValue();
                                         takes[k] = Integer.parseInt(takeNumber);
 
                                         Node area = take.getFirstChild();
-                                        
-                                        
+
                                         shotX[shotNum] = Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue());
                                         shotY[shotNum] = Integer.parseInt(area.getAttributes().getNamedItem("y").getNodeValue());
                                         shotNum++;
@@ -141,14 +140,13 @@ public class ParseXML {
                             }
                         }
                         scene.setOffCardRoles(offCardRoles);
-                        
+
                     }
                 }
                 scenes[i] = scene;
                 spaces[i] = scene;
             }
             Board.getInstance().setShotCoords(shotX, shotY);
-            
 
             NodeList trailer = root.getElementsByTagName("trailer");
             for (int i = 10; i < (trailer.getLength() + 10); i++) {
@@ -177,7 +175,7 @@ public class ParseXML {
                 Node area = officeNode.getChildNodes().item(3);
                 space.setXCoordinates(Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue()));
                 space.setYCoordinates(Integer.parseInt(area.getAttributes().getNamedItem("y").getNodeValue()));
-                
+
                 spaces[i] = space;
             }
 
@@ -295,7 +293,7 @@ public class ParseXML {
             }
 
             NodeList trailer = root.getElementsByTagName("trailer");
-            
+
             LinkedList<Space> Neighbors = new LinkedList<>();
 
             Node trailerNode = trailer.item(0);
@@ -319,10 +317,9 @@ public class ParseXML {
                 }
             }
             board.getSpace(board.getTrailorsID()).setAdjacentSpaces(Neighbors);
-            
 
             NodeList office = root.getElementsByTagName("office");
-            
+
             Neighbors = new LinkedList<>();
 
             Node officeNode = office.item(0);
@@ -334,6 +331,7 @@ public class ParseXML {
 
                 for (int k = 0; k < neighborsChildren.getLength(); k++) {
                     Node neighborChild = neighborsChildren.item(k);
+
                     if ("neighbor".equals(neighborChild.getNodeName())) {
                         String neighborName = neighborChild.getAttributes().getNamedItem("name").getNodeValue();
                         for (int n = 0; n < board.getSpaces().length; n++) {
@@ -345,8 +343,32 @@ public class ParseXML {
                     }
                 }
             }
+
+            LinkedList<Integer> dollarCoord = new LinkedList<Integer>();
+            LinkedList<Integer> creditCoord = new LinkedList<Integer>();
+
+            Node upgrades = officeChildren.item(5);
+
+            NodeList upgrade = upgrades.getChildNodes();
+            for (int l = 0; l < upgrade.getLength(); l++) {
+                Node u = upgrade.item(l);
+                if ("upgrade".equals(u.getNodeName())) {
+                    NodeList list = u.getChildNodes();
+                    Node area = list.item(1);
+                    if (Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue()) == 98) {
+                        dollarCoord.add(Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue()));
+                        dollarCoord.add(Integer.parseInt(area.getAttributes().getNamedItem("y").getNodeValue()));
+                    } else {
+                        creditCoord.add(Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue()));
+                        creditCoord.add(Integer.parseInt(area.getAttributes().getNamedItem("y").getNodeValue()));
+                    }
+
+                }
+            }
+
+            CastingOffice.getInstance().setDollarCoordinates(dollarCoord);
+            CastingOffice.getInstance().setCreditCoordinates(creditCoord);
             CastingOffice.getInstance().setAdjacentSpaces(Neighbors);
-            
 
         } catch (Exception e) {
             e.printStackTrace();
