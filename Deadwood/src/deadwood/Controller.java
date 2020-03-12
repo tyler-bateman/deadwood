@@ -52,18 +52,7 @@ public class Controller implements Observer {
                 InfoPanel.getInstance().setPlayerInfoData(p);
             }
         } else if (o instanceof Space) {
-            System.out.println("update space");
-            //Updates player icon location
             Space s = (Space) o;
-            if(obj instanceof String && ((String)obj).equals("move")) {
-                redrawPlayers(s);
-                if(o instanceof Scene) {
-                    Scene scene = (Scene) o;
-                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
-                }
-            }
-            
-            
             if (o instanceof Scene) {
                 
                 Scene scene = (Scene) o;
@@ -99,8 +88,12 @@ public class Controller implements Observer {
                             //Shot counters changed
                             BoardPane.getInstance().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
                     }
+                } else if(obj instanceof String && ((String)obj).equals("move")) {
+                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
                 }
             }
+            
+            redrawPlayers(s);
         } else if (o instanceof DayManager) {
             //TODO: Update day counter
             redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
