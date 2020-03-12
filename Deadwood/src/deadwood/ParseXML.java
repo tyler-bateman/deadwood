@@ -39,12 +39,15 @@ public class ParseXML {
         Board board = Board.getInstance();
         Scene[] scenes = new Scene[10];
         Space[] spaces = new Space[12];
-        LinkedList<Integer> shotX = new LinkedList<Integer>();
-        LinkedList<Integer> shotY = new LinkedList<Integer>();
-
+        //LinkedList<Integer> shotX = new LinkedList<Integer>();
+        //LinkedList<Integer> shotY = new LinkedList<Integer>();
+        int[] shotX = new int[22];
+        int[] shotY = new int[22];
         d.getDocumentElement().normalize();
         Element root = d.getDocumentElement();
         NodeList sets = root.getElementsByTagName("set");
+        
+        int shotNum = 0;
         try {
             for (int i = 0; i < sets.getLength(); i++) {
                 Scene scene = new Scene();
@@ -73,19 +76,22 @@ public class ParseXML {
                         if ("takes".equals(setChildrenSub.getNodeName())) {
                             NodeList takesChildren = setChildrenSub.getChildNodes();
                             int[] takes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                            scene.setShotCounterIndex(shotNum);
                             for (int k = 0; k < takesChildren.getLength(); k++) {
                                 try {
 
                                     Node take = takesChildren.item(k);
-
+                                    
                                     if ((take.getNodeName()).equals("take")) {
                                         String takeNumber = take.getAttributes().getNamedItem("number").getNodeValue();
                                         takes[k] = Integer.parseInt(takeNumber);
 
                                         Node area = take.getFirstChild();
-
-                                        shotX.add(Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue()));
-                                        shotY.add(Integer.parseInt(area.getAttributes().getNamedItem("y").getNodeValue()));
+                                        
+                                        
+                                        shotX[shotNum] = Integer.parseInt(area.getAttributes().getNamedItem("x").getNodeValue());
+                                        shotY[shotNum] = Integer.parseInt(area.getAttributes().getNamedItem("y").getNodeValue());
+                                        shotNum++;
 
                                     }
 
@@ -95,7 +101,7 @@ public class ParseXML {
                             }
                             Arrays.sort(takes);
                             scene.setTotalShots(takes[9]);
-                            //scene.resetShots();
+                            scene.initializeShots();
                         } else if ("parts".equals(setChildrenSub.getNodeName())) {
 
                             NodeList partsChildren = setChildrenSub.getChildNodes();
@@ -135,13 +141,14 @@ public class ParseXML {
                             }
                         }
                         scene.setOffCardRoles(offCardRoles);
-                        scene.setShotCountersXCoordinates(shotX);
-                        scene.setShotCountersYCoordinates(shotY);
+                        
                     }
                 }
                 scenes[i] = scene;
                 spaces[i] = scene;
             }
+            Board.getInstance().setShotCoords(shotX, shotY);
+            
 
             NodeList trailer = root.getElementsByTagName("trailer");
             for (int i = 10; i < (trailer.getLength() + 10); i++) {

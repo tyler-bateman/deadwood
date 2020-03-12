@@ -19,14 +19,17 @@ public class Scene extends Space {
     private int remainingShots;
     private int totalShots;
     private LinkedList<Role> offCardRoles;
-    private LinkedList<Integer> shotCountersXCoordinates;
-    private LinkedList<Integer> shotCountersYCoordinates;
+    private int shotCounterIndex; // The starting index of the shot counters for this scene in the overall array
    
     /**
      * resets the shot counter
      */
     public void resetShots(){
         setRemainingShots(getTotalShots());
+    }
+    
+    public void initializeShots() {
+        remainingShots = totalShots;
     }
     
     /**
@@ -278,9 +281,10 @@ public class Scene extends Space {
      * @param shots the new number of remaining shots
      */
     private void setRemainingShots(int shots){
+        System.out.println(getName() + " now has " + shots + " shots remaining");
         remainingShots = shots;
         setChanged();
-        notifyObservers();
+        notifyObservers(7);
     }
 
     /**
@@ -315,20 +319,11 @@ public class Scene extends Space {
         totalShots = t;
     }      
     
-    public LinkedList<Integer> getShotCountersXCoordinates(){
-        return shotCountersXCoordinates;
+    public void setShotCounterIndex(int newIndex) {
+        shotCounterIndex = newIndex;
     }
     
-    public void setShotCountersXCoordinates(LinkedList<Integer> s){
-        shotCountersXCoordinates = s;
+    public int getShotCounterIndex() {
+        return shotCounterIndex;
     }
-    
-    public LinkedList<Integer> getShotCountersYCoordinates(){
-        return shotCountersYCoordinates;
-    }
-    
-    public void setShotCountersYCoordinates(LinkedList<Integer> s){
-        shotCountersYCoordinates = s;
-    }
-
 }

@@ -185,13 +185,32 @@ public class BoardPane extends JLayeredPane {
         add(cardLabels[labelID], new Integer(2));
     }
 
-    public void setShotCountersInView(int x, int y) {
+    public JLabel shotCounter(int x, int y) {
         JLabel shotCounterLabel = new JLabel();
         ImageIcon shotCounterIcon = new ImageIcon(getClass().getResource("/resources/shot.png"));
         shotCounterLabel.setIcon(shotCounterIcon);
         shotCounterLabel.setBounds(x, y, shotCounterIcon.getIconWidth(), shotCounterIcon.getIconHeight());
         shotCounterLabel.setOpaque(false);
         add(shotCounterLabel, new Integer(2));
+        return shotCounterLabel;
+    }
+    
+    public void initializeAllShots(int[] xCoords, int[] yCoords) {
+        System.out.println("Initializing shots...");
+        for(int i = 0; i < xCoords.length; i++) {
+            shotCounterLabels[i] = shotCounter(xCoords[i], yCoords[i]);
+        }
+    }
+    
+    public void redrawShots(int startingIndex, int num, int total) {
+        System.out.println("Redrawing shots: " + num);
+        for(int i = 0; i < total; i++) {
+            shotCounterLabels[i + startingIndex].setVisible(false);
+        }
+        //shotCounterLabels[startingIndex].setVisible(true);
+        for(int i = 0; i < num; i++) {
+           shotCounterLabels[i + startingIndex].setVisible(true);
+        }
     }
 
     public void positionPlayersInTrailer(int x, int y) {
