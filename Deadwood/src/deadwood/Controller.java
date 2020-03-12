@@ -90,7 +90,8 @@ public class Controller implements Observer {
                             break;
                         case 6:
                             //Scene wrapped without bonus
-                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! There were no starring actors, so there will be no bonuses.\n");
+                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped!\n"); 
+                            InfoPanel.getInstance().setUpdateTextArea("There were no starring actors, so there will be no bonuses.\n");
                             BoardPane.getInstance().removeCard(scene.getID());
                             break;
                         case 7:
