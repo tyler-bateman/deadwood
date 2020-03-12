@@ -75,21 +75,23 @@ public class Controller implements Observer {
                         case 1:
                         case 2:
                             //Act attempt successful
-                            InfoPanel.getInstance().setUpdateTextArea("You have successfully acted!");
+                            InfoPanel.getInstance().setUpdateTextArea("You have successfully acted !\n");
                             
                             break;
                         case 3:
                         case 4:
                             //Act attempt unsuccessful
-                            InfoPanel.getInstance().setUpdateTextArea("Your act attempt was unsuccessful :(");
+                            InfoPanel.getInstance().setUpdateTextArea("Your act attempt was unsuccessful :(\n");
                             break;
                         case 5:
                             //Scene wrapped with bonus
-                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.");
+                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.\n");
+                            BoardPane.getInstance().removeCard(scene.getID());
                             break;
                         case 6:
                             //Scene wrapped without bonus
-                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! There were no starring actors, so there will be no bonuses.");
+                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! There were no starring actors, so there will be no bonuses.\n");
+                            BoardPane.getInstance().removeCard(scene.getID());
                             break;
                         case 7:
                             //Shot counters changed

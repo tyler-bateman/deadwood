@@ -113,7 +113,7 @@ public class InfoPanel extends JPanel {
         int end;
         updateTextArea.setText(updateTextArea.getText() + message);
         try {
-            if (updateTextArea.getLineCount() == 24) {
+            if (updateTextArea.getLineCount() == 21) {
                 end = updateTextArea.getLineEndOffset(0);
                 updateTextArea.replaceRange("", 0, end);
             }
