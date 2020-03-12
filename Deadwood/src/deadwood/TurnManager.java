@@ -77,14 +77,14 @@ public class TurnManager extends Observable{
         if(getActivePlayerID() >= numPlayers) {
             activePlayerID = 0;
         }
-        setHasTakenRole(false);
-        setHasMoved(false);
-        setHasActed(false);
-        setHasRehearsed(false);
-        setHasUpgraded(false);
+        hasTakenRole = false;
+        hasMoved = false;
+        hasActed = false;
+        hasRehearsed = false;
+        hasUpgraded = false;
         
         setChanged();
-        notifyObservers();
+        notifyObservers(getAvailableActions());
     }
     
     /**

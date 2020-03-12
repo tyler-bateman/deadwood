@@ -27,6 +27,7 @@ public class GameView extends JFrame /*implements ActionListener*/ {
     private ActionsPanel actionsPanel = ActionsPanel.getInstance();
     private BoardPane boardPane = BoardPane.getInstance();
     private InfoPanel infoPanel = InfoPanel.getInstance();
+    private ImageIcon boardIcon;
     private int playerNumber;
 
     public GameView(int numOfPlayers) {
@@ -42,7 +43,7 @@ public class GameView extends JFrame /*implements ActionListener*/ {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        ImageIcon boardIcon = new ImageIcon(getClass().getResource("/resources/board.jpg"));
+        boardIcon = new ImageIcon(getClass().getResource("/resources/board.jpg"));
         
         jpanel1 = new JPanel();
         jpanel1.setLayout(new BorderLayout());
@@ -67,6 +68,16 @@ public class GameView extends JFrame /*implements ActionListener*/ {
 
     }
     
+    public void importantMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public void gameOver(String message) {
+        importantMessage(message, "Game Over!");
+        this.dispose();
+        System.exit(0);
+        
+    }
 
 
 

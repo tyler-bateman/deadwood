@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.awt.Component;
 import javax.swing.border.Border;
 
 /**
@@ -26,6 +27,7 @@ public class BoardPane extends JLayeredPane {
     private JLabel[] shotCounterLabels;
     private JLabel[] dollarLabels;
     private JLabel[] creditLabels;
+    private JLabel[] cardBackLabels;
     private final int playerIconWidth = 40;
     private final int playerIconHeight = 40;
 
@@ -41,6 +43,7 @@ public class BoardPane extends JLayeredPane {
         instance.boardIcon = boardIcon;
         instance.playerLabels = new JLabel[playerNumber];
         instance.cardLabels = new JLabel[10];
+        instance.cardBackLabels = new JLabel[10];
         instance.shotCounterLabels = new JLabel[22];
         instance.dollarLabels = new JLabel[5];
         instance.creditLabels = new JLabel[5];
@@ -139,8 +142,6 @@ public class BoardPane extends JLayeredPane {
     public void movePlayerLabel(int playerID, int x, int y) {
 
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
-        System.out.println(x);
-        System.out.println(y);
         add(playerLabels[playerID], new Integer(3));
 
 //        InfoPanel.getInstance().setPlayerInfoData(active);
@@ -170,16 +171,19 @@ public class BoardPane extends JLayeredPane {
         shotCounterLabels[index].setVisible(false);
     }
 
-    public void setCardBackInView(int x, int y) {
+    public void setCardBackInView(int labelID, int x, int y) {
         JLabel backlabel = new JLabel();
         ImageIcon backIcon = new ImageIcon(getClass().getResource("/resources/CardBack.jpg"));
         backlabel.setIcon(backIcon);
         backlabel.setBounds(x, y, backIcon.getIconWidth(), backIcon.getIconHeight());
         backlabel.setOpaque(false);
         add(backlabel, new Integer(1));
+        cardBackLabels[labelID] = backlabel;
     }
 
     public void setCardFaceUpInView(int labelID, String iconID, int x, int y) {
+        remove(cardBackLabels[labelID]);
+        cardBackLabels[labelID].setVisible(false);
         cardLabels[labelID] = new JLabel();
         //SceneCard card = scene.getCard();
         //String cardImage = card.getIconID();
@@ -187,8 +191,17 @@ public class BoardPane extends JLayeredPane {
         cardLabels[labelID].setIcon(cIcon);
         cardLabels[labelID].setBounds(x, y, cIcon.getIconWidth(), cIcon.getIconHeight());
         cardLabels[labelID].setOpaque(false);
-
         add(cardLabels[labelID], new Integer(2));
+    }
+    
+    public void removeCard(int labelID) {
+        if(cardLabels[labelID] != null) {
+            System.out.println("Remove card");
+            cardLabels[labelID].setVisible(false);
+            remove(cardLabels[labelID]);
+        }
+        
+        
     }
 
     public JLabel shotCounter(int x, int y) {

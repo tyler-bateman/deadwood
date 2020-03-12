@@ -52,29 +52,22 @@ public class Controller implements Observer {
                 InfoPanel.getInstance().setPlayerInfoData(p);
             }
         } else if (o instanceof Space) {
-            System.out.println("update space");
-            //Updates player icon location
             Space s = (Space) o;
-            //System.out.println("I m in instance of SPACE");
-            //BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
-            int i = 0;
-            /* for (Player p : s.getPlayerSet()) {
-                if (p.getRole() == null) {
-                    System.out.println("Redrawing players...");
-                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (20 * i), s.getYCoordinates());
-                    i++;
-                }
-            }*/
             if (o instanceof Scene) {
+                
                 Scene scene = (Scene) o;
-                System.out.println(scene.getTotalShots());
-               /* for (int j = 0; j < scene.getShotCountersXCoordinates().size(); j++) {
-                    BoardPane.getInstance().setShotCountersInView(scene.getShotCountersXCoordinates().get(j), scene.getShotCountersYCoordinates().get(j));
-                }*/
-
+                
+                if(scene.getCard() == null) {
+                    BoardPane.getInstance().removeCard(scene.getID());
+                }
+                
                 if (obj instanceof SceneCard) {
-                    //TODO: Call set card method
-                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                    // Call set card method
+                    //
+                    
+                    BoardPane.getInstance().setCardBackInView(scene.getID(), scene.xCoordinates, scene.yCoordinates);
+                    
+                    
 
                 } else if (obj instanceof Integer) {
                     int actResult = (Integer) obj;
@@ -102,13 +95,28 @@ public class Controller implements Observer {
                             //Shot counters changed
                             BoardPane.getInstance().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
                     }
+                } else if(obj instanceof String && ((String)obj).equals("move")) {
+                    if(scene.isActive()) {
+                        BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                    }
                 }
             }
+            
+            redrawPlayers(s);
         } else if (o instanceof DayManager) {
             //TODO: Update day counter
-            //Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
-            //BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
-            //System.out.println("POSITIONFZEJNF ZEJKFNKZJEFZE");
+            
+            if("game over".equals(obj)) {
+                int[] scores = ScoreManager.calculateScores(Board.getInstance().getPlayers());
+                String message = "You have completed " + DayManager.getInstance().getNumberOfDays() + " days so the game is over!\nPlayer scores:\n";
+                for(int i = 0; i < scores.length; i++) {
+                    message += Board.getInstance().getPlayer(i) + " : " + scores[i] + "\n";
+                }
+                view.gameOver(message);
+            } else {
+                redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
+            }
+            
 
         } else if (o instanceof Role) {
             //TODO: Updates the player icon for a role
@@ -129,10 +137,8 @@ public class Controller implements Observer {
             if (obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList) obj;
                 ActionsPanel.getInstance().updateEnabledButtons(availableActions);
-            } else {
-                //TODO: Update active player info
                 InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
-            }
+            } 
         }
     }
 
@@ -142,6 +148,7 @@ public class Controller implements Observer {
      * @param num the number of players
      */
     public void setNumPlayers(int num) {
+        view = new GameView(num);
         Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
         BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
         Player[] players = new Player[num];
@@ -163,6 +170,9 @@ public class Controller implements Observer {
         ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
         
         BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
+        this.redrawPlayers(space);
+        
+        //BoardPane.getInstance().movePlayerLabel(0, 10, 50);
 
     }
 
@@ -190,7 +200,12 @@ public class Controller implements Observer {
         r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
     
-    
+    /**
+     * Displays the move menu
+     */
+    public void moveMenu() {
+        new MoveChoicesFrame(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces());
+    }
 
     /**
      * Use case for moving
