@@ -72,8 +72,10 @@ public class BoardPane extends JLayeredPane {
                 break;
             case 5:
                 color = 'o';
+                break;
             case 6:
                 color = 'v';
+                break;
             default:
                 color = 'w';
         }
