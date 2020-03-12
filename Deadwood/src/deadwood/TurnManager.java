@@ -217,7 +217,10 @@ public class TurnManager extends Observable{
      * @return true if the active player is allowed to upgrade.
      */
     public boolean canUpgrade() {
-        return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice;
+        Player p = getActivePlayer();
+        CastingOffice c = CastingOffice.getInstance();
+        int maxRank = Math.max(c.getMaxRankIndex(p.getDollars(), CurrencyType.DOLLARS), c.getMaxRankIndex(p.getCredits(), CurrencyType.CREDITS)) + 2;
+        return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice && !hasUpgraded() && maxRank > p.getRank();
     }
     
     /**

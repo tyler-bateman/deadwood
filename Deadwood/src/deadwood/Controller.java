@@ -246,6 +246,8 @@ public class Controller implements Observer {
      * Displays the upgrade menu
      */
     public void upgradeMenu() {
+        TurnManager.getInstance().setHasUpgraded(true);
+        
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice c = CastingOffice.getInstance();
         BoardPane.getInstance().displayUpgradeLabels(p.getRank(), c.getMaxRankIndex(p.getDollars(), CurrencyType.DOLLARS), c.getMaxRankIndex(p.getCredits(), CurrencyType.CREDITS));
@@ -258,8 +260,10 @@ public class Controller implements Observer {
      * @param type the type of currency the player is using to pay
      */
     public void upgrade(int rank, CurrencyType type) {
+        System.out.println("upgrade");
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice.getInstance().purchaseRank(p, rank, type);
+        BoardPane.getInstance().deleteUpgradeLabels();
     }
 
     /**
@@ -267,6 +271,7 @@ public class Controller implements Observer {
      */
     public void endTurn() {
         TurnManager.getInstance().nextTurn();
+
     }
 
     /**

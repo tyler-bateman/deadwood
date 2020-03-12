@@ -48,7 +48,7 @@ public class CastingOffice extends Space{
             //System.out.println(successful);
             if(successful) {
                 player.setRank(rank);
-                TurnManager.getInstance().setHasUpgraded(true);
+                
                 return true;
             } else {
                 return false;
