@@ -141,6 +141,7 @@ public class Controller implements Observer {
                 LinkedList<UseCase> availableActions = (LinkedList) obj;
                 ActionsPanel.getInstance().updateEnabledButtons(availableActions);
                 InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+                ActionsPanel.getInstance().setPlayerLabel(TurnManager.getInstance().getActivePlayerID());
             } 
         }
     }

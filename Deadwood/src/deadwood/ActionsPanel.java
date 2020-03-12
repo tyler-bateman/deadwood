@@ -24,6 +24,7 @@ import javax.swing.*;
 public class ActionsPanel extends JPanel implements ActionListener {
 
     private static ActionsPanel instance = new ActionsPanel();
+    private JLabel playerLabel;
     private JButton moveButton;
     private JButton takeRoleButton;
     private JButton actButton;
@@ -81,7 +82,13 @@ public class ActionsPanel extends JPanel implements ActionListener {
         }
     }
 
-    private void setJButtons() {
+    private void setJButtons() {   
+        
+        playerLabel = new JLabel();
+        playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(playerLabel);
+        add(Box.createVerticalGlue());
+        
         moveButton = new JButton();
         moveButton.setText("Move");
         moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -122,6 +129,10 @@ public class ActionsPanel extends JPanel implements ActionListener {
         endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         endTurnButton.addActionListener(this);
         add(endTurnButton);
+    }
+    
+    public void setPlayerLabel(int index){
+        playerLabel.setIcon(BoardPane.getInstance().getPlayerLabel(index).getIcon());
     }
 
     private void setFonts() {

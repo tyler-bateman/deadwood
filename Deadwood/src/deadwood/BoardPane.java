@@ -239,5 +239,9 @@ public class BoardPane extends JLayeredPane {
             remove(creditLabels[i]);
         }
     }
+    
+    public JLabel getPlayerLabel(int index){
+        return playerLabels[index];
+    }
 
 }
