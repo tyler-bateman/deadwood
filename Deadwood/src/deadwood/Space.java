@@ -54,7 +54,7 @@ public class Space extends Observable{
         getPlayerSet().add(player);
         System.out.println("add player " + player);
         setChanged();
-        notifyObservers();
+        notifyObservers("move");
 
     }
     

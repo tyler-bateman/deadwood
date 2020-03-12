@@ -180,7 +180,7 @@ public class BoardPane extends JLayeredPane {
         cardLabels[labelID].setBounds(x, y, cIcon.getIconWidth(), cIcon.getIconHeight());
         cardLabels[labelID].setOpaque(false);
 
-        add(cardLabels[labelID], new Integer(1));
+        add(cardLabels[labelID], new Integer(2));
     }
 
     public JLabel shotCounter(int x, int y) {

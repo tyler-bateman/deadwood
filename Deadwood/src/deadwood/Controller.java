@@ -55,18 +55,23 @@ public class Controller implements Observer {
             System.out.println("update space");
             //Updates player icon location
             Space s = (Space) o;
-            redrawPlayers(s);
+            if(obj instanceof String && ((String)obj).equals("move")) {
+                redrawPlayers(s);
+                if(o instanceof Scene) {
+                    Scene scene = (Scene) o;
+                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                }
+            }
+            
             
             if (o instanceof Scene) {
+                
                 Scene scene = (Scene) o;
-                System.out.println(scene.getTotalShots());
-               /* for (int j = 0; j < scene.getShotCountersXCoordinates().size(); j++) {
-                    BoardPane.getInstance().setShotCountersInView(scene.getShotCountersXCoordinates().get(j), scene.getShotCountersYCoordinates().get(j));
-                }*/
-
+                
                 if (obj instanceof SceneCard) {
-                    //TODO: Call set card method
-                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                    // Call set card method
+                    //
+                    BoardPane.getInstance().setCardBackInView(scene.xCoordinates, scene.yCoordinates);
 
                 } else if (obj instanceof Integer) {
                     int actResult = (Integer) obj;
