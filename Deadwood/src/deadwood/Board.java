@@ -17,6 +17,8 @@ public class Board {
     private Scene[] scenes;
     private int trailorsID =10;
     private Player[] players;
+    private int[] shotCounterXCoords;
+    private int[] shotCounterYCoords;
 
     /**
      * Private constructor as required by Singleton design pattern.
@@ -138,6 +140,19 @@ public class Board {
      */
     private void setTrailorsID(int newID) {
         trailorsID = newID;
+    }
+    
+    public void setShotCoords(int[] xCoords, int[] yCoords) {
+        shotCounterXCoords = xCoords;
+        shotCounterYCoords = yCoords;
+    }
+    
+    public int[] getShotCounterYCoords() {
+        return shotCounterYCoords;
+    }
+    
+    public int[] getShotCounterXCoords() {
+        return shotCounterXCoords;
     }
 
 }
