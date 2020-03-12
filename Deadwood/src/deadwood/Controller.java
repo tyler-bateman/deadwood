@@ -131,6 +131,7 @@ public class Controller implements Observer {
                 ActionsPanel.getInstance().updateEnabledButtons(availableActions);
             } else {
                 //TODO: Update active player info
+                InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
             }
         }
     }
