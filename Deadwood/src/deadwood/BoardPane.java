@@ -131,8 +131,6 @@ public class BoardPane extends JLayeredPane {
     public void movePlayerLabel(int playerID, int x, int y) {
         
         playerLabels[playerID].setBounds(x, y, playerIconWidth, playerIconHeight);
-        System.out.println(x);
-        System.out.println(y);
         add(playerLabels[playerID], new Integer(3));
         
         
@@ -182,7 +180,7 @@ public class BoardPane extends JLayeredPane {
         cardLabels[labelID].setBounds(x, y, cIcon.getIconWidth(), cIcon.getIconHeight());
         cardLabels[labelID].setOpaque(false);
 
-        add(cardLabels[labelID], new Integer(2));
+        add(cardLabels[labelID], new Integer(1));
     }
 
     public JLabel shotCounter(int x, int y) {

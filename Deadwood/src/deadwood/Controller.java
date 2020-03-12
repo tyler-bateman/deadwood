@@ -55,16 +55,8 @@ public class Controller implements Observer {
             System.out.println("update space");
             //Updates player icon location
             Space s = (Space) o;
-            //System.out.println("I m in instance of SPACE");
-            //BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayer().getID(), s.getXCoordinates(), s.getYCoordinates());
-            int i = 0;
-            /* for (Player p : s.getPlayerSet()) {
-                if (p.getRole() == null) {
-                    System.out.println("Redrawing players...");
-                    BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (20 * i), s.getYCoordinates());
-                    i++;
-                }
-            }*/
+            redrawPlayers(s);
+            
             if (o instanceof Scene) {
                 Scene scene = (Scene) o;
                 System.out.println(scene.getTotalShots());
@@ -106,9 +98,7 @@ public class Controller implements Observer {
             }
         } else if (o instanceof DayManager) {
             //TODO: Update day counter
-            //Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
-            //BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
-            //System.out.println("POSITIONFZEJNF ZEJKFNKZJEFZE");
+            redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
 
         } else if (o instanceof Role) {
             //TODO: Updates the player icon for a role
@@ -129,10 +119,8 @@ public class Controller implements Observer {
             if (obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList) obj;
                 ActionsPanel.getInstance().updateEnabledButtons(availableActions);
-            } else {
-                //TODO: Update active player info
                 InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
-            }
+            } 
         }
     }
 
@@ -163,6 +151,9 @@ public class Controller implements Observer {
         ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
         
         BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
+        this.redrawPlayers(space);
+        
+        //BoardPane.getInstance().movePlayerLabel(0, 10, 50);
 
     }
 

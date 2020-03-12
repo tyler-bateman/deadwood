@@ -79,9 +79,10 @@ public class DayManager extends Observable {
         if (getCurrentDay() > getNumberOfDays()) {
             ScoreManager.declareWinner(b.getPlayers());
         } else {
+            b.newDay();
             setChanged();
             notifyObservers();
-            b.newDay();
+            
         }
 
         //Deadwood.sendMessage("Wake up! It's a new day! Welcome to day " + getCurrentDay());

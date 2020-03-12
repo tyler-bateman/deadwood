@@ -200,7 +200,7 @@ public class Scene extends Space {
         setCard(null);
         setChanged();
         notifyObservers(termination);
-        setRemainingShots(getTotalShots());
+        DayManager.getInstance().checkForDayEnd();
         
     }
    
