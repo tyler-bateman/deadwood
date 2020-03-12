@@ -254,7 +254,7 @@ public class BoardPane extends JLayeredPane {
 
     }
 
-    public void displayUpgradeLabels() {
+    public void displayUpgradeLabels(int currRank, int maxDollarRank, int maxCreditRank) {
         int dollarIndex = 1;
         int creditIndex = 1;
         for (int i = 0; i < dollarLabels.length; i++) {
@@ -307,6 +307,10 @@ public class BoardPane extends JLayeredPane {
             add(creditLabels[i], new Integer(2));
 
         }
+    }
+    
+    public void deleteUpgradeLabels() {
+        
     }
 
 }
