@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
-import java.awt.Component;
 import javax.swing.border.Border;
 
 /**
