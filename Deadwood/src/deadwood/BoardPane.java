@@ -226,11 +226,9 @@ public class BoardPane extends JLayeredPane {
                 add(creditLabels[i], new Integer(2));
             }
             creditIndex = creditIndex + 2;
-
             
-            
-
         }
+        JOptionPane.showMessageDialog(this, "Select the desired rank");
     }
 
     public void deleteUpgradeLabels() {

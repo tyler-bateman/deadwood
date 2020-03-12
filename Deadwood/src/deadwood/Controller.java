@@ -244,6 +244,8 @@ public class Controller implements Observer {
      * Displays the upgrade menu
      */
     public void upgradeMenu() {
+        TurnManager.getInstance().setHasUpgraded(true);
+        
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice c = CastingOffice.getInstance();
         BoardPane.getInstance().displayUpgradeLabels(p.getRank(), c.getMaxRankIndex(p.getDollars(), CurrencyType.DOLLARS), c.getMaxRankIndex(p.getCredits(), CurrencyType.CREDITS));
