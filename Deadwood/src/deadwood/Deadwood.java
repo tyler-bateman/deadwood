@@ -46,25 +46,11 @@ public class Deadwood {
         Deck deck = Deck.getInstance();
         deck.initDeck(stackOfCards); 
         ////////////////////////////////////////
-      /*  
-        ///////INITIALIZE PLAYERS///////
-        int numberOfPlayers;                            
-        if(args.length > 0 ) {                          
-            numberOfPlayers = Integer.parseInt(args[0]);
-        } else {                                        
-            numberOfPlayers = 2;                        
-        }
-        Player[] players = new Player[numberOfPlayers];
-        
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Player player = new Player(i, board.getTrailorsID());
-            players[i] = player;
-        }
-        ////////////////////////////////
-        */
+
       
         //Launch the GUI. Fingers crossed
         LaunchView launchView = new LaunchView();
+        /////////////////////////////////////////
     }
 }
 
