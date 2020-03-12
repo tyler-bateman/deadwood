@@ -53,7 +53,6 @@ public class InfoPanel extends JPanel {
         updateTextArea.setOpaque(true);
         updateTextArea.setWrapStyleWord(true);
         updateTextArea.setLineWrap(true);
-        //updateTextArea.setText("Display history of player choices");
         updateTextArea.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 2 - 50));
         updateTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         updateTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 3));
@@ -63,9 +62,7 @@ public class InfoPanel extends JPanel {
         playerInfoDisplay.setLayout(new BoxLayout(playerInfoDisplay, BoxLayout.PAGE_AXIS));
         playerInfoDisplay.setBackground(Color.white);
         playerInfoDisplay.setOpaque(true);
-        //playerInfoLabel.setText("Player Information");
         playerInfoDisplay.setPreferredSize(new Dimension((width - boardIcon.getIconWidth()), height / 2));
-        //playerInfoDisplay.setAlignmentX(Component.CENTER_ALIGNMENT);
         playerInfoDisplay.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
         playerInfoHeader = new JLabel();
