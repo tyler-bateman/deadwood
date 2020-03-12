@@ -167,6 +167,7 @@ public class Controller implements Observer {
     // The following methods are called by   //
     // the view upon user input/interaction. //
     ///////////////////////////////////////////
+    
     public void takeRoleMenu() {
         Player p = TurnManager.getInstance().getActivePlayer();
         Scene s = (Board.getInstance().getScene(p.getLocation()));
@@ -184,6 +185,8 @@ public class Controller implements Observer {
     public void takeRole(Role r) {
         r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
+    
+    
 
     /**
      * Use case for moving
@@ -214,6 +217,15 @@ public class Controller implements Observer {
             Scene s = (Scene) loc;
             s.requestRehearsal(p);
         }
+    }
+    
+    /**
+     * Displays the upgrade menu
+     */
+    public void upgradeMenu() {
+        Player p = TurnManager.getInstance().getActivePlayer();
+        CastingOffice c = CastingOffice.getInstance();
+        new UpgradeFrame(p.getRank(), p.getDollars(), p.getCredits(), c.getDollarPrices(), c.getCreditPrices());
     }
 
     /**

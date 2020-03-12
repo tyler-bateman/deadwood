@@ -79,7 +79,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == upgradeButton) {
-            upgradeFrame = new UpgradeFrame();
+            Controller.getInstance().upgradeMenu();
         }
 
         if (e.getSource() == endTurnButton) {
