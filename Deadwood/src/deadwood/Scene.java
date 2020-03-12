@@ -36,19 +36,19 @@ public class Scene extends Space {
      * Removes all players from their roles in this scene and removes the card
      */
     public void close(){
-        if(this.isSceneActive()){
+        if(this.isActive()){
             
         
-        for(Role r: card.getRoles()) {
-          r.removePlayer();
-        }
-        for(Role r: offCardRoles) {
-          r.removePlayer();
-        }
-        card = null;
-        resetShots();
-        setChanged();
-        notifyObservers();
+            for(Role r: card.getRoles()) {
+              r.removePlayer();
+            }
+            for(Role r: offCardRoles) {
+              r.removePlayer();
+            }
+            card = null;
+            resetShots();
+            setChanged();
+            notifyObservers();
         }
         
     }
@@ -209,7 +209,7 @@ public class Scene extends Space {
      * 
      * @return true if the scene is active, i.e it has a scene card
      */
-    public boolean isSceneActive(){
+    public boolean isActive(){
         return getCard()!=null;
     }
     
@@ -220,15 +220,17 @@ public class Scene extends Space {
      */
     public LinkedList<Role> getAvailableRoles(int rank) {
         LinkedList<Role> roles = new LinkedList<Role>();
-        for(Role r : getOffCardRoles()) {
-            if(r.getRank() <= rank && r.getOccupant() == null) {
-                roles.add(r);
+        if(this.isActive()) {
+            for(Role r : getOffCardRoles()) {
+                if(r.getRank() <= rank && r.getOccupant() == null) {
+                    roles.add(r);
+                }
             }
-        }
-        
-        for(Role r : getCard().getRoles() ) {
-            if(r.getRank() <= rank && r.getOccupant() == null) {
-                roles.add(r);
+
+            for(Role r : getCard().getRoles() ) {
+                if(r.getRank() <= rank && r.getOccupant() == null) {
+                    roles.add(r);
+                }
             }
         }
         return roles;
