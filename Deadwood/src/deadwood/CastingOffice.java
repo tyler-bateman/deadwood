@@ -59,10 +59,10 @@ public class CastingOffice extends Space{
         return false;
     }
     
-    public int getMaxRank(int wealth, CurrencyType payment) {
+    public int getMaxRankIndex(int wealth, CurrencyType payment) {
         for(int i = 0; i < dollarPrices.length; i++) {
-            if(getPrice(i, payment) > wealth) {
-                return i + 1;
+            if(getPrice(i + 2, payment) > wealth) {
+                return i - 1;
             }
         }
         return 6;
