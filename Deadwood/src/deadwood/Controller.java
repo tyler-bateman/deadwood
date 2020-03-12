@@ -149,8 +149,8 @@ public class Controller implements Observer {
      */
     public void setNumPlayers(int num) {
         view = new GameView(num);
-        Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
-        BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
+        //Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
+        BoardPane.getInstance().makePlayerLabels();
         Player[] players = new Player[num];
         TurnManager.init(num);
         ScoreManager.init(num);
@@ -170,7 +170,7 @@ public class Controller implements Observer {
         ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
         
         BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
-        this.redrawPlayers(space);
+        this.redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
         
         //BoardPane.getInstance().movePlayerLabel(0, 10, 50);
 

@@ -123,19 +123,32 @@ public class BoardPane extends JLayeredPane {
         }*/
     }
 
-    private ImageIcon getIcon(int index) {
-
-        ImageIcon[] icons = new ImageIcon[8];
-        icons[0] = new ImageIcon(getClass().getResource("/resources/b1.png"));
-        icons[1] = new ImageIcon(getClass().getResource("/resources/r1.png"));
-        icons[2] = new ImageIcon(getClass().getResource("/resources/g1.png"));
-        icons[3] = new ImageIcon(getClass().getResource("/resources/p1.png"));
-        icons[4] = new ImageIcon(getClass().getResource("/resources/c1.png"));
-        icons[5] = new ImageIcon(getClass().getResource("/resources/o1.png"));
-        icons[6] = new ImageIcon(getClass().getResource("/resources/v1.png"));
-        icons[7] = new ImageIcon(getClass().getResource("/resources/w1.png"));
-
-        return icons[index];
+    private ImageIcon getIcon(int playerID, int rank) {
+        char color;
+        switch(playerID) {
+            case 0:
+                color = 'b';
+                break;
+            case 1:
+                color = 'r';
+                break;
+            case 2:
+                color = 'g';
+                break;
+            case 3:
+                color = 'p';
+                break;
+            case 4:
+                color = 'c';
+                break;
+            case 5:
+                color = 'o';
+            case 6:
+                color = 'v';
+            default:
+                color = 'w';
+        }
+        return new ImageIcon(getClass().getResource("/resources/" + color + rank +".png"));
     }
 
     public void movePlayerLabel(int playerID, int x, int y) {
@@ -231,18 +244,11 @@ public class BoardPane extends JLayeredPane {
         }
     }
 
-    public void positionPlayersInTrailer(int x, int y) {
+    public void makePlayerLabels() {
         for (int i = 0; i < playerLabels.length; i++) {
             playerLabels[i] = new JLabel();
-            playerLabels[i].setIcon(getIcon(i));
+            playerLabels[i].setIcon(getIcon(i, 1));
             playerLabels[i].setOpaque(false);
-            if (i < (playerLabels.length / 2)) {
-                playerLabels[i].setBounds(x + (i * 50), y, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
-
-            } else {
-                playerLabels[i].setBounds(x + ((i - (playerLabels.length / 2)) * 50), y + 50, getIcon(i).getIconWidth(), getIcon(i).getIconHeight());
-            }
-
             add(playerLabels[i], new Integer(2));
         }
 
