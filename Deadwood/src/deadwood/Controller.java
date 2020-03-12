@@ -181,7 +181,12 @@ public class Controller implements Observer {
         r.requestRole(TurnManager.getInstance().getActivePlayer());
     }
     
-    
+    /**
+     * Displays the move menu
+     */
+    public void moveMenu() {
+        new MoveChoicesFrame(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces());
+    }
 
     /**
      * Use case for moving

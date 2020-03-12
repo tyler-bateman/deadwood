@@ -12,6 +12,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.util.LinkedList;
 
 /**
  *
@@ -24,9 +25,9 @@ public class MoveChoicesFrame extends JFrame {
     private JPanel scenesPanel;
     private JButton[] sceneButtons;
 
-    public MoveChoicesFrame() {
+    public MoveChoicesFrame(LinkedList<Space> spaces) {
 
-        sceneButtons = new JButton[Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().size()];
+        sceneButtons = new JButton[spaces.size()];
         centreWindow(this);
 
         contentPane = new JPanel();
@@ -39,7 +40,7 @@ public class MoveChoicesFrame extends JFrame {
         scenesPanel = new JPanel();
         scenesPanel.setLayout(new BoxLayout(scenesPanel, BoxLayout.X_AXIS));
 
-        setJButtons();
+        setJButtons(spaces);
         scenesPanel.add(Box.createHorizontalGlue());
 
         contentPane.add(Box.createVerticalGlue());
@@ -68,20 +69,18 @@ public class MoveChoicesFrame extends JFrame {
         }
     }
 
-    private void setJButtons() {
+    private void setJButtons(LinkedList<Space> spaces) {
         final JFrame frame = this;
         for (int i = 0; i < sceneButtons.length; i++) {
+            Space s = spaces.get(i);
             final int index = i;
-            sceneButtons[i] = new JButton(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(i).getName());
+            sceneButtons[i] = new JButton(s.getName());
             sceneButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             sceneButtons[i].addActionListener((new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent event) {
-                    Space space = Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index);                   
-                    Controller.getInstance().move(Board.getInstance().getSpace(TurnManager.getInstance().getActivePlayer().getLocation()).getAdjacentSpaces().get(index).getID());
-                    //BoardPane.getInstance().movePlayerLabel(TurnManager.getInstance().getActivePlayerID(), space.getXCoordinates(), space.getYCoordinates());
+                public void actionPerformed(ActionEvent event) {                  
+                    Controller.getInstance().move(s.getID());
                     InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
-                    InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
                     frame.dispose();
                 }
                 }));

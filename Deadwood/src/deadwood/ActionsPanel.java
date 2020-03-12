@@ -59,7 +59,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == moveButton) {
-            moveChoicesFrame = new MoveChoicesFrame();
+            Controller.getInstance().moveMenu();
         }
 
         if (e.getSource() == actButton) {
