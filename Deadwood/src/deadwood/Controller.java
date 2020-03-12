@@ -256,8 +256,10 @@ public class Controller implements Observer {
      * @param type the type of currency the player is using to pay
      */
     public void upgrade(int rank, CurrencyType type) {
+        System.out.println("upgrade");
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice.getInstance().purchaseRank(p, rank, type);
+        BoardPane.getInstance().deleteUpgradeLabels();
     }
 
     /**
@@ -265,6 +267,7 @@ public class Controller implements Observer {
      */
     public void endTurn() {
         TurnManager.getInstance().nextTurn();
+
     }
 
     /**

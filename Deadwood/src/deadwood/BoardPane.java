@@ -172,9 +172,10 @@ public class BoardPane extends JLayeredPane {
         int dollarIndex = 1;
         int creditIndex = 1;
         for (int i = 0; i < dollarLabels.length; i++) {
+            final int rank = i + 2;
             Border border = BorderFactory.createLineBorder(Color.BLUE, 1);
             System.out.println(i);
-            if(rankIndex >= i && i <= maxDollarRank) {
+            if(rankIndex <= i && i <= maxDollarRank) {
                 System.out.println("Drawing upgrade label...");
                 dollarLabels[i] = new JLabel();
                 
@@ -188,7 +189,8 @@ public class BoardPane extends JLayeredPane {
                         lab.setBorder(border);
                     }
                     public void mouseReleased(MouseEvent e) {
-                        //TODO
+                        
+                        Controller.getInstance().upgrade(rank , CurrencyType.DOLLARS);
                     }
                     public void mouseExited(MouseEvent e){
                         JLabel lab = (JLabel) e.getSource();
@@ -201,14 +203,14 @@ public class BoardPane extends JLayeredPane {
             }
             dollarIndex = dollarIndex + 2;
             
-            if(rankIndex >= i && i <= maxCreditRank) {
+            if(rankIndex <= i && i <= maxCreditRank) {
                 creditLabels[i] = new JLabel();
                 creditLabels[i].setBorder(border);
                 creditLabels[i].setBounds(CastingOffice.getInstance().getCreditCoordinates().get(i * 2), CastingOffice.getInstance().getCreditCoordinates().get(creditIndex), 19, 19);
                 creditLabels[i].setOpaque(false);
                 creditLabels[i].addMouseListener(new MouseAdapter() {
                     public void mouseReleased(MouseEvent e) {
-                        //TODO
+                        Controller.getInstance().upgrade(rank , CurrencyType.CREDITS);
                     }
                     public void mouseEntered(MouseEvent e){
                         JLabel lab = (JLabel) e.getSource();
