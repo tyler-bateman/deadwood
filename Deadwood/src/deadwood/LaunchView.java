@@ -94,7 +94,7 @@ public class LaunchView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         super.dispose();
         int numOfPlayers = Integer.parseInt(numOfPlayerList.getSelectedValue().toString());
-        new GameView(numOfPlayers);
+        
         Controller.getInstance().setNumPlayers(numOfPlayers);
         
 

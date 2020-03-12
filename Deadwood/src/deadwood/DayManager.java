@@ -77,7 +77,8 @@ public class DayManager extends Observable {
 
         setCurrentDay(getCurrentDay() + 1);
         if (getCurrentDay() > getNumberOfDays()) {
-            ScoreManager.declareWinner(b.getPlayers());
+            setChanged();
+            notifyObservers("game over");
         } else {
             b.newDay();
             setChanged();

@@ -67,6 +67,10 @@ public class GameView extends JFrame /*implements ActionListener*/ {
 
     }
     
+    public void importantMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.PLAIN_MESSAGE);
+    }
+    
 
 
 

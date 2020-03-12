@@ -96,14 +96,27 @@ public class Controller implements Observer {
                             BoardPane.getInstance().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
                     }
                 } else if(obj instanceof String && ((String)obj).equals("move")) {
-                    BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                    if(scene.isActive()) {
+                        BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                    }
                 }
             }
             
             redrawPlayers(s);
         } else if (o instanceof DayManager) {
             //TODO: Update day counter
-            redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
+            
+            if("game over".equals(obj)) {
+                int[] scores = ScoreManager.calculateScores(Board.getInstance().getPlayers());
+                String message = "You have completed " + DayManager.getInstance().getNumberOfDays() + " days so the game is over!\nPlayer scores:\n";
+                for(int i = 0; i < scores.length; i++) {
+                    message += Board.getInstance().getPlayer(i) + " : " + scores[i] + "\n";
+                }
+                view.importantMessage(message, "Game Over!");
+            } else {
+                redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
+            }
+            
 
         } else if (o instanceof Role) {
             //TODO: Updates the player icon for a role
@@ -135,6 +148,7 @@ public class Controller implements Observer {
      * @param num the number of players
      */
     public void setNumPlayers(int num) {
+        view = new GameView(num);
         Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
         BoardPane.getInstance().positionPlayersInTrailer(space.getXCoordinates(), space.getYCoordinates());
         Player[] players = new Player[num];

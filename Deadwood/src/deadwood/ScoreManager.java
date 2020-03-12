@@ -27,7 +27,7 @@ public class ScoreManager {
         for(int i = 0; i < playerScores.length; i++) {
             //Deadwood.sendMessage("Player " + (i + 1) + " has " + playerScores[i] + " points");
         }
-        System.exit(0);
+        
     }
     
     /**
