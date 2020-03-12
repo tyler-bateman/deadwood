@@ -183,7 +183,7 @@ public class TurnManager extends Observable{
         Player p = getActivePlayer();
         Space currSpace = Board.getInstance().getSpace(p.getLocation());
         
-        return currSpace instanceof Scene && p.getRole() == null;
+        return currSpace instanceof Scene && p.getRole() == null && !((Scene)currSpace).getAvailableRoles(p.getRank()).isEmpty();
     }
     
     /**
