@@ -1,7 +1,10 @@
 package deadwood;
 
 /**
- * TurnManager keeps track of who's turn it is. Pretty self explanatory.
+ * TurnManager
+ * Keeps track of who's turn it is.
+ * Keeps track of what actions have been performed on a given turn
+ * Keeps track of what actions the active player is allowed to take at any given moment
  * 
  * @author tyler
  */
@@ -10,17 +13,34 @@ import java.util.Observable;
 import java.util.LinkedList;
 
 public class TurnManager extends Observable{
+    /**
+     * The singular instance of TurnManager
+     */
     private static TurnManager instance;
+    
+    /**
+     * The number of players
+     */
     private int numPlayers;
+    
+    /**
+     * The ID of the active player
+     */
     private int activePlayerID;
     
-    //The following variables keep track of which actions have been taken by the player this turn
+    /**
+     * The following variables keep track of which actions have been taken by the player this turn
+     */
     private boolean hasTakenRole = false;
     private boolean hasMoved = false;
     private boolean hasActed = false;
     private boolean hasRehearsed = false;
     private boolean hasUpgraded = false;
     
+    
+    /**
+     * An array of all use cases a player could take
+     */
     private final UseCase[] useCases = {UseCase.MOVE, UseCase.TAKE_ROLE, UseCase.REHEARSE, UseCase.ACT, UseCase.UPGRADE, UseCase.END_TURN};
     
     
@@ -35,9 +55,14 @@ public class TurnManager extends Observable{
         activePlayerID = 0;
     }
     
+    /**
+     * Initializes the TurnManager
+     * @param numPlayers the number of players
+     */
     public static void init(int numPlayers) {
         instance = new TurnManager(Controller.getInstance(), numPlayers);
     }
+    
     /**
      * Gets the instance of turn manager. If it has not been instantiated yet,
      * the turn manager is instantiated.
@@ -45,7 +70,7 @@ public class TurnManager extends Observable{
      */
     public static TurnManager getInstance() {
         if(instance == null) {
-            instance = new TurnManager(Controller.getInstance(), Board.getInstance().getPlayers().length);
+            init(Board.getInstance().getPlayers().length);
         }
         return instance;
     }
