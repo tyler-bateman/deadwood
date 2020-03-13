@@ -159,7 +159,7 @@ public class Controller implements Observer {
      *
      * @param num the number of players
      */
-    public void setNumPlayers(int num) {
+    public void initialize(int num) {
         view = new GameView(num);
         //Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
         BoardPane.getInstance().makePlayerLabels();
