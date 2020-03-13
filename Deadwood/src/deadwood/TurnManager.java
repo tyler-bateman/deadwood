@@ -220,7 +220,7 @@ public class TurnManager extends Observable{
         Player p = getActivePlayer();
         CastingOffice c = CastingOffice.getInstance();
         int maxRank = Math.max(c.getMaxRankIndex(p.getDollars(), CurrencyType.DOLLARS), c.getMaxRankIndex(p.getCredits(), CurrencyType.CREDITS)) + 2;
-        return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice && !hasUpgraded() && maxRank > p.getRank();
+        return Board.getInstance().getSpace(getActivePlayer().getLocation()) instanceof CastingOffice && !hasUpgraded() && maxRank > p.getRank() && p.getRank() < 6;
     }
     
     /**
