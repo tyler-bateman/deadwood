@@ -121,6 +121,7 @@ public class BoardPane extends JLayeredPane {
         cardLabels[labelID].setOpaque(false);
         add(cardLabels[labelID], new Integer(2));
         cardLabels[labelID].setVisible(false);
+        setCardBackInView(labelID, x, y);
     }
     
     public void setCardFaceUpInView(int labelID) {
@@ -141,7 +142,7 @@ public class BoardPane extends JLayeredPane {
         if (cardBackLabels[sceneID] != null) {
             cardBackLabels[sceneID].setVisible(false);
             remove(cardBackLabels[sceneID]);
-            cardLabels[sceneID] = null;
+            cardBackLabels[sceneID] = null;
         }
     }
 
