@@ -1,19 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package deadwood;
-import java.util.LinkedList;
-import java.util.Arrays;
 
+package deadwood;
 /**
- *
- * @author nada
+ * Manages player scores
+ * @author nada & tyler
  */
 public class ScoreManager {
+    
+    /**
+     * Contains the scores for each player
+     */
     private static int[] playerScores;
     
+    
+    /**
+     * Initializes the playerScores array
+     * @param numPlayers the number of players
+     */
     public static void init(int numPlayers) {
         playerScores = new int[numPlayers];
     }
