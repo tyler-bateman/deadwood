@@ -76,7 +76,18 @@ public class GameView extends JFrame /*implements ActionListener*/ {
         importantMessage(message, "Game Over!");
         this.dispose();
         System.exit(0);
-        
+    }
+    
+    public ActionsPanel getActionsPanel() {
+        return actionsPanel;
+    }
+    
+    public BoardPane getBoardPane() {
+        return boardPane;
+    }
+    
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
     }
 
 
