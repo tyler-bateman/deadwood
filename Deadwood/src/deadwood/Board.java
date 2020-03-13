@@ -12,11 +12,22 @@ package deadwood;
  * @author tyler
  */
 public class Board {
+    //The singular instance of this class
     private static Board instance = new Board();
+    
+    //An array containing each space
     private Space[] spaces;
+    
+    //An array containing each scene
     private Scene[] scenes;
-    private int trailorsID =10;
+    
+    //The location of the trailors in the spaces array
+    private final int trailorsID = 10;
+    
+    //The list of all players
     private Player[] players;
+    
+    //The coordinates of each shot counter
     private int[] shotCounterXCoords;
     private int[] shotCounterYCoords;
 
@@ -135,22 +146,29 @@ public class Board {
     }
     
     /**
-     * Sets the id of the trailors space
-     * @param newID the new id for the trailors
+     * Sets the shot coordinates arrays
+     * @param xCoords the array of x coordinates
+     * @param yCoords the array of y coordinates
+     * 
+     * Precondition: xCoords and yCoords are of the same length
      */
-    private void setTrailorsID(int newID) {
-        trailorsID = newID;
-    }
-    
     public void setShotCoords(int[] xCoords, int[] yCoords) {
         shotCounterXCoords = xCoords;
         shotCounterYCoords = yCoords;
     }
     
+    /**
+     * Gets the array of shot counter y Coordinates
+     * @return the array of shot counter y coordinates
+     */
     public int[] getShotCounterYCoords() {
         return shotCounterYCoords;
     }
-    
+ 
+    /**
+     * Gets the array of shot counter x Coordinates
+     * @return the array of shot counter x coordinates
+     */
     public int[] getShotCounterXCoords() {
         return shotCounterXCoords;
     }
