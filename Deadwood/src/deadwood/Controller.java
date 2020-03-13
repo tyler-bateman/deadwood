@@ -183,6 +183,17 @@ public class Controller implements Observer {
         b.setPlayers(players);
         for (int i = 0; i < num; i++) {
             players[i] = new Player(i);
+            
+            if(num == 5) {
+                players[i].setCredits(2);
+            }
+            else if(num == 6) {
+                players[i].setCredits(4);
+            }
+            else if(num > 6) {
+                players[i].setRank(2);
+                getView().getBoardPane().setPlayerIcon(i, 2);
+            }
         }
         
         //Draw shot counters
