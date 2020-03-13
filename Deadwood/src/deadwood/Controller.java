@@ -263,6 +263,7 @@ public class Controller implements Observer {
         System.out.println("upgrade");
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice.getInstance().purchaseRank(p, rank, type);
+        System.out.println("going to delete labels");
         BoardPane.getInstance().deleteUpgradeLabels();
     }
 
