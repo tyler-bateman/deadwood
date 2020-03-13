@@ -125,6 +125,7 @@ public class BoardPane extends JLayeredPane {
             System.out.println("Remove card");
             cardLabels[labelID].setVisible(false);
             remove(cardLabels[labelID]);
+            System.out.println(cardLabels[labelID].getIcon().toString());
         }
     }
 
