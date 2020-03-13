@@ -41,9 +41,9 @@ public class DayManager extends Observable {
      */
     public void init(int numPlayers) {
         if (numPlayers > 3) {
-            setNumberOfDays(3);
-        } else {
             setNumberOfDays(4);
+        } else {
+            setNumberOfDays(3);
         }
         setCurrentDay(0);
         dayEnd(Board.getInstance());
