@@ -118,6 +118,7 @@ public class Controller implements Observer {
                 view.gameOver(message);
             } else {
                 redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
+                ActionsPanel.getInstance().setDayLabel("Day " + DayManager.getInstance().getCurrentDay());
             }
             
 
