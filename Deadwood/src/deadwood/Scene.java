@@ -1,11 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package deadwood;
 
 /**
+ * Scene
+ * Contains all information and actions relating to a movie scene:
+ *      Requests rehearsal
+ *      Requests act attempts
+ *      Wraps the scene
+ * 
+ * Extends Space
  *
  * @author nada, tyler
  */
@@ -14,13 +16,35 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Scene extends Space {
-    private String name;
+    
+    /**
+     * The scene card for this scene
+     * null if the scene has already wrapped in this day
+     */
     private SceneCard card;
+    
+    /**
+     * The number of shots remaining for this space
+     */
     private int remainingShots;
+    
+    /**
+     * The total number of shots for this scene
+     */
     private int totalShots;
+    
+    /**
+     * The off-card roles
+     */
     private LinkedList<Role> offCardRoles;
-    private int shotCounterIndex; // The starting index of the shot counters for this scene in the overall array
+    
+    /**
+     * The starting index of the shot counters for this scene in the shot counter label array
+     */
+    private int shotCounterIndex; 
    
+    
+    
     /**
      * resets the shot counter
      */
@@ -47,8 +71,6 @@ public class Scene extends Space {
             }
             card = null;
             
-//            setChanged();
-//            notifyObservers();
         }
         resetShots();
         
@@ -75,7 +97,6 @@ public class Scene extends Space {
      * @return true if this scene has the given role
      */
     public boolean hasRole(Role role) {
-        boolean result = false;
         for(Role r: offCardRoles) {
           if(r == role) {
             return true;
@@ -154,12 +175,10 @@ public class Scene extends Space {
     private void wrap(){
         int termination;
         if(card.hasPlayers()) {
-          //Deadwood.sendMessage("There are players on the card. Players will receive a bonus");
           Dice d = new Dice(card.getBudget());
           List<Role> roleList = card.getRoles();
           int currRoleIndex = roleList.size() - 1;
 
-          //Assign payout values and pay bonuses for each on-card role
           while(d.hasNextDie()) {
             int dieVal = d.nextDie();
             roleList.get(currRoleIndex).increasePayout(dieVal);
@@ -176,7 +195,6 @@ public class Scene extends Space {
             }
           }
 
-          //Assigns payout values and pay bonuses for each off-card role
           for(Role r: getOffCardRoles()) {
             if(r.getOccupant() != null) {
               r.increasePayout(2);
@@ -235,22 +253,6 @@ public class Scene extends Space {
             }
         }
         return roles;
-    }
-
-    /**
-     * 
-     * @return the name of the scene
-     */
-    public String getName(){
-        return name;
-    }
-
-    /**
-     * Sets the scene name
-     * @param name the new name for the scene
-     */
-    public void setName(String name){
-        this.name = name;
     }
 
     /**
@@ -321,10 +323,19 @@ public class Scene extends Space {
         totalShots = t;
     }      
     
+    
+    /**
+     * Sets the index of the first shot counter in the shot counter label array
+     * @param newIndex the new starting index
+     */
     public void setShotCounterIndex(int newIndex) {
         shotCounterIndex = newIndex;
     }
     
+    /**
+     * Gets the index of the first shot counter in the shot counter label array
+     * @return the index of the first shot counter in the shot ocunter lable array
+     */
     public int getShotCounterIndex() {
         return shotCounterIndex;
     }
