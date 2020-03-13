@@ -1,5 +1,5 @@
-# deadwood
+# Deadwood
 An implementation of James Ernest's Deadwood
 
-To smoothly run our code, please only input integers when you are selecting the displayed options. 
+To run our program, compile the source files and run the main class, Deadwood.java
 
