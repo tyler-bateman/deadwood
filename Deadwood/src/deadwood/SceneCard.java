@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package deadwood;
 import java.util.LinkedList;
 
 /**
- *
- * @author nada
+ * SceneCard
+ * This class represents the scene cards 
+ * 
+ * Contains all data and behaviors relevant to the scene card including:
+ *      
+ * 
+ * @author nada & tyler
  */
 public class SceneCard {
     private int number;
@@ -17,14 +17,6 @@ public class SceneCard {
     private LinkedList<Role> roles;
     private String iconID;
     private int budget;
-    private boolean faceUp;
-
-    /**
-     * Flips the card, i.e. sets faceUp to true
-     */
-    public void flip(){
-        faceUp = true;
-    }
 
     /**
      * Determines whether the card has any players on it
@@ -133,22 +125,6 @@ public class SceneCard {
         budget = b;
     }
 
-    /**
-     * Returns whether this card is face-up
-     * @return whether his card is face-up
-     */
-    public boolean getFaceUp(){
-        return faceUp;
-    }
-
-    /**
-     * SEts whether this card is face-up
-     * @param b the new boolean indicating whether the card is face-up
-     */
-    public void setFaceUp(boolean b){
-        faceUp = b;
-    }
-    
     public String getIconID(){
         return iconID;
     }
