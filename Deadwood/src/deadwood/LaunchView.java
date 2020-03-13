@@ -14,8 +14,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
+ * LaunchView displays a JFrame to let the user choose how many players are in
+ * this game of Deadwood and launches the GameView
  *
- * @author tyler
+ * @author Curveball
  */
 public class LaunchView extends JFrame implements ActionListener {
 
@@ -25,6 +27,11 @@ public class LaunchView extends JFrame implements ActionListener {
     private JList numOfPlayerList;
     private JButton playButton;
 
+    /**
+     * Constructor for LaunchView
+     *
+     * @throws IOException
+     */
     public LaunchView() throws IOException {
         super("Deadwood");
         try {
@@ -91,8 +98,13 @@ public class LaunchView extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * handles user interaction with the list
+     *
+     * @param e ActionEvent to be handled
+     */
     public void actionPerformed(ActionEvent e) {
-        if(numOfPlayerList.getSelectedValue() != null) {
+        if (numOfPlayerList.getSelectedValue() != null) {
             super.dispose();
             int numOfPlayers = Integer.parseInt(numOfPlayerList.getSelectedValue().toString());
             Controller.getInstance().initialize(numOfPlayers);
@@ -100,6 +112,11 @@ public class LaunchView extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * sets the location of the frame in the centre of the user's screen
+     *
+     * @param frame frame to be positioned
+     */
     public static void centreWindow(Window frame) {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
@@ -107,6 +124,9 @@ public class LaunchView extends JFrame implements ActionListener {
         frame.setLocation(x, y);
     }
 
+    /**
+     * sets the Spartan fonts for all LaunchView components
+     */
     private void setFonts() {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
