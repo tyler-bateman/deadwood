@@ -1,7 +1,9 @@
 package deadwood;
 
 /**
- *
+ * Controller.java
+ * Represents the controller according to the MVC paradigm
+ * Handles the interaction between the view classes and the model classes
  *
  * Implements Singleton design pattern
  *
@@ -10,25 +12,46 @@ package deadwood;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.LinkedList;
-import java.lang.Throwable;
 
 public class Controller implements Observer {
-
+    
+    /**
+     * The singular instance of this class
+     */
     private static Controller instance = new Controller();
+    
+    /**
+     * The view that this class interacts with
+     */
     private GameView view;
 
+    /**
+     * Private constructor as required by Singleton design pattern
+     */
     private Controller() {
 
     }
-
+    
+    /**
+     * Gets this instance of controller
+     * @return 
+     */
     public static Controller getInstance() {
         return instance;
     }
-
-    public void setView(GameView v) {
+    
+    /**
+     * Sets the GameView
+     * @param v 
+     */
+    private void setView(GameView v) {
         view = v;
     }
-
+    
+    /**
+     * Gets the GameView
+     * @return 
+     */
     private GameView getView() {
         return view;
     }
@@ -49,69 +72,56 @@ public class Controller implements Observer {
             Player p = (Player) o;
             if (p.equals(TurnManager.getInstance().getActivePlayer())) {
                 System.out.println("Update player info");
-                InfoPanel.getInstance().setPlayerInfoData(p);
+                getView().getInfoPanel().setPlayerInfoData(p);
             }
         } else if (o instanceof Space) {
             Space s = (Space) o;
             if (o instanceof Scene) {
                 
                 Scene scene = (Scene) o;
-                
-//                if(scene.getCard() == null) {
-//                    BoardPane.getInstance().removeCard(scene.getID());
-//                }
-                
-                /*if (obj instanceof SceneCard) {
-                    // Call set card method
-                    //
-                    
-                    BoardPane.getInstance().setCardBackInView(scene.getID(), scene.xCoordinates, scene.yCoordinates);
-                    
-                    
-
-                } else*/ if (obj instanceof Integer) {
+                if (obj instanceof Integer) {
                     int actResult = (Integer) obj;
                     switch (actResult) {
                         case 1:
                         case 2:
                             //Act attempt successful
-                            InfoPanel.getInstance().setUpdateTextArea("You have successfully acted !\n");
+                            getView().getInfoPanel().setUpdateTextArea("You have successfully acted !\n");
                             
                             break;
                         case 3:
                         case 4:
                             //Act attempt unsuccessful
-                            InfoPanel.getInstance().setUpdateTextArea("Your act attempt was unsuccessful :(\n");
+                            getView().getInfoPanel().setUpdateTextArea("Your act attempt was unsuccessful :(\n");
                             break;
                         case 5:
                             //Scene wrapped with bonus
-                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.\n");
-                            //BoardPane.getInstance().removeCard(scene.getID());
+                            getView().getInfoPanel().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.\n");
+                            //getView().getBoardPane().removeCard(scene.getID());
                             break;
                         case 6:
                             //Scene wrapped without bonus
-                            InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped!\n"); 
-                            InfoPanel.getInstance().setUpdateTextArea("There were no starring actors, so there will be no bonuses.\n");
-                            //BoardPane.getInstance().removeCard(scene.getID());
+                            getView().getInfoPanel().setUpdateTextArea("The scene has wrapped!\n"); 
+                            getView().getInfoPanel().setUpdateTextArea("There were no starring actors, so there will be no bonuses.\n");
+                            //getView().getBoardPane().removeCard(scene.getID());
                             break;
                         case 7:
                             //Shot counters changed
-                            BoardPane.getInstance().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
+                            getView().getBoardPane().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
                             if(scene.getRemainingShots() == 0) {
                                 System.out.println("no more shots");
-                                BoardPane.getInstance().removeCard(scene.getID());
+                                getView().getBoardPane().removeCard(scene.getID());
                             }
                     }
                 } else if(obj instanceof String && ((String)obj).equals("move")) {
                     if(scene.isActive()) {
-                        BoardPane.getInstance().setCardFaceUpInView(scene.ID);
+                        getView().getBoardPane().setCardFaceUpInView(scene.ID);
                     }
                 }
             }
             
             redrawPlayers(s);
         } else if (o instanceof DayManager) {
-            //TODO: Update day counter
+            //Update day counter
             
             if("game over".equals(obj)) {
                 int[] scores = ScoreManager.calculateScores(Board.getInstance().getPlayers());
@@ -119,18 +129,18 @@ public class Controller implements Observer {
                 for(int i = 0; i < scores.length; i++) {
                     message += Board.getInstance().getPlayer(i) + " : " + scores[i] + "\n";
                 }
-                view.gameOver(message);
+                getView().gameOver(message);
             } else {
                 redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
                 for(Scene s : Board.getInstance().getScenes()) {
-                    BoardPane.getInstance().dealCard(s.getID(), s.getCard().getIconID(), s.getXCoordinates(), s.getYCoordinates());
+                    getView().getBoardPane().dealCard(s.getID(), s.getCard().getIconID(), s.getXCoordinates(), s.getYCoordinates());
                 }
-                ActionsPanel.getInstance().setDayLabel("Day " + DayManager.getInstance().getCurrentDay());
+                getView().getActionsPanel().setDayLabel("Day " + DayManager.getInstance().getCurrentDay());
             }
             
 
         } else if (o instanceof Role) {
-            //TODO: Updates the player icon for a role
+            //Updates the player icon for a role
             Role r = (Role) o;
             Player p = TurnManager.getInstance().getActivePlayer();
             if (r.getOccupant() == null) {
@@ -138,18 +148,18 @@ public class Controller implements Observer {
             } else {
 
                 if (r.getOnCard()) {
-                    BoardPane.getInstance().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
+                    getView().getBoardPane().movePlayerToStarringRole(p.getID(), p.getLocation(), r.getXCoordinates(), r.getYCoordinates());
                 } else {
-                    BoardPane.getInstance().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
+                    getView().getBoardPane().movePlayerLabel(r.getOccupant().getID(), r.getXCoordinates(), r.getYCoordinates());
                 }
             }
 
         } else if (o instanceof TurnManager) {
             if (obj instanceof LinkedList) {
                 LinkedList<UseCase> availableActions = (LinkedList) obj;
-                ActionsPanel.getInstance().updateEnabledButtons(availableActions);
-                InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
-                ActionsPanel.getInstance().setPlayerLabel(TurnManager.getInstance().getActivePlayerID());
+                getView().getActionsPanel().updateEnabledButtons(availableActions);
+                getView().getInfoPanel().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+                getView().getActionsPanel().setPlayerLabel(TurnManager.getInstance().getActivePlayerID());
             } 
         }
     }
@@ -162,8 +172,8 @@ public class Controller implements Observer {
      */
     public void initialize(int num) {
         //Initialize view and draw player labels
-        view = new GameView(num);
-        BoardPane.getInstance().makePlayerLabels();
+        setView( new GameView(num));
+        getView().getBoardPane().makePlayerLabels();
         
         //Initialize turn manager and score manager
         TurnManager.init(num);
@@ -179,7 +189,7 @@ public class Controller implements Observer {
         }
         
         //Draw shot counters
-        BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
+        getView().getBoardPane().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
         
         //Initialize day manager
         DayManager.getInstance().init(num);
@@ -191,10 +201,10 @@ public class Controller implements Observer {
         this.redrawPlayers(Board.getInstance().getSpace(b.getTrailorsID()));
         
         //Display active player info
-        InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+        getView().getInfoPanel().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
         
         //Update enabled buttons 
-        ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
+        getView().getActionsPanel().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
     }
 
     ///////////////////////////////////////////
@@ -203,6 +213,9 @@ public class Controller implements Observer {
     // the view upon user input/interaction. //
     ///////////////////////////////////////////
     
+    /**
+     * Displays the menu for taking roles
+     */
     public void takeRoleMenu() {
         Player p = TurnManager.getInstance().getActivePlayer();
         Scene s = (Board.getInstance().getScene(p.getLocation()));
@@ -267,7 +280,7 @@ public class Controller implements Observer {
         
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice c = CastingOffice.getInstance();
-        BoardPane.getInstance().displayUpgradeLabels(p.getRank(), c.getMaxRankIndex(p.getDollars(), CurrencyType.DOLLARS), c.getMaxRankIndex(p.getCredits(), CurrencyType.CREDITS));
+        getView().getBoardPane().displayUpgradeLabels(p.getRank(), c.getMaxRankIndex(p.getDollars(), CurrencyType.DOLLARS), c.getMaxRankIndex(p.getCredits(), CurrencyType.CREDITS));
     }
 
     /**
@@ -281,9 +294,9 @@ public class Controller implements Observer {
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice.getInstance().purchaseRank(p, rank, type);
         System.out.println("going to delete labels");
-        BoardPane.getInstance().deleteUpgradeLabels();
-        BoardPane.getInstance().setPlayerIcon(p.getID(), rank);
-        ActionsPanel.getInstance().setPlayerLabel(p.getID());
+        getView().getBoardPane().deleteUpgradeLabels();
+        getView().getBoardPane().setPlayerIcon(p.getID(), rank);
+        getView().getActionsPanel().setPlayerLabel(p.getID());
     }
 
     /**
@@ -305,7 +318,7 @@ public class Controller implements Observer {
         int yOffset = 0;
         for (Player p : s.getPlayerSet()) {
             if (p.getRole() == null) {
-                BoardPane.getInstance().movePlayerLabel(p.getID(), s.getXCoordinates() + (50 * xOffset), s.getYCoordinates() + (50 * yOffset));
+                getView().getBoardPane().movePlayerLabel(p.getID(), s.getXCoordinates() + (50 * xOffset), s.getYCoordinates() + (50 * yOffset));
                 if (xOffset >= 3) {
                     xOffset = 0;
                     yOffset++;
