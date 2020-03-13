@@ -70,7 +70,6 @@ public class Controller implements Observer {
         if (o instanceof Player) {
             Player p = (Player) o;
             if (p.equals(TurnManager.getInstance().getActivePlayer())) {
-                System.out.println("Update player info");
                 getView().getInfoPanel().setPlayerInfoData(p);
             }
         } else if (o instanceof Space) {
@@ -107,7 +106,6 @@ public class Controller implements Observer {
                             //Shot counters changed
                             getView().getBoardPane().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
                             if(scene.getRemainingShots() == 0) {
-                                System.out.println("no more shots");
                                 getView().getBoardPane().removeCard(scene.getID());
                             }
                     }
@@ -218,9 +216,6 @@ public class Controller implements Observer {
     public void takeRoleMenu() {
         Player p = TurnManager.getInstance().getActivePlayer();
         Scene s = (Board.getInstance().getScene(p.getLocation()));
-        System.out.println(p.getRank());
-        System.out.print(s.getName());
-        System.out.println(" Available roles: " + s.getAvailableRoles(p.getRank()));
         TakeRoleChoicesFrame f = new TakeRoleChoicesFrame(s.getAvailableRoles(p.getRank()));
     }
 
@@ -289,10 +284,8 @@ public class Controller implements Observer {
      * @param type the type of currency the player is using to pay
      */
     public void upgrade(int rank, CurrencyType type) {
-        System.out.println("upgrade");
         Player p = TurnManager.getInstance().getActivePlayer();
         CastingOffice.getInstance().purchaseRank(p, rank, type);
-        System.out.println("going to delete labels");
         getView().getBoardPane().deleteUpgradeLabels();
         getView().getBoardPane().setPlayerIcon(p.getID(), rank);
         getView().getActionsPanel().setPlayerLabel(p.getID());
