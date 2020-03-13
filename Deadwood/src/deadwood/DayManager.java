@@ -7,12 +7,16 @@ package deadwood;
  * Implements Singleton design pattern.
  */
 import java.util.Observable;
-import java.util.Observer;
 
 public class DayManager extends Observable {
 
+    //The singular instance of DayManager as required by Singleton design pattern
     private static DayManager instance = new DayManager();
+    
+    //The current day
     private static int currentDay;
+    
+    //The total number of days that will be played
     private static int numberOfDays;
 
     /**
@@ -21,7 +25,11 @@ public class DayManager extends Observable {
     private DayManager() {
         addObserver(Controller.getInstance());
     }
-
+    
+    /**
+     * 
+     * @return the singular instance of DayManager
+     */
     public static DayManager getInstance() {
         return instance;
     }
@@ -57,7 +65,6 @@ public class DayManager extends Observable {
             }
         }
         if (activeScenes <= 1) {
-            //Deadwood.sendMessage("There is only one active scene so the day has ended.");
             dayEnd(b);
             return true;
 
@@ -84,12 +91,11 @@ public class DayManager extends Observable {
             notifyObservers();
             
         }
-
-        //Deadwood.sendMessage("Wake up! It's a new day! Welcome to day " + getCurrentDay());
     }
 
     /**
      * Returns the current day
+     * @return the current day
      */
     public int getCurrentDay() {
         return currentDay;
@@ -97,15 +103,23 @@ public class DayManager extends Observable {
 
     /**
      * Sets the day number
+     * @param newDay the new day
      */
     private void setCurrentDay(int newDay) {
         currentDay = newDay;
     }
 
+    /**
+     * @return the total number of days that will be played
+     */
     public int getNumberOfDays() {
         return numberOfDays;
     }
-
+    
+    /**
+     * Sets the total number of days that will be played
+     * @param n the new total number of days
+     */
     private void setNumberOfDays(int n) {
         numberOfDays = n;
     }
