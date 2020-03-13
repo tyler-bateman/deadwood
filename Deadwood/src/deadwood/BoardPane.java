@@ -140,7 +140,7 @@ public class BoardPane extends JLayeredPane {
     public void removeCardBack(int sceneID) {
         if (cardBackLabels[sceneID] != null) {
             cardBackLabels[sceneID].setVisible(false);
-            remove(cardLabels[sceneID]);
+            remove(cardBackLabels[sceneID]);
             cardLabels[sceneID] = null;
         }
     }
