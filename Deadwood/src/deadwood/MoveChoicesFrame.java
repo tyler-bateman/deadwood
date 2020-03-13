@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.util.LinkedList;
 
 /**
+ * MoveChoicesFrame displays the available spaces that the player can move to
  *
  * @author Curveball
  */
@@ -25,6 +26,11 @@ public class MoveChoicesFrame extends JFrame {
     private JPanel scenesPanel;
     private JButton[] sceneButtons;
 
+    /**
+     * Constructor to initialise the buttons and the labels
+     *
+     * @param spaces list of spaces to be displayed by the buttons
+     */
     public MoveChoicesFrame(LinkedList<Space> spaces) {
 
         sceneButtons = new JButton[spaces.size()];
@@ -53,6 +59,11 @@ public class MoveChoicesFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * sets the font of the given component
+     *
+     * @param b the button to be given the Spartan font
+     */
     private void setFonts(JButton b) {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
@@ -69,6 +80,11 @@ public class MoveChoicesFrame extends JFrame {
         }
     }
 
+    /**
+     * sets the buttons and displays the available spaces on them
+     *
+     * @param spaces the spaces to be displayed on the scene buttons
+     */
     private void setJButtons(LinkedList<Space> spaces) {
         final JFrame frame = this;
         for (int i = 0; i < sceneButtons.length; i++) {
@@ -78,19 +94,17 @@ public class MoveChoicesFrame extends JFrame {
             sceneButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             sceneButtons[i].addActionListener((new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent event) {                  
+                public void actionPerformed(ActionEvent event) {
                     Controller.getInstance().move(s.getID());
                     InfoPanel.getInstance().setUpdateTextArea("Your have moved !\n");
                     frame.dispose();
                 }
-                }));
+            }));
             scenesPanel.add(Box.createHorizontalGlue());
             scenesPanel.add(sceneButtons[i]);
             setFonts(sceneButtons[i]);
 
         }
     }
-    
-    
 
 }

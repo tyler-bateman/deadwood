@@ -34,20 +34,29 @@ public class ActionsPanel extends JPanel implements ActionListener {
     private JButton rehearseButton;
     private JButton upgradeButton;
     private JButton endTurnButton;
-
+    
+    /**
+     * Private constructor as required by Singleton design pattern.
+     */
     private ActionsPanel() {
 
     }
-
+    
+    /**
+     * getInstance() method as required by Singleton design pattern
+     *
+     * @return the singular instance of ActionsPanel
+     */
     public static ActionsPanel getInstance() {
         return instance;
     }
 
     /**
      * Initialises the components on the overall panel
-     * @param height
-     * @param width
-     * @param boardIcon 
+     *
+     * @param height height of the user's screen
+     * @param width width of the user's screen
+     * @param boardIcon icon of the Deadwood board
      */
     public void init(int height, int width, ImageIcon boardIcon) {
         instance.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -59,10 +68,11 @@ public class ActionsPanel extends JPanel implements ActionListener {
         instance.add(Box.createVerticalGlue());
         instance.setBorder(BorderFactory.createLineBorder(Color.black, 3));
     }
-    
+
     /**
      * Handles user button input and calls the appropriate Controller methods
-     * @param e 
+     *
+     * @param e
      */
     public void actionPerformed(ActionEvent e) {
 
@@ -93,9 +103,9 @@ public class ActionsPanel extends JPanel implements ActionListener {
             Controller.getInstance().endTurn();
         }
     }
-    
+
     /**
-     * Sets the user action buttons 
+     * Sets the user action buttons
      */
     private void setJButtons() {
 
@@ -151,23 +161,25 @@ public class ActionsPanel extends JPanel implements ActionListener {
         endTurnButton.addActionListener(this);
         add(endTurnButton);
     }
-    
+
     /**
      * sets the icon of the active player
+     *
      * @param index ID of the active player
      */
     public void setPlayerLabel(int index) {
         playerLabel.setIcon(BoardPane.getInstance().getPlayerLabel(index).getIcon());
     }
-    
+
     /**
      * sets the text of dayLabel
+     *
      * @param s text to be displayed in dayLabel
      */
     public void setDayLabel(String s) {
         dayLabel.setText(s);
     }
-    
+
     /**
      * sets the different Spartan fonts in the action buttons and the dayLabel
      */
@@ -192,9 +204,26 @@ public class ActionsPanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * sets the size of the frame depending on the user's screen size and
+     * positions the frame in its middle
+     *
+     * @param frame
+     */
+    public static void centreWindow(Window frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = dimension.height / 3;
+        int width = dimension.width / 3;
+        frame.setSize(new Dimension(width, height));
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
+    }
+
     /**
      * disables the buttons of the unavailable user actions
+     *
      * @param useCaseList list of user actions
      */
     public void updateEnabledButtons(LinkedList<UseCase> useCaseList) {

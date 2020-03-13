@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.util.LinkedList;
 
 /**
+ * TakeRoleChoicesFrame displays the available roles that the player can take
  *
  * @author Curveball
  */
@@ -25,6 +26,11 @@ public class TakeRoleChoicesFrame extends JFrame {
     private JPanel rolesPanel;
     private JButton[] roleButtons;
 
+    /**
+     * Constructor for TakeRoleChoicesFrame
+     *
+     * @param roles
+     */
     public TakeRoleChoicesFrame(LinkedList<Role> roles) {
         roleButtons = new JButton[roles.size()];
         centreWindow(this);
@@ -52,6 +58,11 @@ public class TakeRoleChoicesFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * sets the buttons and displays the available roles on them
+     *
+     * @param roles list of available roles
+     */
     private void setJButtons(LinkedList<Role> roles) {
         final JFrame frame = this;
         int i;
@@ -63,10 +74,10 @@ public class TakeRoleChoicesFrame extends JFrame {
             roleButtons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
             roleButtons[i].addActionListener((new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent event) {           
+                public void actionPerformed(ActionEvent event) {
                     Controller.getInstance().takeRole(role);
                     InfoPanel.getInstance().setUpdateTextArea("You took a role !\n");
-                    
+
                     frame.dispose();
                 }
             }));
@@ -77,6 +88,11 @@ public class TakeRoleChoicesFrame extends JFrame {
         }
     }
 
+    /**
+     * sets the Spartan fonts on all components of TakeRoleChoicesFrame
+     *
+     * @param b
+     */
     private void setFonts(JButton b) {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());

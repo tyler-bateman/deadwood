@@ -17,6 +17,8 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 
 /**
+ * InfoPanel holds the panels that show the history of the active player's
+ * actions and their gaming information (position, rank etc...)
  *
  * @author Curveball
  */
@@ -28,14 +30,29 @@ public class InfoPanel extends JPanel {
     private JLabel playerInfoHeader;
     private JTextArea playerInfoData;
 
+    /**
+     * Private constructor as required by Singleton design pattern.
+     */
     private InfoPanel() {
 
     }
 
+    /**
+     * getInstance() method as required by Singleton design pattern
+     *
+     * @return the singular instance of ActionsPanel
+     */
     public static InfoPanel getInstance() {
         return instance;
     }
 
+    /**
+     * initialises the components of InfoPanel
+     *
+     * @param height height of the user's screen
+     * @param width width of the user's screen
+     * @param boardIcon icon of the Deadwood board
+     */
     public void init(int height, int width, ImageIcon boardIcon) {
         instance.setLayout(new BorderLayout());
         instance.setBackground(Color.red);
@@ -47,6 +64,13 @@ public class InfoPanel extends JPanel {
         instance.add(playerInfoDisplay, BorderLayout.SOUTH);
     }
 
+    /**
+     * sets the individual elements of InfoPanel
+     *
+     * @param height height of the user's screen
+     * @param width width of the user's screen
+     * @param boardIcon icon of the Deadwood board
+     */
     private void setElements(int height, int width, ImageIcon boardIcon) {
         updateTextArea = new JTextArea();
         updateTextArea.setBackground(Color.white);
@@ -89,6 +113,9 @@ public class InfoPanel extends JPanel {
 
     }
 
+    /**
+     * sets the Spartan fonts for all InfoPanel components
+     */
     private void setFonts() {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
@@ -106,6 +133,12 @@ public class InfoPanel extends JPanel {
         }
     }
 
+    /**
+     * deletes the first line of the text area and adds a new line at the end to
+     * update the history of player actions
+     *
+     * @param message message to be added at the end of the text area
+     */
     public void setUpdateTextArea(String message) {
         int end;
         updateTextArea.setText(updateTextArea.getText() + message);
@@ -119,6 +152,11 @@ public class InfoPanel extends JPanel {
         }
     }
 
+    /**
+     * displays the information of the active player
+     *
+     * @param p active player
+     */
     public void setPlayerInfoData(Player p) {
         playerInfoData.setText("Active player: " + p
                 + "\n\nCurrent position: " + Board.getInstance().getSpace(p.getLocation()).getName()
