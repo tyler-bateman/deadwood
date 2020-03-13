@@ -1,12 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package deadwood;
 
 /**
- *
+ * Space
+ * This class represents a space, or a location on the board
+ * A space can be a scene, the casting office, or the trailors
+ * 
+ * Contains all data and behaviors relevant to a space, notably moving players around
+ * 
  * @author tyler
  */
 
@@ -16,10 +17,29 @@ import java.util.Set;
 import java.util.Observable;
 
 public class Space extends Observable{
+    /**
+     * The ID of this space, i.e. it's index in the spaces array in Board
+     */
     protected int ID;
+    
+    /**
+     * The name of this space
+     */
     protected String name;
-    protected Set<Player> players = new HashSet<Player>(); //The set of players currently in this space
-    protected LinkedList<Space> adjacentSpaces; //Array containing the IDs of all adjacent spaces
+    
+    /**
+     * The set of players in this space
+     */
+    protected Set<Player> players = new HashSet<Player>(); 
+    
+    /**
+     * Array containing the IDs of all spaces a player could move to from this space
+     */
+    protected LinkedList<Space> adjacentSpaces; 
+    
+    /**
+     * The x and y coordinates of this space;
+     */
     protected int xCoordinates;
     protected int yCoordinates;
     
@@ -31,6 +51,7 @@ public class Space extends Observable{
         addObserver(Controller.getInstance());
     }
     /**
+     * Moves a player from this space to one of its adjacent spaces
      * 
      * @param player : the player requesting the move
      * @param index: the ID of the new space
@@ -46,7 +67,7 @@ public class Space extends Observable{
     }
     
     /**
-     * 
+     * Adds a player to this space
      * @param player : the player to be added to the player set
      */
     public void addPlayer(Player player) {
@@ -57,6 +78,7 @@ public class Space extends Observable{
     }
     
     /**
+     * Removes a player from this space
      * 
      * @param player : the player to removed from the player set
      */
@@ -65,6 +87,8 @@ public class Space extends Observable{
     }
     
     /**
+     * Determines wither this space contains a given player
+     * 
      * @param player: the player to look for in the player set
      * @return : true if the player set contains player, false otherwise
      */
@@ -120,17 +144,34 @@ public class Space extends Observable{
         adjacentSpaces = spaces;
     }
     
+    /**
+     * 
+     * @return the x coordinate of this space
+     */
     public int getXCoordinates(){
         return xCoordinates;
     }
     
+    /**
+     * Sets the x coordinate of this space
+     * @param x the new x coordinate
+     */
     public void setXCoordinates(int x){
         xCoordinates = x;
     }
     
+    /**
+     * Gets the y coordinate of this space
+     * @return the y coordinate of this space
+     */
     public int getYCoordinates(){
         return yCoordinates;
     }
+    
+    /**
+     * Sets the the y coordinate of this space
+     * @param y the new y coordinate
+     */
     public void setYCoordinates(int y){
         yCoordinates = y;
     }

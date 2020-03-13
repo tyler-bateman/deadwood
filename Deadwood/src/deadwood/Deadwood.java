@@ -1,36 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package deadwood;
 
+/**
+ * Deadwood
+ * 
+ * This is the main class for Deadwood.
+ */
+
 import java.io.IOException;
-import java.util.*;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.Stack;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 
-/**
- *
- * @author Nada
- *//**
- *
- * @author Nada
- */
 public class Deadwood {
 
     /**
+     * Parses and initializes the deck and the board, then launches the GUI
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ParserConfigurationException, IOException {
        
         ///////XML PARSING PREP///////
-        Document boardDoc = null;
-        Document cardsDoc = null;
+        Document boardDoc;
+        Document cardsDoc;
         ParseXML parsing = new ParseXML();
         //////////////////////////////
         
