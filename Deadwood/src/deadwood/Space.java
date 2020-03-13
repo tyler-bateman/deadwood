@@ -38,7 +38,6 @@ public class Space extends Observable{
      *           False if move was invalid
      */
     public boolean moveTo(Player player, int index) {    
-        System.out.println("Got to model");
         player.setLocation(index);          
         this.removePlayer(player);
         Board.getInstance().getSpace(index).addPlayer(player);
@@ -52,7 +51,6 @@ public class Space extends Observable{
      */
     public void addPlayer(Player player) {
         getPlayerSet().add(player);
-        System.out.println("add player " + player);
         setChanged();
         notifyObservers("move");
 

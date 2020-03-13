@@ -190,7 +190,6 @@ public class Scene extends Space {
 
         } 
         else { //There are no players on the card
-            System.out.println("There are no players on the card. There is no bonus");
           for(Role r: getOffCardRoles()) {
             if(r.getOccupant() != null) {
               r.getOccupant().setRole(null);
@@ -285,7 +284,6 @@ public class Scene extends Space {
      * @param shots the new number of remaining shots
      */
     private void setRemainingShots(int shots){
-        System.out.println(getName() + " now has " + shots + " shots remaining");
         remainingShots = shots;
         setChanged();
         notifyObservers(7);

@@ -26,7 +26,6 @@ public class ParseXML {
             try {
                 doc = db.parse(filename);
             } catch (Exception ex) {
-                System.out.println("XML parse failure");
                 ex.printStackTrace();
             }
             return doc;

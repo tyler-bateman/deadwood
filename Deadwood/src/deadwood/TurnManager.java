@@ -45,9 +45,6 @@ public class TurnManager extends Observable{
      */
     public static TurnManager getInstance() {
         if(instance == null) {
-            System.out.println("Controller " + Controller.getInstance());
-            System.out.println("Board: " + Board.getInstance());
-            System.out.println("Players: " + Board.getInstance().getPlayers());
             instance = new TurnManager(Controller.getInstance(), Board.getInstance().getPlayers().length);
         }
         return instance;

@@ -45,7 +45,6 @@ public class CastingOffice extends Space{
         if(this.containsPlayer(player)) {
             int price = (payment == CurrencyType.DOLLARS)? getDollarPrice(rank) : getCreditPrice(rank);
             boolean successful = Banker.charge(player, price, payment);
-            //System.out.println(successful);
             if(successful) {
                 player.setRank(rank);
                 
