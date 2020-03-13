@@ -249,5 +249,10 @@ public class BoardPane extends JLayeredPane {
     public JLabel getPlayerLabel(int index){
         return playerLabels[index];
     }
+    
+    public void setPlayerIcon(int playerID, int rank){
+        playerLabels[playerID].setIcon(getIcon(playerID, rank));
+        
+    }
 
 }

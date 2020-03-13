@@ -265,6 +265,8 @@ public class Controller implements Observer {
         CastingOffice.getInstance().purchaseRank(p, rank, type);
         System.out.println("going to delete labels");
         BoardPane.getInstance().deleteUpgradeLabels();
+        BoardPane.getInstance().setPlayerIcon(p.getID(), rank);
+        ActionsPanel.getInstance().setPlayerLabel(p.getID());
     }
 
     /**
