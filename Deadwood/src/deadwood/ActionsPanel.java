@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import javax.swing.*;
 
 /**
+ * Class: ActionsPanel is responsible for displaying the action buttons, the
+ * active player's icon and the current day
  *
  * @author Curveball
  */
@@ -41,19 +43,27 @@ public class ActionsPanel extends JPanel implements ActionListener {
         return instance;
     }
 
+    /**
+     * Initialises the components on the overall panel
+     * @param height
+     * @param width
+     * @param boardIcon 
+     */
     public void init(int height, int width, ImageIcon boardIcon) {
         instance.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         instance.setBackground(Color.white);
         instance.setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
-        //instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
         instance.add(Box.createVerticalGlue());
         instance.setJButtons();
         instance.setFonts();
-        //instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
         instance.add(Box.createVerticalGlue());
         instance.setBorder(BorderFactory.createLineBorder(Color.black, 3));
     }
-
+    
+    /**
+     * Handles user button input and calls the appropriate Controller methods
+     * @param e 
+     */
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == moveButton) {
@@ -83,9 +93,12 @@ public class ActionsPanel extends JPanel implements ActionListener {
             Controller.getInstance().endTurn();
         }
     }
+    
+    /**
+     * Sets the user action buttons 
+     */
+    private void setJButtons() {
 
-    private void setJButtons() {   
-        
         dayLabel = new JLabel();
         dayLabel.setText("Day 1");
         dayLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -96,7 +109,7 @@ public class ActionsPanel extends JPanel implements ActionListener {
         playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(playerLabel);
         add(Box.createVerticalGlue());
-        
+
         moveButton = new JButton();
         moveButton.setText("Move");
         moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -139,14 +152,25 @@ public class ActionsPanel extends JPanel implements ActionListener {
         add(endTurnButton);
     }
     
-    public void setPlayerLabel(int index){
+    /**
+     * sets the icon of the active player
+     * @param index ID of the active player
+     */
+    public void setPlayerLabel(int index) {
         playerLabel.setIcon(BoardPane.getInstance().getPlayerLabel(index).getIcon());
     }
     
-    public void setDayLabel(String s){
+    /**
+     * sets the text of dayLabel
+     * @param s text to be displayed in dayLabel
+     */
+    public void setDayLabel(String s) {
         dayLabel.setText(s);
     }
-
+    
+    /**
+     * sets the different Spartan fonts in the action buttons and the dayLabel
+     */
     private void setFonts() {
         try {
             Font regularFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Spartan-Regular.ttf").openStream());
@@ -168,17 +192,11 @@ public class ActionsPanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
-
-    public static void centreWindow(Window frame) {
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = dimension.height / 3;
-        int width = dimension.width / 3;
-        frame.setSize(new Dimension(width, height));
-        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-        frame.setLocation(x, y);
-    }
-
+    
+    /**
+     * disables the buttons of the unavailable user actions
+     * @param useCaseList list of user actions
+     */
     public void updateEnabledButtons(LinkedList<UseCase> useCaseList) {
         moveButton.setEnabled(false);
         takeRoleButton.setEnabled(false);
