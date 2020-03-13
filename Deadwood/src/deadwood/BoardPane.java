@@ -111,6 +111,10 @@ public class BoardPane extends JLayeredPane {
 
     public void dealCard(int labelID, String iconID, int x, int y) {
         
+        if(cardLabels[labelID] != null) {
+            removeCard(labelID);
+        }
+        
         cardLabels[labelID] = new JLabel();
         ImageIcon cIcon = new ImageIcon(getClass().getResource("/resources/" + iconID));
         cardLabels[labelID].setIcon(cIcon);
