@@ -24,6 +24,7 @@ import javax.swing.*;
 public class ActionsPanel extends JPanel implements ActionListener {
 
     private static ActionsPanel instance = new ActionsPanel();
+    private JLabel dayLabel;
     private JLabel playerLabel;
     private JButton moveButton;
     private JButton takeRoleButton;
@@ -44,10 +45,11 @@ public class ActionsPanel extends JPanel implements ActionListener {
         instance.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         instance.setBackground(Color.white);
         instance.setPreferredSize(new Dimension(((width - boardIcon.getIconWidth()) / 2), 0));
-        instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
+        //instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
+        instance.add(Box.createVerticalGlue());
         instance.setJButtons();
         instance.setFonts();
-        instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
+        //instance.add(Box.createRigidArea(new Dimension(height / 15, width / 15)));
         instance.add(Box.createVerticalGlue());
         instance.setBorder(BorderFactory.createLineBorder(Color.black, 3));
     }
@@ -84,6 +86,12 @@ public class ActionsPanel extends JPanel implements ActionListener {
 
     private void setJButtons() {   
         
+        dayLabel = new JLabel();
+        dayLabel.setText("Day 1");
+        dayLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(dayLabel);
+        add(Box.createVerticalGlue());
+
         playerLabel = new JLabel();
         playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(playerLabel);
@@ -134,6 +142,10 @@ public class ActionsPanel extends JPanel implements ActionListener {
     public void setPlayerLabel(int index){
         playerLabel.setIcon(BoardPane.getInstance().getPlayerLabel(index).getIcon());
     }
+    
+    public void setDayLabel(String s){
+        dayLabel.setText(s);
+    }
 
     private void setFonts() {
         try {
@@ -143,12 +155,14 @@ public class ActionsPanel extends JPanel implements ActionListener {
             genv.registerFont(regularFont);
             genv.registerFont(boldFont);
             Font font1 = boldFont.deriveFont(32f);
+            Font font2 = boldFont.deriveFont(36f);
             moveButton.setFont(font1);
             takeRoleButton.setFont(font1);
             actButton.setFont(font1);
             rehearseButton.setFont(font1);
             upgradeButton.setFont(font1);
             endTurnButton.setFont(font1);
+            dayLabel.setFont(font2);
 
         } catch (Exception e) {
             e.printStackTrace();
