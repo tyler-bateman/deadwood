@@ -109,23 +109,31 @@ public class BoardPane extends JLayeredPane {
         cardBackLabels[labelID] = backlabel;
     }
 
-    public void setCardFaceUpInView(int labelID, String iconID, int x, int y) {
-        remove(cardBackLabels[labelID]);
-        cardBackLabels[labelID].setVisible(false);
+    public void dealCard(int labelID, String iconID, int x, int y) {
+        
         cardLabels[labelID] = new JLabel();
         ImageIcon cIcon = new ImageIcon(getClass().getResource("/resources/" + iconID));
         cardLabels[labelID].setIcon(cIcon);
         cardLabels[labelID].setBounds(x, y, cIcon.getIconWidth(), cIcon.getIconHeight());
         cardLabels[labelID].setOpaque(false);
         add(cardLabels[labelID], new Integer(2));
+        cardLabels[labelID].setVisible(false);
     }
-
+    
+    public void setCardFaceUpInView(int labelID) {
+        cardBackLabels[labelID].setVisible(false);
+        remove(cardBackLabels[labelID]);
+        cardLabels[labelID].setVisible(true);
+    }
+    
+    
     public void removeCard(int labelID) {
         if (cardLabels[labelID] != null) {
             System.out.println("Remove card");
             cardLabels[labelID].setVisible(false);
             remove(cardLabels[labelID]);
-            System.out.println(cardLabels[labelID].getIcon().toString());
+            cardLabels[labelID] = null;
+            //System.out.println(cardLabels[labelID].getIcon().toString());
         }
     }
 

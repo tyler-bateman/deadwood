@@ -104,7 +104,7 @@ public class Controller implements Observer {
                     }
                 } else if(obj instanceof String && ((String)obj).equals("move")) {
                     if(scene.isActive()) {
-                        BoardPane.getInstance().setCardFaceUpInView(scene.ID, scene.getCard().getIconID(), scene.xCoordinates, scene.yCoordinates);
+                        BoardPane.getInstance().setCardFaceUpInView(scene.ID);
                     }
                 }
             }
@@ -122,6 +122,9 @@ public class Controller implements Observer {
                 view.gameOver(message);
             } else {
                 redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
+                for(Scene s : Board.getInstance().getScenes()) {
+                    BoardPane.getInstance().dealCard(s.getID(), s.getCard().getIconID(), s.getXCoordinates(), s.getYCoordinates());
+                }
                 ActionsPanel.getInstance().setDayLabel("Day " + DayManager.getInstance().getCurrentDay());
             }
             
