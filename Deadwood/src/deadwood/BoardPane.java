@@ -157,14 +157,12 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void initializeAllShots(int[] xCoords, int[] yCoords) {
-        System.out.println("Initializing shots...");
         for (int i = 0; i < xCoords.length; i++) {
             shotCounterLabels[i] = shotCounter(xCoords[i], yCoords[i]);
         }
     }
 
     public void redrawShots(int startingIndex, int num, int total) {
-        System.out.println("Redrawing shots: " + num);
         for (int i = 0; i < total; i++) {
             shotCounterLabels[i + startingIndex].setVisible(false);
         }
@@ -185,16 +183,13 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void displayUpgradeLabels(int currRank, int maxDollarRank, int maxCreditRank) {
-        System.out.println("displayUpgradeLabels " + currRank + " " + maxDollarRank + " " + maxCreditRank);
         int rankIndex = currRank - 1;
         int dollarIndex = 1;
         int creditIndex = 1;
         for (int i = 0; i < dollarLabels.length; i++) {
             final int rank = i + 2;
             Border border = BorderFactory.createLineBorder(Color.GREEN, 1);
-            System.out.println(i);
             if(rankIndex <= i && i <= maxDollarRank) {
-                System.out.println("Drawing upgrade label...");
                 dollarLabels[i] = new JLabel();
                 
                 dollarLabels[i].setBorder(border);
@@ -250,7 +245,6 @@ public class BoardPane extends JLayeredPane {
     }
 
     public void deleteUpgradeLabels() {
-        System.out.println("Deleting them labels");
         for (int i = 0; i < dollarLabels.length; i++) {
             if(dollarLabels[i] != null) {
                 dollarLabels[i].setVisible(false);
