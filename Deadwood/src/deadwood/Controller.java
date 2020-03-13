@@ -163,6 +163,8 @@ public class Controller implements Observer {
         for (int i = 0; i < num; i++) {
             players[i] = new Player(i);
         }
+        
+        BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
         DayManager.getInstance().init(num);
 
         //Set players' locations
@@ -173,7 +175,7 @@ public class Controller implements Observer {
         InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
         ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
         
-        BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
+        
         this.redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
         
         //BoardPane.getInstance().movePlayerLabel(0, 10, 50);

@@ -46,10 +46,12 @@ public class Scene extends Space {
               r.removePlayer();
             }
             card = null;
-            resetShots();
-            setChanged();
-            notifyObservers();
+            
+//            setChanged();
+//            notifyObservers();
         }
+        resetShots();
+        
         
     }
 
