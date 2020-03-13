@@ -155,39 +155,46 @@ public class Controller implements Observer {
     }
 
     /**
-     * Creates the player objects and stores them in the Board class
+     * Sets up the view and model 
+     * Starts the game
      *
      * @param num the number of players
      */
     public void initialize(int num) {
+        //Initialize view and draw player labels
         view = new GameView(num);
-        //Space space = Board.getInstance().getSpace(Board.getInstance().getTrailorsID());
         BoardPane.getInstance().makePlayerLabels();
-        Player[] players = new Player[num];
+        
+        //Initialize turn manager and score manager
         TurnManager.init(num);
         ScoreManager.init(num);
+        
         Board b = Board.getInstance();
+        
+        //Populate board with player array
+        Player[] players = new Player[num];
         b.setPlayers(players);
         for (int i = 0; i < num; i++) {
             players[i] = new Player(i);
         }
         
+        //Draw shot counters
         BoardPane.getInstance().initializeAllShots(b.getShotCounterXCoords(), b.getShotCounterYCoords());
+        
+        //Initialize day manager
         DayManager.getInstance().init(num);
 
         //Set players' locations
         for (Player p : players) {
             p.setLocation(b.getTrailorsID());
         }
-
+        this.redrawPlayers(Board.getInstance().getSpace(b.getTrailorsID()));
+        
+        //Display active player info
         InfoPanel.getInstance().setPlayerInfoData(TurnManager.getInstance().getActivePlayer());
+        
+        //Update enabled buttons 
         ActionsPanel.getInstance().updateEnabledButtons(TurnManager.getInstance().getAvailableActions());
-        
-        
-        this.redrawPlayers(Board.getInstance().getSpace(Board.getInstance().getTrailorsID()));
-        
-        //BoardPane.getInstance().movePlayerLabel(0, 10, 50);
-
     }
 
     ///////////////////////////////////////////
