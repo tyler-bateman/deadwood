@@ -61,7 +61,7 @@ public class Controller implements Observer {
 //                    BoardPane.getInstance().removeCard(scene.getID());
 //                }
                 
-                if (obj instanceof SceneCard) {
+                /*if (obj instanceof SceneCard) {
                     // Call set card method
                     //
                     
@@ -69,7 +69,7 @@ public class Controller implements Observer {
                     
                     
 
-                } else if (obj instanceof Integer) {
+                } else*/ if (obj instanceof Integer) {
                     int actResult = (Integer) obj;
                     switch (actResult) {
                         case 1:
