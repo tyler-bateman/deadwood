@@ -173,7 +173,7 @@ public class BoardPane extends JLayeredPane {
         int creditIndex = 1;
         for (int i = 0; i < dollarLabels.length; i++) {
             final int rank = i + 2;
-            Border border = BorderFactory.createLineBorder(Color.BLUE, 1);
+            Border border = BorderFactory.createLineBorder(Color.GREEN, 1);
             System.out.println(i);
             if(rankIndex <= i && i <= maxDollarRank) {
                 System.out.println("Drawing upgrade label...");
