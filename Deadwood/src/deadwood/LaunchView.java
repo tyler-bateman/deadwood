@@ -92,11 +92,11 @@ public class LaunchView extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        super.dispose();
-        int numOfPlayers = Integer.parseInt(numOfPlayerList.getSelectedValue().toString());
-        
-        Controller.getInstance().setNumPlayers(numOfPlayers);
-        
+        if(numOfPlayerList.getSelectedValue() != null) {
+            super.dispose();
+            int numOfPlayers = Integer.parseInt(numOfPlayerList.getSelectedValue().toString());
+            Controller.getInstance().setNumPlayers(numOfPlayers);
+        }
 
     }
 

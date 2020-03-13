@@ -57,9 +57,9 @@ public class Controller implements Observer {
                 
                 Scene scene = (Scene) o;
                 
-                if(scene.getCard() == null) {
-                    BoardPane.getInstance().removeCard(scene.getID());
-                }
+//                if(scene.getCard() == null) {
+//                    BoardPane.getInstance().removeCard(scene.getID());
+//                }
                 
                 if (obj instanceof SceneCard) {
                     // Call set card method
@@ -86,17 +86,21 @@ public class Controller implements Observer {
                         case 5:
                             //Scene wrapped with bonus
                             InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped! Players will receive a bonus.\n");
-                            BoardPane.getInstance().removeCard(scene.getID());
+                            //BoardPane.getInstance().removeCard(scene.getID());
                             break;
                         case 6:
                             //Scene wrapped without bonus
                             InfoPanel.getInstance().setUpdateTextArea("The scene has wrapped!\n"); 
                             InfoPanel.getInstance().setUpdateTextArea("There were no starring actors, so there will be no bonuses.\n");
-                            BoardPane.getInstance().removeCard(scene.getID());
+                            //BoardPane.getInstance().removeCard(scene.getID());
                             break;
                         case 7:
                             //Shot counters changed
                             BoardPane.getInstance().redrawShots(scene.getShotCounterIndex(), scene.getRemainingShots(), scene.getTotalShots());
+                            if(scene.getRemainingShots() == 0) {
+                                System.out.println("no more shots");
+                                BoardPane.getInstance().removeCard(scene.getID());
+                            }
                     }
                 } else if(obj instanceof String && ((String)obj).equals("move")) {
                     if(scene.isActive()) {
