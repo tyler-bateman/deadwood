@@ -67,7 +67,6 @@ public class Controller implements Observer {
     @Override
     public void update(Observable o, Object obj) {
 
-        System.out.println("update " + o.getClass().toString());
         if (o instanceof Player) {
             Player p = (Player) o;
             if (p.equals(TurnManager.getInstance().getActivePlayer())) {
