@@ -12,8 +12,10 @@ import java.util.Random;
  */
 public class Deck {
     
+    //The singular instance of Deck
     private static Deck instance = new Deck();
     
+    //The stack of SceneCards
     private static Stack<SceneCard> cards;
 
     /**
