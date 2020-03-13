@@ -1,29 +1,61 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package deadwood;
 
 /**
- *
- * @author nada
+ * Role
+ * Instances of this class store the information for a role, and perform related 
+ * actions, such as requesting roles and paying bonuses
+ * 
+ * 
+ * @author nada & tyler
  */
 
 import java.util.Observable;
 public class Role extends Observable{
+    /**
+     * The name of this role
+     */
     private String name;
+    
+    /**
+     * The line that this role says
+     */
     private String line;
+    
+    /**
+     * The ID of this role
+     */
     private int ID;
+    
+    /**
+     * The minimum rank required to take this role
+     */
     private int rank;
+    
+    /**
+     * The current occupant of this role
+     * null if there is no occupant
+     */
     private Player occupant;
+    
+    /**
+     * The bonus payout of this role after the scene wraps
+     */
     private int payout;
+    
+    /**
+     * The x and y coordinates of this role in the GUI
+     */
     private int xCoordinates;
     private int yCoordinates;
+    
+    /**
+     * Whether this role is on-card (true) or off-card (false)
+     */
     private boolean onCard;
 
     /**
-     * Constructor: Adds an observer
+     * Constructor: Adds the controller as an observer
      */
     public Role() {
         addObserver(Controller.getInstance());
@@ -172,10 +204,18 @@ public class Role extends Observable{
         notifyObservers();
     }
     
+    /**
+     * Sets whether this role is on a card
+     * @param b the flag for whether this role is on a card
+     */
     public void setOnCard(boolean b) {
         onCard = b;
     }
     
+    /**
+     * 
+     * @return true if this role is on-card, false otherwise
+     */
     public boolean getOnCard() {
         return onCard;
     }
@@ -189,24 +229,41 @@ public class Role extends Observable{
     }
 
     /**
-     * 
+     * Sets the payout that the occupant will receive upon scene wrap
      * @param newPayout the new amount that this role pays as a bonus
      */
     private void setPayout(int newPayout){
         payout = newPayout;
     }
     
+    /**
+     * Gets the x coordinate of this role in the GUI
+     * @return the x coordinate of this role
+     */
     public int getXCoordinates(){
         return xCoordinates;
     }
     
+    /**
+     * Sets the x coordinate of this role in the GUI
+     * @param x the new x coordinate
+     */
     public void setXCoordinates(int x){
         xCoordinates = x;
     }
     
+    /**
+     * Gets the y coordinate of this role in the GUI
+     * @return the y coordinate
+     */
     public int getYCoordinates(){
         return yCoordinates;
     }
+    
+    /**
+     * Sets the y coordinate of this role in the GUI
+     * @param y the y coordinate
+     */
     public void setYCoordinates(int y){
         yCoordinates = y;
     }
